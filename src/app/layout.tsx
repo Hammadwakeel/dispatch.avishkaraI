@@ -18,9 +18,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "AvishkarAI — AI dispatch automation",
+  title: "Avishkar AI — AI-native field service management",
   description:
-    "Automate dispatch decisions with AI. Fewer missed assignments, faster routing, and an ops dashboard your team can trust.",
+    "Avishkar AI (Anjaneya AI Technologies) transforms field service into autonomous operations: AI scheduling, dispatch, voice, customer comms, inventory, and predictive maintenance—so your team focuses on the work, not the logistics.",
 };
 
 export default function RootLayout({

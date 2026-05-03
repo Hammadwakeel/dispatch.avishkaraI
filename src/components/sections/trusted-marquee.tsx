@@ -4,52 +4,29 @@ import { motion } from "framer-motion";
 
 const containerPx = "mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8";
 
-/** CDN slugs verified against https://cdn.simpleicons.org (200 + brand hex). */
-const brands = [
-  { id: "tata", slug: "tata", hex: "486AA4" },
-  { id: "jio", slug: "jio", hex: "0A2885" },
-  { id: "infosys", slug: "infosys", hex: "007CC3" },
-  { id: "mahindra", slug: "mahindra", hex: "DD052B" },
-  { id: "zomato", slug: "zomato", hex: "E23744" },
-  { id: "bigbasket", slug: "bigbasket", hex: "84C225" },
-  { id: "swiggy", slug: "swiggy", hex: "FC8019" },
-  { id: "paytm", slug: "paytm", hex: "20336B" },
-  { id: "phonepe", slug: "phonepe", hex: "5F259F" },
-  { id: "dunzo", slug: "dunzo", hex: "ED553B" },
+/** Trust strip — copy from docs/avishkar-ai-website-content.docx (social proof + segments). */
+const stats = [
+  { label: "500+", sub: "service businesses" },
+  { label: "2M+", sub: "jobs processed" },
+  { label: "98.7%", sub: "delivery rate" },
 ] as const;
 
-const MARQUEE_DURATION_SEC = 22;
-
-function BrandMark({ slug, hex }: { slug: string; hex: string }) {
-  const src = `https://cdn.simpleicons.org/${slug}/${hex}?viewbox=auto`;
-
-  return (
-    <div
-      className="flex h-12 min-w-[6.5rem] shrink-0 items-center justify-center px-4 sm:min-w-[7.5rem] sm:px-5"
-      aria-hidden
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt=""
-        width={128}
-        height={32}
-        className="max-h-8 w-auto max-w-[7.25rem] object-contain object-center opacity-[0.88] grayscale contrast-[0.92] transition-[filter,opacity,transform] duration-200 hover:scale-[1.04] hover:opacity-100 hover:grayscale-0 sm:max-h-9 sm:max-w-[8rem]"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-  );
-}
+const segments = [
+  "HVAC",
+  "Plumbing",
+  "Electrical",
+  "Home services",
+  "Commercial",
+  "Industrial",
+  "Emergency",
+] as const;
 
 export function TrustedMarqueeSection() {
-  const loop = [...brands, ...brands];
-
   return (
     <section
       id="trust"
-      className="border-y border-light-steel bg-canvas-white py-[72px] md:py-[88px]"
-      aria-label="Partner and customer brand marks"
+      className="border-y border-light-steel bg-gradient-to-b from-canvas-white to-[color-mix(in_srgb,var(--color-harvest-cream)_70%,var(--color-warm-linen)_30%)] py-[72px] md:py-[88px]"
+      aria-labelledby="trust-heading"
     >
       <div className={containerPx}>
         <motion.div
@@ -60,40 +37,55 @@ export function TrustedMarqueeSection() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
-            Trusted operations teams
+            Social proof
           </p>
-          <h2 className="font-serif mt-4 text-[28px] font-normal leading-tight tracking-tight text-deep-graphite md:text-[40px] md:leading-[1.15]">
-            Built for Indian logistics scale
+          <h2
+            id="trust-heading"
+            className="font-serif mt-4 text-[28px] font-normal leading-tight tracking-tight text-deep-graphite md:text-[40px] md:leading-[1.15]"
+          >
+            Trusted by leading service businesses across North America
           </h2>
           <p className="mx-auto mt-5 max-w-[52ch] font-mono text-[15px] leading-[1.55] text-muted-stone md:text-[16px]">
-            From nationwide retailers to hyperlocal delivery—teams use AvishkarAI
-            to keep dispatch calm when volumes spike and exceptions pile up.
+            North America and India—teams use Avishkar AI to keep dispatch, voice, and field
+            execution aligned when volumes spike and exceptions pile up.
           </p>
         </motion.div>
 
-        <div className="relative mt-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)] md:mt-16">
-          <motion.div
-            className="flex w-max items-center gap-2 md:gap-4"
-            animate={{ x: ["-50%", "0%"] }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: MARQUEE_DURATION_SEC,
-                ease: "linear",
-              },
-            }}
-          >
-            {loop.map((brand, i) => (
-              <div
-                key={`${brand.id}-${i}`}
-                className="flex shrink-0 items-center rounded-[var(--radius-card)] border border-light-steel bg-warm-linen/50 px-1 py-1 md:border-soft-fog md:bg-warm-linen/70"
-              >
-                <BrandMark slug={brand.slug} hex={brand.hex} />
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        <motion.ul
+          className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3 border-y border-light-steel/80 py-8 font-mono text-[14px] text-deep-graphite md:mt-12 md:gap-x-10 md:text-[15px]"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+        >
+          {stats.map((s) => (
+            <li key={s.label} className="flex flex-col items-center px-2 text-center sm:px-4">
+              <span className="font-semibold tabular-nums tracking-tight text-deep-graphite md:text-[17px]">
+                {s.label}
+              </span>
+              <span className="mt-0.5 text-[12px] font-normal text-muted-stone md:text-[13px]">
+                {s.sub}
+              </span>
+            </li>
+          ))}
+        </motion.ul>
+
+        <motion.div
+          className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-2.5 md:mt-12 md:gap-3"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        >
+          {segments.map((seg) => (
+            <span
+              key={seg}
+              className="rounded-full border border-light-steel bg-[color-mix(in_srgb,var(--color-canvas-white)_88%,var(--color-amber-glow)_12%)] px-4 py-2 font-mono text-[12px] font-medium text-link-gray shadow-[inset_0_1px_0_rgba(255,255,255,0.85)] md:text-[13px]"
+            >
+              {seg}
+            </span>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

@@ -7,10 +7,10 @@
 @theme inline {
   /* Primary accent — vibrant orange → rust (palette swatches 3, 7–8) */
   --color-amber-glow: #e4562a;
-  /* Surfaces */
-  --color-harvest-cream: #faf5eb;
-  --color-warm-linen: #e8e0d5;
-  --color-canvas-white: #fffdfa;
+  /* Surfaces — warm peach / cream (orange family, not pink–mauve) */
+  --color-harvest-cream: #fff8f0;
+  --color-warm-linen: #f0dccf;
+  --color-canvas-white: #fffdfb;
   /* Typography & neutrals */
   --color-deep-graphite: #2a2320;
   --color-soft-fog: #c4b8b0;
@@ -58,8 +58,8 @@ body {
   background: linear-gradient(
     165deg,
     var(--color-harvest-cream) 0%,
-    var(--color-warm-linen) 48%,
-    color-mix(in srgb, var(--color-warm-linen) 75%, var(--color-sage-mist)) 100%
+    color-mix(in srgb, var(--color-warm-linen) 88%, var(--color-amber-glow) 12%) 42%,
+    color-mix(in srgb, var(--color-warm-linen) 70%, var(--color-amber-glow) 18%) 100%
   );
   background-color: var(--color-warm-linen);
   color: var(--color-deep-graphite);
@@ -70,6 +70,6 @@ body {
 
 @supports not (background: color-mix(in srgb, white, black)) {
   body {
-    background: linear-gradient(165deg, #faf5eb 0%, #e8e0d5 48%, #dcd8d4 100%);
+    background: linear-gradient(165deg, #fff8f0 0%, #fce5d6 45%, #fad4be 100%);
   }
 }

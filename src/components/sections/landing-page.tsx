@@ -2,13 +2,16 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { Code2, Layers, Route, SlidersHorizontal, type LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { ComparisonSection } from "./comparison-section";
+import { CorePlatformTabsSection } from "./core-platform-tabs-section";
 import { HeroEmbeddedVisual } from "./hero-embedded-visual";
 import { HeroLeadForm } from "./hero-lead-form";
-import { PlatformStackSection } from "./platform-stack-section";
+import { IndustrySnapshotsSection } from "./industry-snapshots-section";
+import { IntegrationsPartnersSection } from "./integrations-partners-section";
+import { MetricsRoiSection } from "./metrics-roi-section";
+import { TestimonialsCarouselSection } from "./testimonials-carousel-section";
 import { TrustedMarqueeSection } from "./trusted-marquee";
+import { companyLinks, pricingNavItem, productLinks, solutionLinks } from "@/config/site-navigation";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -32,7 +35,7 @@ const containerPx = "mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8";
 
 function Hero() {
   return (
-    <section className="relative bg-gradient-to-b from-canvas-white via-warm-linen to-warm-linen">
+    <section className="relative bg-gradient-to-b from-canvas-white via-[color-mix(in_srgb,var(--color-warm-linen)_92%,var(--color-amber-glow)_8%)] to-warm-linen">
       <div className={`${containerPx} py-[80px] md:py-[96px]`}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
@@ -45,21 +48,21 @@ function Hero() {
               variants={staggerChild}
               className="font-mono text-[12px] font-normal uppercase tracking-[0.14em] text-muted-stone"
             >
-              Dispatch automation
+              AI-native field service
             </motion.p>
             <motion.h1
               variants={staggerChild}
               className="font-serif mt-8 text-balance text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[0.94] tracking-[-0.045em] text-deep-graphite md:text-[64px]"
             >
-              Turn chaotic dispatch into calm, AI-assisted decisions.
+              The AI-native field service platform that runs itself
             </motion.h1>
             <motion.p
               variants={staggerChild}
               className="mx-auto mt-10 max-w-[52ch] text-pretty font-mono text-[16px] leading-[1.5] text-muted-stone lg:mx-0 md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
             >
-              AvishkarAI connects orders, constraints, and fleet reality—so your
-              team assigns faster, recovers from exceptions cleanly, and scales
-              peaks without burning out coordinators.
+              Avishkar AI transforms reactive field service into autonomous operations.
+              AI handles scheduling, dispatch, customer communication, inventory, and
+              predictive maintenance—so your team focuses on the work, not the logistics.
             </motion.p>
             <motion.div
               variants={staggerChild}
@@ -73,12 +76,30 @@ function Hero() {
             >
               <HeroLeadForm />
             </motion.div>
+            <motion.div
+              variants={staggerChild}
+              className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+            >
+              <Link
+                href="#platform-features"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius-ui)] border border-light-steel bg-canvas-white px-5 font-mono text-[13px] font-medium text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/50 hover:bg-warm-linen/40 md:text-[14px]"
+              >
+                See it in action
+              </Link>
+              <Link
+                href="/resources/roi-calculator"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius-ui)] border border-transparent px-5 font-mono text-[13px] font-semibold text-amber-glow underline-offset-4 hover:underline md:text-[14px]"
+              >
+                Calculate your ROI
+              </Link>
+            </motion.div>
             <motion.p
               variants={staggerChild}
               className="mt-5 font-mono text-[12px] leading-[1.5] text-muted-stone md:text-[13px]"
             >
-              Human-in-the-loop by default. Integrates with your TMS and comms
-              stack.
+              Human-in-the-loop by default. Prefer a walkthrough first? Use{" "}
+              <em className="not-italic font-medium text-deep-graphite/90">See it in action</em>{" "}
+              to jump to platform features, or open the ROI calculator anytime.
             </motion.p>
           </motion.div>
 
@@ -96,118 +117,27 @@ function Hero() {
   );
 }
 
-function WhyChoose() {
-  const cards: {
-    icon: LucideIcon;
-    title: string;
-    body: string;
-  }[] = [
-    {
-      icon: Layers,
-      title: "Orchestration + dispatch in one place",
-      body: "Others sell another dashboard or another optimizer. AvishkarAI ties constraints, fleet reality, and coordinator decisions into one calm workspace.",
-    },
-    {
-      icon: Route,
-      title: "Your lanes, your partners",
-      body: "Designed around how Indian ops actually run—multi‑hub, outsourced legs, and noisy signals—without forcing you into a rigid playbook.",
-    },
-    {
-      icon: SlidersHorizontal,
-      title: "Configurable as you scale",
-      body: "Tune rules by customer, region, and SLA. Flex through peaks and new markets without rewiring your entire ops model.",
-    },
-    {
-      icon: Code2,
-      title: "Built for engineering teams",
-      body: "APIs, integrations, and explainable suggestions mean platform owners keep control from pilot through production.",
-    },
-  ];
-
-  return (
-    <section className="relative overflow-hidden border-t border-light-steel bg-gradient-to-b from-warm-linen via-canvas-white to-warm-linen py-[80px] md:py-[96px]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_42%,rgba(228,86,42,0.08)_0%,transparent_65%)]"
-      />
-      <div className={`relative ${containerPx}`}>
-        <motion.h2
-          className="text-center font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[44px] md:leading-[1.12]"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease }}
-        >
-          Why choose AvishkarAI?
-        </motion.h2>
-        <motion.ul
-          className="mt-14 grid auto-rows-fr gap-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-7"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerParent}
-        >
-          {cards.map(({ icon: Icon, title, body }) => (
-            <motion.li
-              key={title}
-              variants={staggerChild}
-              className="group relative flex h-full min-h-0 flex-col pt-6"
-              whileHover={{ y: -4, transition: { duration: 0.22, ease } }}
-            >
-              {/* Orange glow behind glass card */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-[8%] bottom-0 top-10 z-0 rounded-[calc(var(--radius-card)+12px)] bg-amber-glow/45 blur-[28px] transition-[opacity,transform,filter] duration-300 group-hover:bg-amber-glow/55 group-hover:opacity-100 group-hover:blur-[34px] md:inset-x-[6%]"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-[18%] -bottom-2 top-[55%] z-0 rounded-full bg-amber-glow/30 blur-2xl md:inset-x-[14%]"
-              />
-
-              <div className="relative z-10 flex h-full min-h-[17.75rem] flex-col overflow-hidden rounded-[var(--radius-card)] border border-white/70 bg-white/25 px-6 py-8 text-center shadow-[0_8px_40px_-12px_rgba(228,86,42,0.22),inset_0_1px_0_0_rgba(255,255,255,0.85)] backdrop-blur-xl transition-[box-shadow,border-color] duration-300 group-hover:border-white/85 group-hover:bg-white/32 group-hover:shadow-[0_14px_48px_-10px_rgba(228,86,42,0.3),inset_0_1px_0_0_rgba(255,255,255,0.95)] sm:min-h-[18.25rem] md:px-7 md:py-9 lg:min-h-[19.25rem]">
-                {/* Gloss / specular highlight */}
-                <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(155deg,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0.18)_38%,rgba(255,255,255,0.03)_52%,transparent_56%)]" />
-                <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95)_45%,rgba(255,255,255,0.95)_55%,transparent)] opacity-90" />
-
-                <div className="relative mx-auto flex shrink-0 h-12 w-12 items-center justify-center rounded-[var(--radius-ui)] border border-white/60 bg-white/35 shadow-[inset_0_-2px_8px_rgba(228,86,42,0.1)] backdrop-blur-md">
-                  <Icon
-                    className="h-6 w-6 text-amber-glow drop-shadow-[0_1px_8px_rgba(228,86,42,0.35)]"
-                    strokeWidth={1.75}
-                    aria-hidden
-                  />
-                </div>
-
-                <h3 className="relative mt-5 shrink-0 font-serif text-[21px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[22px]">
-                  {title}
-                </h3>
-                <p className="relative mt-4 flex-1 font-mono text-[14px] leading-[1.55] text-deep-graphite/75 md:text-[15px]">
-                  {body}
-                </p>
-              </div>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </div>
-    </section>
-  );
-}
-
 function Problem() {
   const items = [
     {
-      id: "routing",
-      title: "Manual routing doesn’t scale",
-      body: "Spreadsheets, radios, and tribal knowledge break down when volume spikes or drivers churn.",
+      id: "dispatch",
+      title: "The dispatch chaos",
+      body: "Manual scheduling creates conflicts, missed windows, and wasted drive time—technicians lose 2–3 hours daily to poor routing. Average Indian field businesses lose ₹35+ lakh/year to dispatch inefficiency.",
     },
     {
-      id: "exceptions",
-      title: "Exceptions eat the day",
-      body: "Missed windows, last‑minute changes, and rework quietly erase margin.",
+      id: "communication",
+      title: "The communication gap",
+      body: "Customers wait for updates, miss appointments, and call constantly. About 40% of inbound calls are status updates AI can handle—68% of Indian customers rate field service experiences as frustrating.",
     },
     {
-      id: "audit",
-      title: "Ops deserves an audit trail",
-      body: "Decisions should be explainable—especially when AI suggests the next best assignment.",
+      id: "knowledge",
+      title: "The knowledge leak",
+      body: "Best practices live in technicians’ heads, not systems—inconsistent quality and repeated mistakes follow. 73% of field service knowledge walks out the door when people leave.",
+    },
+    {
+      id: "inventory",
+      title: "The inventory blind spot",
+      body: "Parts gaps cause return trips and delays; return trips average about ₹8,000 per occurrence in India. 23% of scheduled jobs need a revisit because of parts issues.",
     },
   ] as const;
 
@@ -231,7 +161,7 @@ function Problem() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, ease }}
             >
-              Why dispatch still hurts
+              Field service is broken. Here&apos;s why.
             </motion.h2>
             <motion.p
               className="mt-8 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
@@ -240,14 +170,15 @@ function Problem() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, ease, delay: 0.06 }}
             >
-              Coordinators are heroes—but heroics aren’t an operating model.
-              AvishkarAI keeps humans in control while removing repetitive glue work.
+              Avishkar AI is built for intelligence-first operations: autonomous scheduling,
+              voice, customer comms, and inventory—so coordinators stop firefighting and start
+              steering outcomes.
             </motion.p>
 
             <div
               className="mt-12 flex flex-col gap-2 border-t border-light-steel pt-10"
               role="tablist"
-              aria-label="Dispatch pain points"
+              aria-label="Field service challenges"
             >
               {items.map((item, i) => {
                 const selected = i === active;
@@ -303,7 +234,7 @@ function Problem() {
                     <span className="size-2.5 rounded-full bg-[#28c840] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)]" />
                   </span>
                   <span className="truncate text-center font-mono text-[11px] font-medium text-white/75">
-                    Dispatch console — preview
+                    Operations preview
                   </span>
                   <span aria-hidden className="block" />
                 </div>
@@ -346,108 +277,27 @@ function Problem() {
   );
 }
 
-function Product() {
-  const features = [
-    {
-      title: "Live assignment suggestions",
-      body: "Balanced loads, skills, SLAs, and geography—ranked with reasons your team can verify.",
-      emphasized: false,
-    },
-    {
-      title: "Exception playbooks",
-      body: "Turn “what now?” into guided flows: reassign, split, escalate—without losing context.",
-      emphasized: true,
-    },
-    {
-      title: "Dispatch workspace",
-      body: "One calm surface for queues, maps, and comms handoffs—fewer tabs, fewer mistakes.",
-      emphasized: false,
-    },
-  ];
-  return (
-    <section
-      id="product"
-      className="relative scroll-mt-28 border-t border-light-steel bg-canvas-white py-[80px] md:scroll-mt-32"
-    >
-      <span
-        id="pricing"
-        className="pointer-events-none absolute left-0 top-0 block h-px w-px scroll-mt-28"
-        aria-hidden
-      />
-      <div className={containerPx}>
-        <motion.h2
-          className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease }}
-        >
-          Everything coordinators need—nothing extra
-        </motion.h2>
-        <motion.p
-          className="mt-8 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-muted-stone"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease, delay: 0.06 }}
-        >
-          Structured layouts, monospace rhythm for controls, and serif anchors
-          for narrative—so dense ops stay readable through long shifts.
-        </motion.p>
-        <motion.ul
-          className="mt-16 grid gap-4 md:grid-cols-3 md:gap-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerParent}
-        >
-          {features.map((f) => (
-            <motion.li
-              key={f.title}
-              variants={staggerChild}
-              className={`rounded-[var(--radius-card)] p-5 md:p-6 ${
-                f.emphasized
-                  ? "border border-transparent bg-canvas-white shadow-[var(--shadow-lg)]"
-                  : "bg-warm-linen"
-              }`}
-              whileHover={{ y: -4, transition: { duration: 0.26, ease } }}
-            >
-              <h3 className="font-serif text-[28px] font-normal leading-[1.33] tracking-[-0.025px] text-deep-graphite">
-                {f.title}
-              </h3>
-              <p className="mt-4 font-mono text-[16px] leading-[1.5] text-link-gray">
-                {f.body}
-              </p>
-              <Link
-                href="#demo"
-                className="mt-6 inline-flex font-mono text-[14px] font-semibold text-amber-glow hover:underline"
-              >
-                See it in action →
-              </Link>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </div>
-    </section>
-  );
-}
-
 function HowItWorks() {
   const steps = [
     {
       step: "01",
-      title: "Connect sources",
-      body: "Orders, constraints, fleet status, and comms—normalized into one operational picture.",
+      title: "Connect your business",
+      body: "Import customers, jobs, technicians, and inventory; integrate accounting, CRM, and ERP; configure workflows and train AI on your business rules.",
     },
     {
       step: "02",
-      title: "AI proposes",
-      body: "Suggestions with readable rationale; thresholds you control by lane, customer, or region.",
+      title: "AI learns your operations",
+      body: "Historical patterns, technician capabilities, customer preferences, and optimization opportunities become your unique operational model.",
     },
     {
       step: "03",
-      title: "Humans approve",
-      body: "Dispatch confirms or edits; every action logs cleanly for review and improvement.",
+      title: "AI takes over the routine",
+      body: "Scheduling runs automatically, calls get answered instantly, dispatch optimizes in real time, customers get proactive updates, and inventory stays intelligent.",
+    },
+    {
+      step: "04",
+      title: "Continuous improvement",
+      body: "Every outcome is measured, improvements are identified and tested, wins are reported, and the system evolves as you grow.",
     },
   ];
   return (
@@ -463,10 +313,10 @@ function HowItWorks() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55, ease }}
         >
-          How AvishkarAI fits your day
+          From chaos to clarity in four steps
         </motion.h2>
         <motion.ol
-          className="mt-16 grid gap-12 md:grid-cols-3 md:gap-10"
+          className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
@@ -492,24 +342,46 @@ function HowItWorks() {
 }
 
 function FinalCta() {
+  const trust = [
+    "No credit card required",
+    "Setup in 1 day",
+    "Cancel anytime",
+    "SOC 2 compliant",
+    "99.9% uptime SLA",
+  ] as const;
+
   return (
     <motion.section
-      className="border-t border-light-steel bg-warm-linen py-[80px]"
+      className="relative border-t border-light-steel bg-gradient-to-b from-warm-linen to-[color-mix(in_srgb,var(--color-warm-linen)_78%,var(--color-amber-glow)_22%)] py-[80px]"
       initial={{ opacity: 0, scale: 0.99 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.55, ease }}
     >
+      <span
+        id="pricing"
+        className="pointer-events-none absolute left-0 top-0 block h-px w-px scroll-mt-28"
+        aria-hidden
+      />
       <div className={`${containerPx} text-center`}>
         <h2 className="font-serif text-[36px] font-normal leading-[1] tracking-[-0.05px] text-deep-graphite md:text-[48px]">
-          Ready for calmer dispatch?
+          Ready to run your business on AI?
         </h2>
-        <p className="mx-auto mt-8 max-w-[42ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:text-[20px] md:leading-[1.41]">
-          Tell us about your lanes and constraints—we’ll walk through a demo
-          tailored to your workflow.
+        <p className="mx-auto mt-8 max-w-[48ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:text-[20px] md:leading-[1.41]">
+          Join 500+ service businesses already on Avishkar AI. See how AI-native field
+          service management can transform your operations, increase revenue, and make
+          everyone—your team and your customers—happier.
         </p>
+        <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-2 font-mono text-[12px] text-muted-stone md:text-[13px]">
+          {trust.map((t) => (
+            <li key={t} className="flex items-center gap-2">
+              <span className="size-1.5 shrink-0 rounded-full bg-amber-glow/90" aria-hidden />
+              {t}
+            </li>
+          ))}
+        </ul>
         <motion.div
-          className="mt-10 flex justify-center"
+          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -522,44 +394,218 @@ function FinalCta() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Book a demo
+            Book your demo
           </motion.a>
+          <Link
+            href="/company/contact"
+            className="inline-flex min-h-[52px] items-center justify-center rounded-[var(--radius-ui)] border border-light-steel bg-canvas-white px-8 font-mono text-[14px] font-semibold text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/40"
+          >
+            Start free trial
+          </Link>
+          <Link
+            href="/resources/roi-calculator"
+            className="inline-flex min-h-[52px] items-center justify-center font-mono text-[14px] font-semibold text-amber-glow underline-offset-4 hover:underline"
+          >
+            ROI calculator
+          </Link>
         </motion.div>
       </div>
     </motion.section>
   );
 }
 
+const footerResourceLinks: { label: string; href: string }[] = [
+  { label: "Blog", href: "/resources/blog" },
+  { label: "Documentation", href: "/resources/documentation" },
+  { label: "API docs", href: "/resources/documentation" },
+  { label: "ROI calculator", href: "/resources/roi-calculator" },
+  { label: "Comparison guide", href: "/resources/comparison-guide" },
+  { label: "Webinars & events", href: "/resources/webinars" },
+  { label: "Case studies", href: "/resources/blog/case-studies" },
+];
+
+const footerLegal: { label: string }[] = [
+  { label: "Privacy Policy" },
+  { label: "Terms of Service" },
+  { label: "Cookie Policy" },
+  { label: "GDPR compliance" },
+  { label: "Security" },
+];
+
 function Footer() {
+  const productCol = productLinks.filter((l) => !l.emphasis);
+
   return (
     <motion.footer
-      className="border-t border-light-steel bg-canvas-white py-10 text-deep-graphite md:py-12"
+      id="footer"
+      className="border-t border-light-steel bg-canvas-white py-12 text-deep-graphite md:py-16"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45, ease }}
     >
-      <div className="flex flex-col items-center justify-between gap-8 px-6 font-mono text-[12px] leading-[1.5] text-muted-stone md:flex-row md:px-8 lg:mx-auto lg:max-w-[var(--page-max-width)] lg:text-[13px]">
-        <span className="font-mono text-[14px] font-semibold text-deep-graphite">
-          AvishkarAI
-        </span>
-        <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3">
-          <a
-            href="#product"
-            className="text-link-gray decoration-soft-fog underline-offset-[6px] hover:text-deep-graphite hover:underline"
+      <div className={`${containerPx} grid gap-12 lg:grid-cols-12 lg:gap-10`}>
+        <div className="lg:col-span-3">
+          <p className="font-mono text-[15px] font-semibold text-deep-graphite">Avishkar AI</p>
+          <p className="mt-3 max-w-[32ch] font-mono text-[13px] leading-relaxed text-muted-stone">
+            Flagship brand of Anjaneya AI Technologies Pvt Ltd—AI-native field service
+            management.
+          </p>
+          <p className="mt-4 font-mono text-[13px] text-link-gray">
+            <a href="mailto:hello@avishkar.ai" className="text-amber-glow hover:underline">
+              hello@avishkar.ai
+            </a>
+          </p>
+          <div className="mt-5 flex flex-wrap gap-4 font-mono text-[12px] text-muted-stone">
+            <a href="https://www.linkedin.com" className="hover:text-deep-graphite" rel="noreferrer">
+              LinkedIn
+            </a>
+            <a href="https://twitter.com" className="hover:text-deep-graphite" rel="noreferrer">
+              X / Twitter
+            </a>
+            <a href="https://www.youtube.com" className="hover:text-deep-graphite" rel="noreferrer">
+              YouTube
+            </a>
+            <a href="https://www.facebook.com" className="hover:text-deep-graphite" rel="noreferrer">
+              Facebook
+            </a>
+          </div>
+        </div>
+
+        <nav className="lg:col-span-2" aria-label="Footer products">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
+            Products
+          </p>
+          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
+            {productCol.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/products" className="font-medium text-amber-glow hover:underline">
+                View all products →
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <nav className="lg:col-span-2" aria-label="Footer solutions">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
+            Solutions
+          </p>
+          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
+            {solutionLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav className="lg:col-span-2" aria-label="Footer resources">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
+            Resources
+          </p>
+          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
+            {footerResourceLinks.map((l) => (
+              <li key={`${l.label}-${l.href}`}>
+                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav className="lg:col-span-2" aria-label="Footer company">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
+            Company
+          </p>
+          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
+            {companyLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href={pricingNavItem.href} className="text-link-gray hover:text-amber-glow hover:underline">
+                {pricingNavItem.label}
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <div className="lg:col-span-3">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
+            Newsletter
+          </p>
+          <p className="mt-2 font-serif text-[18px] text-deep-graphite">Get AI insights for field service</p>
+          <form
+            className="mt-4 flex flex-col gap-2 sm:flex-row"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
           >
-            Product
+            <label htmlFor="footer-email" className="sr-only">
+              Email
+            </label>
+            <input
+              id="footer-email"
+              name="email"
+              type="email"
+              placeholder="Email address"
+              className="min-h-[44px] flex-1 rounded-[var(--radius-ui)] border border-light-steel bg-canvas-white px-4 font-mono text-[13px] text-deep-graphite placeholder:text-text-gray"
+            />
+            <button
+              type="submit"
+              className="min-h-[44px] shrink-0 rounded-[var(--radius-ui)] bg-amber-glow px-5 font-mono text-[13px] font-semibold text-canvas-white hover:brightness-[1.03]"
+            >
+              Subscribe
+            </button>
+          </form>
+          <div className="mt-8 border-t border-light-steel pt-6">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
+              Legal
+            </p>
+            <ul className="mt-3 flex flex-col gap-2 font-mono text-[12px] text-muted-stone">
+              {footerLegal.map((l) => (
+                <li key={l.label}>
+                  <span className="cursor-default">{l.label} — coming soon</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-12 max-w-[var(--page-max-width)] border-t border-light-steel px-6 pt-8 text-center font-mono text-[12px] text-muted-stone md:px-8 md:text-[13px]">
+        <p>
+          © {new Date().getFullYear()} Avishkar AI. All rights reserved. A product of Anjaneya AI Technologies Pvt
+          Ltd.
+        </p>
+        <p className="mt-3">
+          <a href="#platform-features" className="text-link-gray hover:text-deep-graphite hover:underline">
+            Platform features
           </a>
-          <a
-            href="#how-it-works"
-            className="text-link-gray decoration-soft-fog underline-offset-[6px] hover:text-deep-graphite hover:underline"
-          >
+          <span className="mx-2 text-light-steel" aria-hidden>
+            ·
+          </span>
+          <a href="#how-it-works" className="text-link-gray hover:text-deep-graphite hover:underline">
             How it works
           </a>
-          <span className="text-subtle-gray">Security overview — coming soon</span>
-        </nav>
-        <p className="text-center text-muted-stone md:text-right">
-          © {new Date().getFullYear()} AvishkarAI
+          <span className="mx-2 text-light-steel" aria-hidden>
+            ·
+          </span>
+          <a href="#pain" className="text-link-gray hover:text-deep-graphite hover:underline">
+            Problem we solve
+          </a>
         </p>
       </div>
     </motion.footer>
@@ -572,12 +618,13 @@ export function LandingPage() {
       <main className="flex-1">
         <Hero />
         <TrustedMarqueeSection />
-        <WhyChoose />
-        <PlatformStackSection />
-        <ComparisonSection />
         <Problem />
-        <Product />
+        <CorePlatformTabsSection />
         <HowItWorks />
+        <IndustrySnapshotsSection />
+        <MetricsRoiSection />
+        <TestimonialsCarouselSection />
+        <IntegrationsPartnersSection />
         <FinalCta />
       </main>
       <Footer />

@@ -3,49 +3,93 @@
  * See docs/FOLDER_STRUCTURE.md for the full site map diagram.
  */
 
+/** Lucide icon keys mapped in `SiteHeader` for mega-menu tiles. */
+export type MegaMenuIconId =
+  | "layout-dashboard"
+  | "phone"
+  | "camera"
+  | "gauge"
+  | "waypoints"
+  | "layout-grid"
+  | "thermometer"
+  | "droplets"
+  | "zap"
+  | "home"
+  | "building-2"
+  | "siren"
+  | "factory"
+  | "landmark"
+  | "book-open"
+  | "sparkles"
+  | "trending-up"
+  | "file-text"
+  | "megaphone"
+  | "book-marked"
+  | "calculator"
+  | "scale"
+  | "video"
+  | "building"
+  | "users"
+  | "briefcase"
+  | "handshake"
+  | "newspaper"
+  | "mail";
+
 export type NavLink = {
   label: string;
   href: string;
   /** e.g. “View all” row */
   emphasis?: boolean;
-  /** Short blurb for hub cards (e.g. products page) */
+  /** Short blurb for hub cards and mega-menu tiles */
   description?: string;
+  icon?: MegaMenuIconId;
 };
 
 export type NavDropdown = {
   label: string;
   href?: string;
   children: NavLink[];
+  /** Mega panel header (primary line). */
+  megaTitle: string;
+  /** Mega panel subline under the title. */
+  megaSubtitle: string;
+  /** Optional “hub” link for the header row (arrow). */
+  megaHref?: string;
 };
 
 export const productLinks: NavLink[] = [
   {
     label: "FSM Platform",
     href: "/products/fsm-platform",
+    icon: "layout-dashboard",
     description:
       "Scheduling, dispatch, customers, jobs, and analytics—one intelligent core that learns your operation.",
   },
   {
     label: "AI Voice Agent",
     href: "/products/ai-voice-agent",
+    icon: "phone",
     description:
       "Answers calls 24/7, qualifies intent, checks availability, and books jobs without waiting on a human line.",
   },
   {
     label: "Vision Inspection",
     href: "/products/vision-inspection",
+    icon: "camera",
     description:
       "Turns site photos into proof: before/after, damage detection, compliance packs, and QA you can defend.",
   },
   {
     label: "Predictive Maintenance",
     href: "/products/predictive-maintenance",
+    icon: "gauge",
     description:
       "Equipment health scores and failure signals so you sell proactive service instead of chasing emergencies.",
   },
   {
     label: "Field Intelligence Suite",
     href: "/products/field-intelligence-suite",
+    icon: "waypoints",
     description:
       "Route, parts, pricing, and performance intelligence that makes every technician and truck run smarter.",
   },
@@ -53,24 +97,75 @@ export const productLinks: NavLink[] = [
     label: "View all products",
     href: "/products",
     emphasis: true,
+    icon: "layout-grid",
     description: "See the full suite on one page—ideal for stakeholder walkthroughs.",
   },
 ];
 
 export const solutionLinks: NavLink[] = [
-  { label: "HVAC", href: "/solutions/hvac" },
-  { label: "Plumbing", href: "/solutions/plumbing" },
-  { label: "Electrical", href: "/solutions/electrical" },
-  { label: "Home Services", href: "/solutions/home-services" },
-  { label: "Commercial", href: "/solutions/commercial" },
-  { label: "Emergency Services", href: "/solutions/emergency-services" },
+  {
+    label: "HVAC",
+    href: "/solutions/hvac",
+    icon: "thermometer",
+    description: "Seasonal demand, tune-ups, and install workflows tuned for residential and light commercial.",
+  },
+  {
+    label: "Plumbing",
+    href: "/solutions/plumbing",
+    icon: "droplets",
+    description: "Emergency triage, dispatch, and follow-up that keeps crews moving and customers informed.",
+  },
+  {
+    label: "Electrical",
+    href: "/solutions/electrical",
+    icon: "zap",
+    description: "Permits, safety checks, and multi-day jobs coordinated from first call to invoice.",
+  },
+  {
+    label: "Home Services",
+    href: "/solutions/home-services",
+    icon: "home",
+    description: "Bundled trades and memberships with one schedule of record across your brands.",
+  },
+  {
+    label: "Commercial",
+    href: "/solutions/commercial",
+    icon: "building-2",
+    description: "SLAs, recurring maintenance, and multi-site coordination built for facility teams.",
+  },
+  {
+    label: "Emergency Services",
+    href: "/solutions/emergency-services",
+    icon: "siren",
+    description: "After-hours routing, on-call rotations, and rapid response without burning out dispatch.",
+  },
 ];
 
 export const industryLinks: NavLink[] = [
-  { label: "Residential", href: "/industries/residential" },
-  { label: "Commercial", href: "/industries/commercial" },
-  { label: "Industrial", href: "/industries/industrial" },
-  { label: "Government / Municipal", href: "/industries/government-municipal" },
+  {
+    label: "Residential",
+    href: "/industries/residential",
+    icon: "home",
+    description: "High-volume homeowner jobs, reviews, and repeat business at scale.",
+  },
+  {
+    label: "Commercial",
+    href: "/industries/commercial",
+    icon: "building-2",
+    description: "Contracts, compliance, and multi-location service programs.",
+  },
+  {
+    label: "Industrial",
+    href: "/industries/industrial",
+    icon: "factory",
+    description: "Asset-heavy sites, inspections, and technician certifications in one place.",
+  },
+  {
+    label: "Government / Municipal",
+    href: "/industries/government-municipal",
+    icon: "landmark",
+    description: "Public-sector procurement, documentation, and audit-ready reporting.",
+  },
 ];
 
 export const blogCategoryLinks: NavLink[] = [
@@ -81,24 +176,100 @@ export const blogCategoryLinks: NavLink[] = [
 ];
 
 export const resourcesMegaLinks: NavLink[] = [
-  { label: "Blog", href: "/resources/blog", emphasis: true },
-  { label: "AI Insights", href: "/resources/blog/ai-insights" },
-  { label: "Industry Trends", href: "/resources/blog/industry-trends" },
-  { label: "Case Studies", href: "/resources/blog/case-studies" },
-  { label: "Product Updates", href: "/resources/blog/product-updates" },
-  { label: "Documentation Hub", href: "/resources/documentation" },
-  { label: "ROI Calculator", href: "/resources/roi-calculator" },
-  { label: "Comparison Guide", href: "/resources/comparison-guide" },
-  { label: "Webinars & Events", href: "/resources/webinars" },
+  {
+    label: "Blog",
+    href: "/resources/blog",
+    emphasis: true,
+    icon: "book-open",
+    description: "Guides, announcements, and deep dives from the Avishkar team.",
+  },
+  {
+    label: "AI Insights",
+    href: "/resources/blog/ai-insights",
+    icon: "sparkles",
+    description: "How AI changes scheduling, voice, and field operations in practice.",
+  },
+  {
+    label: "Industry Trends",
+    href: "/resources/blog/industry-trends",
+    icon: "trending-up",
+    description: "Market moves, labor, and technology shaping trades and services.",
+  },
+  {
+    label: "Case Studies",
+    href: "/resources/blog/case-studies",
+    icon: "file-text",
+    description: "Real outcomes from teams who modernized dispatch and customer experience.",
+  },
+  {
+    label: "Product Updates",
+    href: "/resources/blog/product-updates",
+    icon: "megaphone",
+    description: "What shipped, what’s next, and how to get the most from each release.",
+  },
+  {
+    label: "Documentation Hub",
+    href: "/resources/documentation",
+    icon: "book-marked",
+    description: "Reference material for admins, integrators, and power users.",
+  },
+  {
+    label: "ROI Calculator",
+    href: "/resources/roi-calculator",
+    icon: "calculator",
+    description: "Estimate time and revenue impact before you roll out.",
+  },
+  {
+    label: "Comparison Guide",
+    href: "/resources/comparison-guide",
+    icon: "scale",
+    description: "How Avishkar stacks up on the criteria buyers actually care about.",
+  },
+  {
+    label: "Webinars & Events",
+    href: "/resources/webinars",
+    icon: "video",
+    description: "Live sessions, replays, and field meetups.",
+  },
 ];
 
 export const companyLinks: NavLink[] = [
-  { label: "About Us", href: "/company/about" },
-  { label: "Leadership", href: "/company/leadership" },
-  { label: "Careers", href: "/company/careers" },
-  { label: "Partners", href: "/company/partners" },
-  { label: "Press / Media", href: "/company/press" },
-  { label: "Contact", href: "/company/contact" },
+  {
+    label: "About Us",
+    href: "/company/about",
+    icon: "building",
+    description: "Mission, story, and why we build for field service first.",
+  },
+  {
+    label: "Leadership",
+    href: "/company/leadership",
+    icon: "users",
+    description: "The team guiding product, partnerships, and customer success.",
+  },
+  {
+    label: "Careers",
+    href: "/company/careers",
+    icon: "briefcase",
+    description: "Open roles across engineering, go-to-market, and operations.",
+  },
+  {
+    label: "Partners",
+    href: "/company/partners",
+    icon: "handshake",
+    description: "Integrators, resellers, and technology partners we grow with.",
+  },
+  {
+    label: "Press / Media",
+    href: "/company/press",
+    icon: "newspaper",
+    description: "Brand assets, newsroom contacts, and recent coverage.",
+  },
+  {
+    label: "Contact",
+    href: "/company/contact",
+    icon: "mail",
+    description: "Sales, support, and general inquiries— we respond quickly.",
+  },
 ];
 
 /** Top-level link (not a dropdown). */
@@ -108,11 +279,41 @@ export const pricingNavItem = {
 } as const;
 
 export const headerDropdowns: NavDropdown[] = [
-  { label: "Products", children: productLinks },
-  { label: "Solutions", children: solutionLinks },
-  { label: "Industries", children: industryLinks },
-  { label: "Resources", children: resourcesMegaLinks },
-  { label: "Company", children: companyLinks },
+  {
+    label: "Products",
+    megaTitle: "Product suite",
+    megaSubtitle: "AI-native tools for dispatch, voice, vision, and intelligence",
+    megaHref: "/products",
+    children: productLinks,
+  },
+  {
+    label: "Solutions",
+    megaTitle: "Solutions",
+    megaSubtitle: "Playbooks tailored to how you run jobs today",
+    megaHref: "/solutions",
+    children: solutionLinks,
+  },
+  {
+    label: "Industries",
+    megaTitle: "Industries",
+    megaSubtitle: "Segments we support out of the box",
+    megaHref: "/industries",
+    children: industryLinks,
+  },
+  {
+    label: "Resources",
+    megaTitle: "Resource center",
+    megaSubtitle: "Learn, compare, and plan your rollout",
+    megaHref: "/resources",
+    children: resourcesMegaLinks,
+  },
+  {
+    label: "Company",
+    megaTitle: "Company",
+    megaSubtitle: "People, partners, and how to reach us",
+    megaHref: "/company",
+    children: companyLinks,
+  },
 ];
 
 export const PRODUCT_SLUGS = productLinks

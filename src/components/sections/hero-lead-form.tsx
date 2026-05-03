@@ -27,7 +27,7 @@ export function HeroLeadForm() {
         className="min-h-[52px] shrink-0 rounded-[var(--radius-ui)] bg-amber-glow px-8 font-mono text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] hover:brightness-[1.03]"
         style={{ transitionDuration: "var(--transition-interactive)" }}
       >
-        Get started
+        Book a demo
       </button>
     </form>
   );

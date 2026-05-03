@@ -4,9 +4,9 @@ import type { DocPage } from "./types";
 export const productDocPages: Record<string, DocPage> = {
   "fsm-platform": {
     eyebrow: "Products",
-    heroTitle: "Field Service Management, Reimagined",
+    heroTitle: "The AI-native field service platform core",
     heroSubtitle:
-      "The core Avishkar AI platform—built for companies who need more than scheduling software. Intelligent operations management that learns, adapts, and improves.",
+      "The flagship Avishkar AI FSM layer—scheduling, dispatch, customer and job management, inventory, and analytics—built for operators who want intelligence-first automation, not another passive system of record.",
     sections: [
       {
         heading: "Scheduling engine",

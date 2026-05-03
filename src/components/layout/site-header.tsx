@@ -2,10 +2,83 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { headerDropdowns, pricingNavItem, type NavLink } from "@/config/site-navigation";
+import type { LucideIcon } from "lucide-react";
+import {
+  BookMarked,
+  BookOpen,
+  Briefcase,
+  Building,
+  Building2,
+  Calculator,
+  Camera,
+  ChevronDown,
+  ChevronRight,
+  Droplets,
+  Factory,
+  FileText,
+  Gauge,
+  Handshake,
+  Home,
+  Landmark,
+  LayoutDashboard,
+  LayoutGrid,
+  Mail,
+  Megaphone,
+  Menu,
+  Newspaper,
+  Phone,
+  Scale,
+  Siren,
+  Sparkles,
+  Thermometer,
+  TrendingUp,
+  Users,
+  Video,
+  Waypoints,
+  X,
+  Zap,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRef, useState } from "react";
+import {
+  headerDropdowns,
+  pricingNavItem,
+  type MegaMenuIconId,
+  type NavDropdown,
+  type NavLink,
+} from "@/config/site-navigation";
+
+const megaIconMap: Record<MegaMenuIconId, LucideIcon> = {
+  "layout-dashboard": LayoutDashboard,
+  phone: Phone,
+  camera: Camera,
+  gauge: Gauge,
+  waypoints: Waypoints,
+  "layout-grid": LayoutGrid,
+  thermometer: Thermometer,
+  droplets: Droplets,
+  zap: Zap,
+  home: Home,
+  "building-2": Building2,
+  siren: Siren,
+  factory: Factory,
+  landmark: Landmark,
+  "book-open": BookOpen,
+  sparkles: Sparkles,
+  "trending-up": TrendingUp,
+  "file-text": FileText,
+  megaphone: Megaphone,
+  "book-marked": BookMarked,
+  calculator: Calculator,
+  scale: Scale,
+  video: Video,
+  building: Building,
+  users: Users,
+  briefcase: Briefcase,
+  handshake: Handshake,
+  newspaper: Newspaper,
+  mail: Mail,
+};
 
 /** `overflow-visible` so mega-menu panels are not clipped by the pill shape */
 const glassSurface =
@@ -18,56 +91,145 @@ const barSheen = (
   </>
 );
 
-const dropdownPanelClass =
-  "absolute left-0 top-full z-[100] mt-1.5 min-w-[17.5rem] max-h-[min(70vh,24rem)] overflow-y-auto rounded-[var(--radius-card)] border border-light-steel bg-canvas-white py-2 shadow-[0_18px_40px_-12px_rgba(29,30,28,0.18)]";
-
 const homeJumpLinkClass =
   "shrink-0 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-mono text-[14px] font-normal text-deep-graphite/90 transition-colors hover:bg-white/35 hover:text-deep-graphite md:px-3.5 md:py-2 md:text-[15px]";
 
-const dropdownLinkClass = (emphasis?: boolean) =>
-  `block px-4 py-2.5 text-left font-mono text-[14px] leading-snug transition-colors hover:bg-warm-linen md:px-5 md:py-2.5 ${
-    emphasis ? "font-semibold text-amber-glow" : "text-link-gray hover:text-deep-graphite"
-  }`;
-
-function DesktopDropdown({ label, links }: { label: string; links: NavLink[] }) {
+function MegaNavTile({ item, onPick }: { item: NavLink; onPick: () => void }) {
+  const Icon: LucideIcon = item.icon ? megaIconMap[item.icon] : LayoutGrid;
   return (
-    <details
+    <Link
+      href={item.href}
+      onClick={onPick}
+      className={`group flex flex-col gap-4 rounded-xl border border-transparent p-4 transition-[border-color,background-color,box-shadow] duration-200 hover:border-light-steel hover:bg-warm-linen/45 hover:shadow-[0_12px_36px_-20px_rgba(29,30,28,0.12)] md:p-5 ${
+        item.emphasis ? "bg-warm-linen/30 ring-1 ring-amber-glow/20" : ""
+      }`}
+    >
+      <Icon
+        className="size-7 shrink-0 text-deep-graphite/45 stroke-[1.35] transition-colors group-hover:text-amber-glow"
+        aria-hidden
+      />
+      <div className="min-w-0">
+        <span
+          className={`font-serif text-[17px] leading-snug tracking-[-0.02em] text-deep-graphite transition-colors group-hover:text-amber-glow md:text-[18px] ${
+            item.emphasis ? "font-semibold" : "font-normal"
+          }`}
+        >
+          {item.label}
+        </span>
+        {item.description ? (
+          <p className="mt-2 font-mono text-[13px] leading-relaxed text-muted-stone md:text-[14px]">
+            {item.description}
+          </p>
+        ) : null}
+      </div>
+    </Link>
+  );
+}
+
+function DesktopMegaNavDropdown({ dropdown }: { dropdown: NavDropdown }) {
+  const { label, children, megaTitle, megaSubtitle, megaHref } = dropdown;
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const menuId = `nav-menu-${label.replace(/\s+/g, "-").toLowerCase()}`;
+
+  const cancelClose = () => {
+    if (closeTimer.current != null) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setOpen(false), 200);
+  };
+
+  const openNow = () => {
+    cancelClose();
+    setOpen(true);
+  };
+
+  const closeNow = () => {
+    cancelClose();
+    setOpen(false);
+  };
+
+  return (
+    <div
       data-nav-dropdown
-      className="group relative"
-      onToggle={(e) => {
-        const el = e.currentTarget;
-        if (!el.open) return;
-        el.parentElement
-          ?.querySelectorAll("details[data-nav-dropdown]")
-          .forEach((d) => {
-            if (d !== el) (d as HTMLDetailsElement).open = false;
-          });
+      className="relative pb-2"
+      onMouseEnter={openNow}
+      onFocusCapture={openNow}
+      onBlurCapture={(e) => {
+        const next = e.relatedTarget as Node | null;
+        if (next && (e.currentTarget as HTMLElement).contains(next)) return;
+        scheduleClose();
       }}
     >
-      <summary className="flex cursor-pointer list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-mono text-[14px] font-normal text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-deep-graphite focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] [&::-webkit-details-marker]:hidden">
+      <button
+        type="button"
+        className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 text-left font-mono text-[14px] font-normal text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-deep-graphite focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] ${
+          open ? "text-deep-graphite" : ""
+        } ${open ? "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-amber-glow" : ""}`}
+        aria-expanded={open}
+        aria-haspopup="true"
+        aria-controls={menuId}
+        onClick={() => setOpen((v) => !v)}
+        onMouseLeave={scheduleClose}
+      >
         {label}
         <ChevronDown
-          className="size-[1.05rem] shrink-0 opacity-70 transition-transform group-open:rotate-180 md:size-4"
+          className={`size-[1.05rem] shrink-0 opacity-70 transition-transform duration-200 md:size-4 ${open ? "rotate-180" : ""}`}
           aria-hidden
         />
-      </summary>
-      <div className={dropdownPanelClass} role="menu" aria-label={label}>
-        {links.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            role="menuitem"
-            className={dropdownLinkClass(item.emphasis)}
-            onClick={(e) => {
-              const d = (e.currentTarget as HTMLElement).closest("details");
-              if (d) (d as HTMLDetailsElement).open = false;
-            }}
+      </button>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.nav
+            key={menuId}
+            id={menuId}
+            aria-label={label}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed left-1/2 top-[4.5rem] z-[100] max-h-[min(calc(100vh-5.5rem),78vh)] w-[min(calc(100vw-2rem),72rem)] -translate-x-1/2 overflow-y-auto overscroll-contain rounded-2xl border border-light-steel bg-canvas-white p-8 pt-7 shadow-[0_28px_80px_-28px_rgba(29,30,28,0.22)] sm:top-[4.75rem] sm:p-9 sm:pt-8 md:top-[5rem] md:p-10 md:pt-9"
+            onMouseEnter={openNow}
+            onMouseLeave={scheduleClose}
           >
-            {item.label}
-          </Link>
-        ))}
-      </div>
-    </details>
+            <div className="mb-10 border-b border-light-steel pb-8 md:mb-12 md:pb-10">
+              {megaHref ? (
+                <Link
+                  href={megaHref}
+                  className="group inline-flex items-center gap-1.5 font-serif text-[clamp(1.25rem,2.2vw,1.75rem)] font-normal tracking-[-0.03em] text-deep-graphite transition-colors hover:text-amber-glow"
+                  onClick={closeNow}
+                >
+                  <span>{megaTitle}</span>
+                  <ChevronRight
+                    className="size-5 shrink-0 opacity-80 transition-transform duration-200 group-hover:translate-x-0.5 md:size-6"
+                    aria-hidden
+                  />
+                </Link>
+              ) : (
+                <p className="font-serif text-[clamp(1.25rem,2.2vw,1.75rem)] tracking-[-0.03em] text-deep-graphite">
+                  {megaTitle}
+                </p>
+              )}
+              <p className="mt-2 max-w-[52ch] font-mono text-[13px] leading-relaxed text-muted-stone md:text-[14px]">
+                {megaSubtitle}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-12">
+              {children.map((item) => (
+                <MegaNavTile key={item.href} item={item} onPick={closeNow} />
+              ))}
+            </div>
+          </motion.nav>
+        ) : null}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -114,7 +276,7 @@ export function SiteHeader() {
               aria-label="Primary"
             >
               {headerDropdowns.map((d) => (
-                <DesktopDropdown key={d.label} label={d.label} links={d.children} />
+                <DesktopMegaNavDropdown key={d.label} dropdown={d} />
               ))}
               <span
                 className="hidden h-5 w-px shrink-0 bg-light-steel/80 sm:block md:mx-1 lg:mx-1.5"
