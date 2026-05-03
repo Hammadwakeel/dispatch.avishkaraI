@@ -1,13 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { Code2, Layers, Route, SlidersHorizontal, type LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { HeroEmbeddedVisual } from "@/components/hero-embedded-visual";
-import { HeroLeadForm } from "@/components/hero-lead-form";
-import { ComparisonSection } from "@/components/comparison-section";
-import { PlatformStackSection } from "@/components/platform-stack-section";
-import { TrustedMarqueeSection } from "@/components/trusted-marquee";
+import { ComparisonSection } from "./comparison-section";
+import { HeroEmbeddedVisual } from "./hero-embedded-visual";
+import { HeroLeadForm } from "./hero-lead-form";
+import { PlatformStackSection } from "./platform-stack-section";
+import { TrustedMarqueeSection } from "./trusted-marquee";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -31,7 +32,7 @@ const containerPx = "mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8";
 
 function Hero() {
   return (
-    <section className="relative bg-harvest-cream">
+    <section className="relative bg-gradient-to-b from-canvas-white via-warm-linen to-warm-linen">
       <div className={`${containerPx} py-[80px] md:py-[96px]`}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
@@ -124,10 +125,10 @@ function WhyChoose() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-t border-light-steel bg-gradient-to-b from-harvest-cream via-canvas-white to-harvest-cream py-[80px] md:py-[96px]">
+    <section className="relative overflow-hidden border-t border-light-steel bg-gradient-to-b from-warm-linen via-canvas-white to-warm-linen py-[80px] md:py-[96px]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_42%,rgba(250,93,0,0.07)_0%,transparent_65%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_42%,rgba(228,86,42,0.08)_0%,transparent_65%)]"
       />
       <div className={`relative ${containerPx}`}>
         <motion.h2
@@ -163,14 +164,14 @@ function WhyChoose() {
                 className="pointer-events-none absolute inset-x-[18%] -bottom-2 top-[55%] z-0 rounded-full bg-amber-glow/30 blur-2xl md:inset-x-[14%]"
               />
 
-              <div className="relative z-10 flex h-full min-h-[17.75rem] flex-col overflow-hidden rounded-[var(--radius-card)] border border-white/70 bg-white/25 px-6 py-8 text-center shadow-[0_8px_40px_-12px_rgba(250,93,0,0.22),inset_0_1px_0_0_rgba(255,255,255,0.85)] backdrop-blur-xl transition-[box-shadow,border-color] duration-300 group-hover:border-white/85 group-hover:bg-white/32 group-hover:shadow-[0_14px_48px_-10px_rgba(250,93,0,0.32),inset_0_1px_0_0_rgba(255,255,255,0.95)] sm:min-h-[18.25rem] md:px-7 md:py-9 lg:min-h-[19.25rem]">
+              <div className="relative z-10 flex h-full min-h-[17.75rem] flex-col overflow-hidden rounded-[var(--radius-card)] border border-white/70 bg-white/25 px-6 py-8 text-center shadow-[0_8px_40px_-12px_rgba(228,86,42,0.22),inset_0_1px_0_0_rgba(255,255,255,0.85)] backdrop-blur-xl transition-[box-shadow,border-color] duration-300 group-hover:border-white/85 group-hover:bg-white/32 group-hover:shadow-[0_14px_48px_-10px_rgba(228,86,42,0.3),inset_0_1px_0_0_rgba(255,255,255,0.95)] sm:min-h-[18.25rem] md:px-7 md:py-9 lg:min-h-[19.25rem]">
                 {/* Gloss / specular highlight */}
                 <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-[linear-gradient(155deg,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0.18)_38%,rgba(255,255,255,0.03)_52%,transparent_56%)]" />
                 <div className="pointer-events-none absolute inset-x-5 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95)_45%,rgba(255,255,255,0.95)_55%,transparent)] opacity-90" />
 
-                <div className="relative mx-auto flex shrink-0 h-12 w-12 items-center justify-center rounded-[var(--radius-ui)] border border-white/60 bg-white/35 shadow-[inset_0_-2px_8px_rgba(250,93,0,0.08)] backdrop-blur-md">
+                <div className="relative mx-auto flex shrink-0 h-12 w-12 items-center justify-center rounded-[var(--radius-ui)] border border-white/60 bg-white/35 shadow-[inset_0_-2px_8px_rgba(228,86,42,0.1)] backdrop-blur-md">
                   <Icon
-                    className="h-6 w-6 text-amber-glow drop-shadow-[0_1px_8px_rgba(250,93,0,0.35)]"
+                    className="h-6 w-6 text-amber-glow drop-shadow-[0_1px_8px_rgba(228,86,42,0.35)]"
                     strokeWidth={1.75}
                     aria-hidden
                   />
@@ -194,63 +195,152 @@ function WhyChoose() {
 function Problem() {
   const items = [
     {
+      id: "routing",
       title: "Manual routing doesn’t scale",
       body: "Spreadsheets, radios, and tribal knowledge break down when volume spikes or drivers churn.",
     },
     {
+      id: "exceptions",
       title: "Exceptions eat the day",
       body: "Missed windows, last‑minute changes, and rework quietly erase margin.",
     },
     {
+      id: "audit",
       title: "Ops deserves an audit trail",
       body: "Decisions should be explainable—especially when AI suggests the next best assignment.",
     },
-  ];
+  ] as const;
+
+  const [active, setActive] = useState(0);
+  const activeItem = items[active];
+
   return (
-    <section className="bg-harvest-cream py-[80px]">
+    <section
+      id="pain"
+      className="scroll-mt-28 bg-warm-linen py-[80px] md:scroll-mt-32 md:py-[96px]"
+      aria-labelledby="problem-heading"
+    >
       <div className={containerPx}>
-        <motion.h2
-          className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease }}
-        >
-          Why dispatch still hurts
-        </motion.h2>
-        <motion.p
-          className="mt-8 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease, delay: 0.06 }}
-        >
-          Coordinators are heroes—but heroics aren’t an operating model.
-          AvishkarAI keeps humans in control while removing repetitive glue work.
-        </motion.p>
-        <motion.ul
-          className="mt-16 grid gap-4 md:grid-cols-3 md:gap-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerParent}
-        >
-          {items.map((item) => (
-            <motion.li
-              key={item.title}
-              variants={staggerChild}
-              className="rounded-[var(--radius-card)] border border-soft-fog bg-canvas-white p-5 md:p-6"
-              whileHover={{ y: -3, transition: { duration: 0.22 } }}
+        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <div className="min-w-0">
+            <motion.h2
+              id="problem-heading"
+              className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55, ease }}
             >
-              <h3 className="font-serif text-[28px] font-normal leading-[1.33] tracking-[-0.025px] text-deep-graphite">
-                {item.title}
-              </h3>
-              <p className="mt-4 font-mono text-[16px] leading-[1.5] text-link-gray">
-                {item.body}
-              </p>
-            </motion.li>
-          ))}
-        </motion.ul>
+              Why dispatch still hurts
+            </motion.h2>
+            <motion.p
+              className="mt-8 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55, ease, delay: 0.06 }}
+            >
+              Coordinators are heroes—but heroics aren’t an operating model.
+              AvishkarAI keeps humans in control while removing repetitive glue work.
+            </motion.p>
+
+            <div
+              className="mt-12 flex flex-col gap-2 border-t border-light-steel pt-10"
+              role="tablist"
+              aria-label="Dispatch pain points"
+            >
+              {items.map((item, i) => {
+                const selected = i === active;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls="problem-mac-screen"
+                    id={`problem-tab-${item.id}`}
+                    className={`group text-left transition-colors duration-200 ${
+                      selected
+                        ? "border-l-[3px] border-amber-glow pl-5"
+                        : "border-l-[3px] border-transparent pl-5 hover:border-soft-fog"
+                    }`}
+                    onClick={() => setActive(i)}
+                  >
+                    <span
+                      className={`block font-serif text-[22px] font-normal leading-snug tracking-[-0.025px] transition-colors md:text-[26px] md:leading-[1.25] ${
+                        selected
+                          ? "text-deep-graphite"
+                          : "text-link-gray group-hover:text-deep-graphite"
+                      }`}
+                    >
+                      {item.title}
+                    </span>
+                    <span className="mt-1 block font-mono text-[12px] font-normal uppercase tracking-[0.12em] text-muted-stone">
+                      {selected ? "On screen" : "Show in preview"}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <motion.div
+            className="relative mx-auto w-full max-w-[540px] lg:mx-0 lg:max-w-none lg:justify-self-end"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.55, ease, delay: 0.08 }}
+          >
+            <div
+              className="relative rounded-[1.35rem] bg-gradient-to-b from-[#d8d6d3] via-[#b9b7b4] to-[#9c9a97] p-[11px] shadow-[0_28px_56px_-24px_rgba(29,30,28,0.35),0_12px_24px_-16px_rgba(29,30,28,0.2),inset_0_1px_0_rgba(255,255,255,0.55)] ring-1 ring-black/10"
+              aria-label="Preview window"
+            >
+              <div className="overflow-hidden rounded-[1.05rem] bg-[#2a2a2a] p-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.45)]">
+                <div className="grid h-9 grid-cols-[3.25rem_1fr_3.25rem] items-center rounded-t-lg bg-[#3d3d3d] px-3">
+                  <span className="flex justify-start gap-1.5" aria-hidden>
+                    <span className="size-2.5 rounded-full bg-[#ff5f57] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.25)]" />
+                    <span className="size-2.5 rounded-full bg-[#febc2e] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)]" />
+                    <span className="size-2.5 rounded-full bg-[#28c840] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)]" />
+                  </span>
+                  <span className="truncate text-center font-mono text-[11px] font-medium text-white/75">
+                    Dispatch console — preview
+                  </span>
+                  <span aria-hidden className="block" />
+                </div>
+                <div
+                  id="problem-mac-screen"
+                  role="tabpanel"
+                  aria-labelledby={`problem-tab-${activeItem.id}`}
+                  className="relative min-h-[220px] rounded-b-lg rounded-t-none border border-t-0 border-light-steel bg-canvas-white px-5 py-6 shadow-inner sm:min-h-[260px] md:min-h-[280px] md:px-7 md:py-8"
+                >
+                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-glow">
+                    {activeItem.title}
+                  </p>
+                  <div className="relative mt-4 min-h-[8.5rem] md:min-h-[9.5rem]">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeItem.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.22, ease }}
+                        className="absolute inset-0"
+                      >
+                        <p className="font-mono text-[15px] leading-[1.6] text-link-gray md:text-[16px] md:leading-[1.55]">
+                          {activeItem.body}
+                        </p>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute bottom-3 left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-deep-graphite/10"
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -275,7 +365,15 @@ function Product() {
     },
   ];
   return (
-    <section id="product" className="border-t border-light-steel bg-canvas-white py-[80px]">
+    <section
+      id="product"
+      className="relative scroll-mt-28 border-t border-light-steel bg-canvas-white py-[80px] md:scroll-mt-32"
+    >
+      <span
+        id="pricing"
+        className="pointer-events-none absolute left-0 top-0 block h-px w-px scroll-mt-28"
+        aria-hidden
+      />
       <div className={containerPx}>
         <motion.h2
           className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
@@ -310,7 +408,7 @@ function Product() {
               className={`rounded-[var(--radius-card)] p-5 md:p-6 ${
                 f.emphasized
                   ? "border border-transparent bg-canvas-white shadow-[var(--shadow-lg)]"
-                  : "bg-harvest-cream"
+                  : "bg-warm-linen"
               }`}
               whileHover={{ y: -4, transition: { duration: 0.26, ease } }}
             >
@@ -353,7 +451,10 @@ function HowItWorks() {
     },
   ];
   return (
-    <section id="how-it-works" className="bg-harvest-cream py-[80px]">
+    <section
+      id="how-it-works"
+      className="scroll-mt-28 bg-warm-linen py-[80px] md:scroll-mt-32"
+    >
       <div className={containerPx}>
         <motion.h2
           className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
@@ -393,7 +494,7 @@ function HowItWorks() {
 function FinalCta() {
   return (
     <motion.section
-      className="border-t border-light-steel bg-harvest-cream py-[80px]"
+      className="border-t border-light-steel bg-warm-linen py-[80px]"
       initial={{ opacity: 0, scale: 0.99 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-80px" }}

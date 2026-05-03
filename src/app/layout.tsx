@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Playfair_Display } from "next/font/google";
+import { SiteHeader } from "@/components/layout/site-header";
 import "./globals.css";
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -32,7 +33,10 @@ export default function RootLayout({
       lang="en"
       className={`${ibmPlexMono.variable} ${playfair.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-mono">{children}</body>
+      <body className="flex min-h-full flex-col font-mono">
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   );
 }

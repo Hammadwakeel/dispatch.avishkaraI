@@ -56,7 +56,7 @@ export function PlatformStackSection() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_85%_45%,rgba(250,93,0,0.06)_0%,transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_85%_45%,rgba(228,86,42,0.07)_0%,transparent_60%)]"
       />
       <div className={`relative ${containerPx}`}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">

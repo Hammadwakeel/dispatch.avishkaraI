@@ -87,7 +87,7 @@ export function TrustedMarqueeSection() {
             {loop.map((brand, i) => (
               <div
                 key={`${brand.id}-${i}`}
-                className="flex shrink-0 items-center rounded-[var(--radius-card)] border border-light-steel bg-harvest-cream/40 px-1 py-1 md:border-soft-fog md:bg-harvest-cream/60"
+                className="flex shrink-0 items-center rounded-[var(--radius-card)] border border-light-steel bg-warm-linen/50 px-1 py-1 md:border-soft-fog md:bg-warm-linen/70"
               >
                 <BrandMark slug={brand.slug} hex={brand.hex} />
               </div>

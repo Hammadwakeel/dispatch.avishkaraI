@@ -36,6 +36,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# generated from docs/avishkar-ai-website-content.docx (pandoc); source stays .docx
+docs/*.plain.txt
+
+# Office / Word lock files
+**/.~*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

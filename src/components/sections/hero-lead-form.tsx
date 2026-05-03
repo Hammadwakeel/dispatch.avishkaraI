@@ -19,7 +19,7 @@ export function HeroLeadForm() {
         required
         placeholder="Your work email"
         autoComplete="email"
-        className="min-h-[52px] flex-1 rounded-[var(--radius-ui)] border border-soft-fog bg-canvas-white px-5 font-mono text-[16px] leading-[1.5] text-deep-graphite placeholder:text-text-gray focus:border-dark-slate focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow/30 focus-visible:ring-offset-2 focus-visible:ring-offset-harvest-cream"
+        className="min-h-[52px] flex-1 rounded-[var(--radius-ui)] border border-soft-fog bg-canvas-white px-5 font-mono text-[16px] leading-[1.5] text-deep-graphite placeholder:text-text-gray focus:border-dark-slate focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow/30 focus-visible:ring-offset-2 focus-visible:ring-offset-warm-linen"
         style={{ transitionDuration: "var(--transition-interactive)" }}
       />
       <button

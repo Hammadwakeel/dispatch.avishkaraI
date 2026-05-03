@@ -93,7 +93,7 @@ export function ComparisonSection() {
 
   return (
     <section
-      className="border-t border-light-steel bg-harvest-cream py-[80px] md:py-[96px]"
+      className="border-t border-light-steel bg-warm-linen py-[80px] md:py-[96px]"
       aria-labelledby="comparison-heading"
     >
       <div className={containerPx}>
@@ -166,7 +166,7 @@ export function ComparisonSection() {
                 {rows.map((row, i) => (
                   <tr
                     key={row.feature}
-                    className={i % 2 === 0 ? "bg-harvest-cream/50" : "bg-canvas-white"}
+                    className={i % 2 === 0 ? "bg-warm-linen/60" : "bg-canvas-white"}
                   >
                     <th
                       scope="row"

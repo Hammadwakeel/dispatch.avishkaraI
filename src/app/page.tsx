@@ -1,11 +1,5 @@
-import { LandingPage } from "@/components/landing-page";
-import { SiteHeader } from "@/components/site-header";
+import { LandingPage } from "@/components/sections/landing-page";
 
 export default function Home() {
-  return (
-    <>
-      <SiteHeader />
-      <LandingPage />
-    </>
-  );
+  return <LandingPage />;
 }
