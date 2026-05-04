@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -54,8 +55,8 @@ type Tab = {
   id: string;
   short: string;
   Icon: LucideIcon;
-  headline: string;
-  teaser: string;
+  headline: string | React.ReactNode;
+  teaser: string | React.ReactNode;
   imageSrc: string;
   imageAlt: string;
   learnMoreHref: string;
@@ -67,8 +68,14 @@ const TABS: Tab[] = [
     short: "Scheduling",
     Icon: CalendarClock,
     headline: "Never miss a slot. Never overload a tech.",
-    teaser:
-      "Neural scheduling weighs traffic, skills, parts, and preferences—see the full breakdown on the platform page.",
+    teaser: (
+      <>
+        <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+          Neural scheduling
+        </span>
+        {" weighs traffic, skills, parts, and preferences—see the full breakdown on the platform page."}
+      </>
+    ),
     imageSrc:
       "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Planning notes and calendar on a desk",
@@ -78,7 +85,15 @@ const TABS: Tab[] = [
     id: "voice",
     short: "Voice agent",
     Icon: Mic,
-    headline: "Your 24/7 AI receptionist that actually books jobs",
+    headline: (
+      <>
+        Your 24/7{" "}
+        <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+          AI receptionist
+        </span>
+        {" that actually books jobs"}
+      </>
+    ),
     teaser: "AI that answers, qualifies, and books—explore conversation and booking flows on the Voice Agent product page.",
     imageSrc:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
@@ -90,7 +105,15 @@ const TABS: Tab[] = [
     short: "Field app",
     Icon: Smartphone,
     headline: "Everything your tech needs in their pocket",
-    teaser: "Job context, photos, parts, and sync—dispatch and field workflows are covered in the platform product page.",
+    teaser: (
+      <>
+        Job context, photos, parts, and sync—dispatch and field workflows are covered in the{" "}
+        <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+          platform product page
+        </span>
+        .
+      </>
+    ),
     imageSrc:
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Hand holding a phone showing a mobile field app",
@@ -111,7 +134,15 @@ const TABS: Tab[] = [
     id: "inventory",
     short: "Inventory",
     Icon: Package,
-    headline: "Never lose time to missing parts again",
+    headline: (
+      <>
+        Never lose time to{" "}
+        <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+          missing parts
+        </span>
+        {" again"}
+      </>
+    ),
     teaser: "Parts intelligence, vans, and vendors—read the same story in context with jobs and customers on the platform page.",
     imageSrc:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
@@ -123,7 +154,14 @@ const TABS: Tab[] = [
     short: "Predictive",
     Icon: Cpu,
     headline: "Know what's going to break before it breaks",
-    teaser: "Health scores, alerts, and contract upsides pair with reporting—open analytics on the platform page for the full list.",
+    teaser: (
+      <>
+        <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+          Health scores, alerts
+        </span>
+        {" and contract upsides pair with reporting—open analytics on the platform page for the full list."}
+      </>
+    ),
     imageSrc:
       "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Technician inspecting industrial equipment for predictive maintenance",
@@ -134,7 +172,14 @@ const TABS: Tab[] = [
     short: "Analytics",
     Icon: BarChart3,
     headline: "See everything. Optimize everything.",
-    teaser: "Dashboards, KPIs, and AI nudges—every metric and example is documented on the platform page.",
+    teaser: (
+      <>
+        <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+          Dashboards, KPIs, and AI nudges
+        </span>
+        {"—every metric and example is documented on the platform page."}
+      </>
+    ),
     imageSrc:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Analytics dashboard on a screen",
@@ -158,9 +203,12 @@ export function CorePlatformTabsSection() {
         </p>
         <h2
           id="platform-tabs-heading"
-          className="mt-4 text-center font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.04em] text-deep-graphite md:text-[44px]"
+          className="mt-4 text-center font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.04em] md:text-[44px]"
         >
-          Everything your field service business needs. Powered by AI.
+          Everything your field service business needs.{" "}
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+            Powered by AI.
+          </span>
         </h2>
 
         <div
