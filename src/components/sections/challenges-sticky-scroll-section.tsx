@@ -59,18 +59,22 @@ type ChallengesStickyScrollSectionProps = {
   intro: ReactNode;
   challenges: readonly ChallengeStickyItem[];
   footer?: string;
+  /** Dark section surface (e.g. black band on homepage). */
+  darkSurface?: boolean;
 };
 
-function challengesHeadlineClassName(headingFontClassName?: string) {
+function challengesHeadlineClassName(headingFontClassName?: string, darkSurface?: boolean) {
+  const ink = darkSurface ? "text-canvas-white" : "text-deep-graphite";
   if (headingFontClassName) {
-    return `${headingFontClassName} text-left font-bold uppercase tracking-[-0.02em] leading-[0.9] text-deep-graphite text-[clamp(2.5rem,8.5vw,6.25rem)]`;
+    return `${headingFontClassName} text-left font-bold uppercase tracking-[-0.02em] leading-[0.9] ${ink} text-[clamp(2.5rem,8.5vw,6.25rem)]`;
   }
-  return "font-sans text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-deep-graphite";
+  return `font-sans text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.08] tracking-[-0.035em] ${ink}`;
 }
 
-function challengesIntroClassName(headingFontClassName?: string) {
+function challengesIntroClassName(headingFontClassName?: string, darkSurface?: boolean) {
+  const ink = darkSurface ? "text-canvas-white" : "text-deep-graphite";
   if (headingFontClassName) {
-    return `${headingFontClassName} mt-7 w-full text-left font-bold uppercase tracking-[-0.02em] text-[clamp(1.25rem,3.2vw,2.05rem)] leading-[1.28] text-deep-graphite md:mt-8`;
+    return `${headingFontClassName} mt-7 w-full text-left font-bold uppercase tracking-[-0.02em] text-[clamp(1.25rem,3.2vw,2.05rem)] leading-[1.28] ${ink} md:mt-8`;
   }
   return "mt-7 w-full text-left font-sans text-[18px] font-semibold leading-[1.65] text-muted-stone md:mt-8 md:text-[20px]";
 }
@@ -83,9 +87,14 @@ export function ChallengesStickyScrollSection({
   intro,
   challenges,
   footer,
+  darkSurface = false,
 }: ChallengesStickyScrollSectionProps) {
   const reduceMotion = useMediaQueryMatches("(prefers-reduced-motion: reduce)", false);
   const desktop = useMediaQueryMatches("(min-width: 768px)", false);
+  const ink = darkSurface ? "text-canvas-white" : "text-deep-graphite";
+  const inkMuted = darkSurface ? "text-white/45" : "text-deep-graphite/45";
+  const inkSoft = darkSurface ? "text-white/38" : "text-deep-graphite/45";
+  const dotMuted = darkSurface ? "bg-white/28" : "bg-deep-graphite/25";
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = useState(0);
 
@@ -108,15 +117,17 @@ export function ChallengesStickyScrollSection({
     return (
       <section
         id={sectionId}
-        className="border-b border-light-steel bg-canvas-white py-20 md:py-28"
+        className={`border-b py-20 md:py-28 ${darkSurface ? "border-white/10 bg-black" : "border-light-steel bg-canvas-white"}`}
         aria-labelledby={headingId}
       >
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-          <div className="w-full border-b-2 border-deep-graphite pb-12 text-left md:pb-16">
-            <h2 id={headingId} className={challengesHeadlineClassName(headingFontClassName)}>
+          <div
+            className={`w-full border-b-2 pb-12 text-left md:pb-16 ${darkSurface ? "border-white/25" : "border-deep-graphite"}`}
+          >
+            <h2 id={headingId} className={challengesHeadlineClassName(headingFontClassName, darkSurface)}>
               {heading}
             </h2>
-            <div className={challengesIntroClassName(headingFontClassName)}>{intro}</div>
+            <div className={challengesIntroClassName(headingFontClassName, darkSurface)}>{intro}</div>
           </div>
           <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 md:gap-6">
             {challenges.map((item, i) => (
@@ -138,7 +149,9 @@ export function ChallengesStickyScrollSection({
             ))}
           </div>
           {footer ? (
-            <p className="mx-auto mt-14 max-w-[40rem] text-center font-sans text-[15px] leading-relaxed text-deep-graphite md:mt-16 md:text-[16px]">
+            <p
+              className={`mx-auto mt-14 max-w-[40rem] text-center font-sans text-[15px] leading-relaxed md:mt-16 md:text-[16px] ${darkSurface ? "text-white/85" : "text-deep-graphite"}`}
+            >
               {footer}
             </p>
           ) : null}
@@ -150,17 +163,17 @@ export function ChallengesStickyScrollSection({
   return (
     <section
       id={sectionId}
-      className="border-b border-light-steel bg-canvas-white py-20 md:py-28"
+      className={`border-b py-20 md:py-28 ${darkSurface ? "border-white/10 bg-black" : "border-light-steel bg-canvas-white"}`}
       aria-labelledby={headingId}
     >
       <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
         {/* Intro — left-aligned to page content edge, full width */}
-        <div className="border-b-2 border-deep-graphite pb-12 text-left md:pb-16">
+        <div className={`border-b-2 pb-12 text-left md:pb-16 ${darkSurface ? "border-white/25" : "border-deep-graphite"}`}>
           <div className="w-full">
-            <h2 id={headingId} className={challengesHeadlineClassName(headingFontClassName)}>
+            <h2 id={headingId} className={challengesHeadlineClassName(headingFontClassName, darkSurface)}>
               {heading}
             </h2>
-            <div className={challengesIntroClassName(headingFontClassName)}>{intro}</div>
+            <div className={challengesIntroClassName(headingFontClassName, darkSurface)}>{intro}</div>
           </div>
         </div>
 
@@ -240,19 +253,17 @@ export function ChallengesStickyScrollSection({
                     <div className="min-w-0">
                       <p
                         className={`font-mono text-[12px] font-bold uppercase tracking-[0.14em] transition-colors duration-300 ease-out md:text-[13px] ${
-                          isActive ? "text-deep-graphite" : "text-deep-graphite/45"
+                          isActive ? ink : inkMuted
                         }`}
                       >
-                        <span className={isActive ? "text-deep-graphite" : "text-deep-graphite/45"}>
-                          Challenge
-                        </span>{" "}
+                        <span className={isActive ? ink : inkMuted}>Challenge</span>{" "}
                         <span className={isActive ? "text-amber-glow" : "text-amber-glow/70"}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       </p>
                       <h3
                         className={`mt-3 font-sans text-[clamp(1.45rem,2.8vw,2.15rem)] font-bold leading-snug transition-colors duration-300 ease-out ${
-                          isActive ? "text-deep-graphite" : "text-deep-graphite/45"
+                          isActive ? ink : inkSoft
                         }`}
                       >
                         {item.title}
@@ -263,7 +274,7 @@ export function ChallengesStickyScrollSection({
                         }`}
                       >
                         <div className="overflow-hidden">
-                          <p className="mt-4 max-w-[52ch] font-sans text-[18px] font-semibold leading-[1.65] text-deep-graphite md:text-[19px]">
+                          <p className={`mt-4 max-w-[52ch] font-sans text-[18px] font-semibold leading-[1.65] md:text-[19px] ${ink}`}>
                             {item.body}
                           </p>
                         </div>
@@ -272,7 +283,7 @@ export function ChallengesStickyScrollSection({
                     <div className="flex flex-col items-center pt-2" aria-hidden>
                       <span
                         className={`h-2 w-2 rounded-full transition-colors duration-300 ease-out ${
-                          isActive ? "bg-amber-glow" : "bg-deep-graphite/25"
+                          isActive ? "bg-amber-glow" : dotMuted
                         }`}
                       />
                     </div>
@@ -284,7 +295,9 @@ export function ChallengesStickyScrollSection({
         </div>
 
         {footer ? (
-          <p className="mx-auto mt-14 max-w-[40rem] text-center font-sans text-[15px] leading-relaxed text-deep-graphite md:mt-16 md:text-[16px]">
+          <p
+            className={`mx-auto mt-14 max-w-[40rem] text-center font-sans text-[15px] leading-relaxed md:mt-16 md:text-[16px] ${darkSurface ? "text-white/85" : "text-deep-graphite"}`}
+          >
             {footer}
           </p>
         ) : null}

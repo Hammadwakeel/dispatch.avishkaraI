@@ -46,7 +46,7 @@ type MarqueeCardDef = {
 
 function featureHeadingFor(key: (typeof DISPATCH_FEATURE_ROWS)[number]["key"]): ReactNode {
   const titleClass =
-    "text-[22px] font-bold leading-snug md:text-[24px]";
+    "font-sans text-[22px] font-bold leading-snug md:text-[24px]";
   switch (key) {
     case "fault-ingestion":
       return (
@@ -123,7 +123,7 @@ function cardDefs(): MarqueeCardDef[] {
       key: "hero",
       wide: true,
       heading: (
-        <h2 className="text-[clamp(1.25rem,2.6vw,1.65rem)] font-bold leading-snug">
+        <h2 className="font-sans text-[clamp(1.25rem,2.6vw,1.65rem)] font-bold leading-snug">
           <span className="text-deep-graphite">The AI that runs the </span>
           <span className="text-amber-glow">entire</span>
           <span className="text-deep-graphite"> dispatch loop. </span>
@@ -131,7 +131,7 @@ function cardDefs(): MarqueeCardDef[] {
         </h2>
       ),
       description: (
-        <p className="font-semibold leading-[1.65] text-deep-graphite">
+        <p className="font-sans font-semibold leading-[1.65] text-deep-graphite">
           <span className="text-deep-graphite">One autonomous layer: </span>
           <span className="font-bold text-amber-glow">fault ingestion</span>
           <span className="text-deep-graphite">, </span>
@@ -153,7 +153,7 @@ function cardDefs(): MarqueeCardDef[] {
       key: "analytics",
       wide: true,
       heading: (
-        <h3 className="text-[clamp(1.2rem,2.4vw,1.55rem)] font-bold leading-snug">
+        <h3 className="font-sans text-[clamp(1.2rem,2.4vw,1.55rem)] font-bold leading-snug">
           <span className="text-amber-glow">Analytics</span>
           <span className="text-deep-graphite"> — </span>
           <span className="text-amber-glow">Full visibility</span>
@@ -161,7 +161,7 @@ function cardDefs(): MarqueeCardDef[] {
         </h3>
       ),
       description: (
-        <p className="font-semibold leading-[1.65] text-deep-graphite">
+        <p className="font-sans font-semibold leading-[1.65] text-deep-graphite">
           <span className="text-deep-graphite">Every engineer, every ticket, every asset — </span>
           <span className="font-bold text-amber-glow">live.</span>{" "}
           <span className="font-bold text-amber-glow">SLA risk</span>
