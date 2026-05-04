@@ -166,23 +166,40 @@ function DesktopMegaNavDropdown({ dropdown }: { dropdown: NavDropdown }) {
         scheduleClose();
       }}
     >
-      <button
-        type="button"
-        className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 text-left font-sans text-[14px] font-medium text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-amber-glow focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] ${
-          open ? "text-amber-glow" : ""
-        } ${open ? "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-amber-glow" : ""}`}
-        aria-expanded={open}
-        aria-haspopup="true"
-        aria-controls={menuId}
-        onClick={() => setOpen((v) => !v)}
-        onMouseLeave={scheduleClose}
-      >
-        {label}
-        <ChevronDown
-          className={`size-4 shrink-0 text-amber-glow opacity-95 transition-transform duration-200 md:size-[1.05rem] ${open ? "rotate-180" : ""}`}
-          aria-hidden
-        />
-      </button>
+      {megaHref ? (
+        <Link
+          href={megaHref}
+          className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-sans text-[14px] font-medium text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-amber-glow md:px-3.5 md:py-2 md:text-[15px] ${
+            open ? "text-amber-glow" : ""
+          } ${open ? "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-amber-glow" : ""}`}
+          onMouseEnter={openNow}
+          onMouseLeave={scheduleClose}
+        >
+          {label}
+          <ChevronDown
+            className={`size-4 shrink-0 text-amber-glow opacity-95 transition-transform duration-200 md:size-[1.05rem] ${open ? "rotate-180" : ""}`}
+            aria-hidden
+          />
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 text-left font-sans text-[14px] font-medium text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-amber-glow focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] ${
+            open ? "text-amber-glow" : ""
+          } ${open ? "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-amber-glow" : ""}`}
+          aria-expanded={open}
+          aria-haspopup="true"
+          aria-controls={menuId}
+          onClick={() => setOpen((v) => !v)}
+          onMouseLeave={scheduleClose}
+        >
+          {label}
+          <ChevronDown
+            className={`size-4 shrink-0 text-amber-glow opacity-95 transition-transform duration-200 md:size-[1.05rem] ${open ? "rotate-180" : ""}`}
+            aria-hidden
+          />
+        </button>
+      )}
 
       <AnimatePresence>
         {open ? (

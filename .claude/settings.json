@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/tmp/docx-venv/bin/python3 -c ' *)",
+      "Bash(/tmp/docx-venv/bin/python3)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000/company)",
+      "Bash(pkill -f \"npm run dev\")",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(npx tsc *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
+    ]
+  }
+}

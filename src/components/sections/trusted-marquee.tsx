@@ -241,9 +241,12 @@ function TrustedMarqueeInner() {
           <m.h2
             variants={fadeUp}
             id="trust-heading"
-            className="font-serif mt-4 text-[28px] font-normal leading-tight tracking-tight text-deep-graphite md:text-[40px] md:leading-[1.15]"
+            className="font-serif mt-4 text-[28px] font-normal leading-tight tracking-tight md:text-[40px] md:leading-[1.15]"
           >
-            Trusted by leading service businesses across North America
+            Trusted by leading service businesses across{" "}
+            <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+              North America
+            </span>
           </m.h2>
           <m.div
             variants={lineGrow}
@@ -252,10 +255,14 @@ function TrustedMarqueeInner() {
           />
           <m.p
             variants={fadeUp}
-            className="mx-auto mt-6 max-w-[52ch] font-mono text-[15px] leading-[1.55] text-muted-stone md:mt-7 md:text-[16px]"
+            className="mx-auto mt-6 max-w-[52ch] font-mono text-[15px] leading-[1.55] md:mt-7 md:text-[16px]"
           >
-            North America and India—teams use Avishkar AI to keep dispatch, voice, and field
-            execution aligned when volumes spike and exceptions pile up.
+            <span className="text-muted-stone">North America and India—</span>
+            <span className="text-deep-graphite">teams use </span>
+            <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+              Avishkar AI
+            </span>
+            <span className="text-deep-graphite"> to keep dispatch, voice, and field execution aligned when volumes spike and exceptions pile up.</span>
           </m.p>
         </m.div>
 

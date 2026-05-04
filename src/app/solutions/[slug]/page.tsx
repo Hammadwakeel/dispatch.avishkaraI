@@ -34,8 +34,10 @@ export async function generateMetadata({
 
 export default async function SolutionDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ focus?: string | string[] }>;
 }) {
   const { slug } = await params;
   if (!isSolutionSlug(slug)) notFound();
@@ -43,8 +45,16 @@ export default async function SolutionDetailPage({
   if (!pageDoc) notFound();
   const navItem = solutionLinks.find((l) => l.href === `/solutions/${slug}`);
   if (!navItem) notFound();
+  const sp = searchParams ? await searchParams : {};
+  const focusRaw = sp.focus;
+  const initialMacFocus = typeof focusRaw === "string" ? focusRaw : undefined;
 
   return (
-    <SolutionMarketingPage doc={pageDoc} slug={slug} navItem={navItem} />
+    <SolutionMarketingPage
+      doc={pageDoc}
+      slug={slug}
+      navItem={navItem}
+      initialMacFocus={initialMacFocus}
+    />
   );
 }

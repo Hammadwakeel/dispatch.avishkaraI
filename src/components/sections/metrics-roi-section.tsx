@@ -165,9 +165,13 @@ export function MetricsRoiSection() {
               </p>
               <h2
                 id="metrics-heading"
-                className="mt-4 font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.04em] text-deep-graphite md:text-[40px] xl:text-[44px]"
+                className="mt-4 font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.04em] md:text-[40px] xl:text-[44px]"
               >
-                The numbers that matter
+                The{" "}
+                <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                  numbers
+                </span>{" "}
+                that matter
               </h2>
             </div>
           </aside>

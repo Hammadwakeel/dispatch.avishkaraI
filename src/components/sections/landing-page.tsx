@@ -20,7 +20,6 @@ import { IndustrySnapshotsSection } from "./industry-snapshots-section";
 import { IntegrationsPartnersSection } from "./integrations-partners-section";
 import { MetricsRoiSection } from "./metrics-roi-section";
 import { TestimonialsCarouselSection } from "./testimonials-carousel-section";
-import { companyLinks, pricingNavItem, productLinks, solutionLinks } from "@/config/site-navigation";
 
 /** Route-level code split: social proof chunk loads separately from the main landing bundle. */
 const TrustedMarqueeSection = dynamic(
@@ -143,16 +142,23 @@ function Hero() {
             <motion.p
               variants={staggerChild}
               style={{ y: eyebrowY, opacity: eyebrowOpacity }}
-              className="font-mono text-[12px] font-normal uppercase tracking-[0.14em] text-muted-stone will-change-transform"
+              className="font-mono text-[12px] font-normal uppercase tracking-[0.14em] text-amber-glow will-change-transform"
             >
               AI-native field service
             </motion.p>
             <motion.h1
               variants={staggerChild}
               style={{ scale: headingScale }}
-              className="font-serif origin-[center_top] mt-8 text-balance text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[0.94] tracking-[-0.045em] text-deep-graphite will-change-transform md:text-[64px] lg:origin-left"
+              className="font-serif origin-[center_top] mt-8 text-balance text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[0.94] tracking-[-0.045em] will-change-transform md:text-[64px] lg:origin-left"
             >
-              The AI-native field service platform that runs itself
+              <span className="text-deep-graphite">The </span>
+              <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                AI-native
+              </span>
+              <span className="text-deep-graphite"> field service platform that </span>
+              <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                runs itself
+              </span>
             </motion.h1>
             <motion.p
               variants={staggerChild}
@@ -246,24 +252,31 @@ function Problem() {
           <div className="min-w-0 lg:flex-[1] lg:min-w-0">
             <motion.h2
               id="problem-heading"
-              className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
+              className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] md:text-[48px] md:leading-none"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, ease }}
             >
-              Field service is broken. Here&apos;s why.
+              Field service is{" "}
+              <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                broken
+              </span>
+              . Here&apos;s why.
             </motion.h2>
             <motion.p
-              className="mt-4 max-w-[52ch] font-mono text-[14px] leading-[1.55] text-muted-stone md:mt-5 md:text-[15px] md:leading-[1.5] md:tracking-[-0.02px]"
+              className="mt-4 max-w-[52ch] font-mono text-[14px] leading-[1.55] md:mt-5 md:text-[15px] md:leading-[1.5] md:tracking-[-0.02px]"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, ease, delay: 0.06 }}
             >
-              Avishkar AI is built for intelligence-first operations: autonomous scheduling,
-              voice, customer comms, and inventory—so coordinators stop firefighting and start
-              steering outcomes.
+              <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                Avishkar AI
+              </span>{" "}
+              is built for intelligence-first operations: autonomous scheduling, voice,
+              customer comms, and inventory—so coordinators stop firefighting and start steering
+              outcomes.
             </motion.p>
 
             <div
@@ -298,7 +311,42 @@ function Problem() {
                           : "text-link-gray group-hover:text-deep-graphite"
                       }`}
                     >
-                      {item.title}
+                      {item.id === "dispatch" && (
+                        <>
+                          The{" "}
+                          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                            dispatch
+                          </span>{" "}
+                          chaos
+                        </>
+                      )}
+                      {item.id === "communication" && (
+                        <>
+                          The{" "}
+                          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                            communication
+                          </span>{" "}
+                          gap
+                        </>
+                      )}
+                      {item.id === "knowledge" && (
+                        <>
+                          The{" "}
+                          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                            knowledge
+                          </span>{" "}
+                          leak
+                        </>
+                      )}
+                      {item.id === "inventory" && (
+                        <>
+                          The{" "}
+                          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+                            inventory
+                          </span>{" "}
+                          blind spot
+                        </>
+                      )}
                     </span>
                     <span className="mt-0.5 block font-mono text-[11px] font-normal uppercase tracking-[0.12em] text-muted-stone md:text-[12px]">
                       {selected ? "On screen" : "Show in preview"}
@@ -374,7 +422,7 @@ function Problem() {
 
 type HowItWorksStep = {
   step: string;
-  title: string;
+  title: React.ReactNode;
   body: string;
 };
 
@@ -459,12 +507,26 @@ function HowItWorks() {
     },
     {
       step: "02",
-      title: "AI learns your operations",
+      title: (
+        <>
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+            AI
+          </span>
+          {" learns your operations"}
+        </>
+      ) as unknown as string,
       body: "Historical patterns, technician capabilities, customer preferences, and optimization opportunities become your unique operational model.",
     },
     {
       step: "03",
-      title: "AI takes over the routine",
+      title: (
+        <>
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+            AI
+          </span>
+          {" takes over the routine"}
+        </>
+      ) as unknown as string,
       body: "Scheduling runs automatically, calls get answered instantly, dispatch optimizes in real time, customers get proactive updates, and inventory stays intelligent.",
     },
     {
@@ -491,13 +553,17 @@ function HowItWorks() {
     >
       <div className={containerPx}>
         <motion.h2
-          className="mx-auto max-w-[min(28ch,92vw)] text-center font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:max-w-4xl md:text-[48px] md:leading-none"
+          className="mx-auto max-w-[min(28ch,92vw)] text-center font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] md:max-w-4xl md:text-[48px] md:leading-none"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55, ease }}
         >
-          From chaos to clarity in four steps
+          From{" "}
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+            chaos
+          </span>{" "}
+          to clarity in four steps
         </motion.h2>
       </div>
 
@@ -538,7 +604,7 @@ function FinalCta({ scrollEase }: { scrollEase: MotionValue<number> }) {
   ] as const;
 
   return (
-    <section className="relative z-0 min-h-[min(118svh,920px)] overflow-x-clip border-t border-light-steel bg-gradient-to-b from-warm-linen to-[color-mix(in_srgb,var(--color-warm-linen)_78%,var(--color-amber-glow)_22%)] py-[80px] pb-[min(30svh,260px)]">
+    <section className="relative z-0 min-h-[min(100svh,800px)] overflow-x-clip border-t border-light-steel bg-canvas-white py-[80px] pb-[min(25svh,220px)]">
       <span
         id="pricing"
         className="pointer-events-none absolute left-0 top-0 block h-px w-px scroll-mt-28"
@@ -547,40 +613,43 @@ function FinalCta({ scrollEase }: { scrollEase: MotionValue<number> }) {
       <div className={`${containerPx} text-center`}>
         <motion.h2
           style={{ scale: headingScale }}
-          className="font-serif origin-[center_top] text-[36px] font-normal leading-[1] tracking-[-0.05px] text-deep-graphite will-change-transform md:text-[48px]"
+          className="font-serif origin-[center_top] text-[36px] font-normal leading-[1] tracking-[-0.05px] will-change-transform md:text-[48px]"
         >
-          <span className="inline">Ready to run your </span>
-          <motion.span
-            className="relative inline-block bg-gradient-to-b from-deep-graphite from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]"
-            style={{ backgroundPosition: businessFill }}
-          >
+          Ready to run your{" "}
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
             business
-          </motion.span>
-          <span className="inline"> on AI?</span>
+          </span>{" "}
+          on AI?
         </motion.h2>
         <motion.p
           style={{ y: subY, opacity: subOpacity }}
-          className="mx-auto mt-8 max-w-[48ch] font-mono text-[16px] leading-[1.5] text-muted-stone will-change-transform md:text-[20px] md:leading-[1.41]"
+          className="mx-auto mt-6 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-link-gray will-change-transform md:text-[18px] md:leading-[1.45]"
         >
-          Join 500+ service businesses already on Avishkar AI. See how AI-native field
-          service management can transform your operations, increase revenue, and make
-          everyone—your team and your customers—happier.
+          Join 500+ service businesses already on{" "}
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+            Avishkar AI
+          </span>
+          . See how AI-native field service management can transform your operations, increase
+          revenue, and make everyone—your team and your customers—happier.
         </motion.p>
         <motion.ul
           style={{ y: trustY, opacity: trustOpacity }}
-          className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-2 font-mono text-[12px] text-muted-stone will-change-transform md:text-[13px]"
+          className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-[13px] text-deep-graphite will-change-transform md:text-[14px]"
         >
           {trust.map((t) => (
             <li key={t} className="flex items-center gap-2">
-              <span className="size-1.5 shrink-0 rounded-full bg-amber-glow/90" aria-hidden />
+              <span className="size-1.5 shrink-0 rounded-full bg-amber-glow" aria-hidden />
               {t}
             </li>
           ))}
         </motion.ul>
-        <motion.div style={{ y: ctaY }} className="mt-10 flex flex-col items-center justify-center gap-3 will-change-transform sm:flex-row sm:flex-wrap sm:gap-4">
+        <motion.div
+          style={{ y: ctaY }}
+          className="mx-auto mt-10 flex max-w-xl flex-col items-center justify-center gap-4 will-change-transform sm:flex-row sm:flex-wrap"
+        >
           <motion.a
             href="#demo"
-            className="inline-flex min-h-[52px] items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-10 font-mono text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] hover:brightness-[1.03]"
+            className="inline-flex min-h-[52px] w-full items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-10 font-mono text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] sm:w-auto hover:brightness-[1.03]"
             style={{ transitionDuration: "var(--transition-interactive)" }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -589,7 +658,7 @@ function FinalCta({ scrollEase }: { scrollEase: MotionValue<number> }) {
           </motion.a>
           <Link
             href="/company/contact"
-            className="inline-flex min-h-[52px] items-center justify-center rounded-[var(--radius-ui)] border border-light-steel bg-canvas-white px-8 font-mono text-[14px] font-semibold text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/40"
+            className="inline-flex min-h-[52px] w-full items-center justify-center rounded-[var(--radius-ui)] border-2 border-amber-glow bg-canvas-white px-8 font-mono text-[14px] font-semibold text-amber-glow transition-colors sm:w-auto hover:bg-amber-glow hover:text-canvas-white"
           >
             Start free trial
           </Link>
@@ -605,172 +674,55 @@ function FinalCta({ scrollEase }: { scrollEase: MotionValue<number> }) {
   );
 }
 
-function CtaFooterReveal() {
-  const gateRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: gateRef,
-    offset: ["start start", "end start"],
-  });
-
-  const scrollEase = useSpring(scrollYProgress, {
-    stiffness: 220,
-    damping: 38,
-    mass: 0.35,
-  });
-
-  /** Footer rides up into view as you finish scrolling this gate (synced with Lenis). */
-  const footerY = useTransform(scrollEase, [0.34, 0.82], [140, 0]);
-
+function FinalCtaWithScroll() {
   return (
-    <div ref={gateRef} className="relative">
-      <FinalCta scrollEase={scrollEase} />
-      <Footer footerY={footerY} />
-    </div>
-  );
-}
-
-const footerResourceLinks: { label: string; href: string }[] = [
-  { label: "Blog", href: "/resources/blog" },
-  { label: "Documentation", href: "/resources/documentation" },
-  { label: "API docs", href: "/resources/documentation" },
-  { label: "ROI calculator", href: "/resources/roi-calculator" },
-  { label: "Comparison guide", href: "/resources/comparison-guide" },
-  { label: "Webinars & events", href: "/resources/webinars" },
-  { label: "Case studies", href: "/resources/blog/case-studies" },
-];
-
-function Footer({ footerY }: { footerY?: MotionValue<number> }) {
-  const productCol = productLinks.filter((l) => !l.emphasis);
-
-  return (
-    <motion.footer
-      id="footer"
-      style={footerY ? { y: footerY } : undefined}
-      className="relative z-20 -mt-[min(22vh,176px)] border-t border-light-steel bg-canvas-white py-12 text-deep-graphite shadow-[0_-28px_60px_-48px_rgba(29,30,28,0.18)] md:py-16"
-    >
-      <div className={`${containerPx} grid gap-12 lg:grid-cols-12 lg:gap-10`}>
-        <div className="lg:col-span-4">
-          <p className="font-mono text-[15px] font-semibold text-deep-graphite">Avishkar AI</p>
-          <p className="mt-3 max-w-[32ch] font-mono text-[13px] leading-relaxed text-muted-stone">
-            Flagship brand of Anjaneya AI Technologies Pvt Ltd—AI-native field service
-            management.
-          </p>
-          <p className="mt-4 font-mono text-[13px] text-link-gray">
-            <a href="mailto:hello@avishkar.ai" className="text-amber-glow hover:underline">
-              hello@avishkar.ai
-            </a>
-          </p>
-          <div className="mt-5 flex flex-wrap gap-4 font-mono text-[12px] text-muted-stone">
-            <a href="https://www.linkedin.com" className="hover:text-deep-graphite" rel="noreferrer">
-              LinkedIn
-            </a>
-            <a href="https://twitter.com" className="hover:text-deep-graphite" rel="noreferrer">
-              X / Twitter
-            </a>
-            <a href="https://www.youtube.com" className="hover:text-deep-graphite" rel="noreferrer">
-              YouTube
-            </a>
-            <a href="https://www.facebook.com" className="hover:text-deep-graphite" rel="noreferrer">
-              Facebook
-            </a>
-          </div>
+    <section className="border-t border-light-steel bg-canvas-white py-[80px]">
+      <div className={`${containerPx} text-center`}>
+        <h2 className="font-serif text-[36px] font-normal leading-[1] tracking-[-0.05px] md:text-[48px]">
+          Ready to run your{" "}
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+            business
+          </span>{" "}
+          on AI?
+        </h2>
+        <p className="mx-auto mt-6 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-link-gray md:text-[18px] md:leading-[1.45]">
+          Join 500+ service businesses already on{" "}
+          <span className="bg-gradient-to-b from-amber-glow from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]">
+            Avishkar AI
+          </span>
+          . See how AI-native field service management can transform your operations, increase
+          revenue, and make everyone—your team and your customers—happier.
+        </p>
+        <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-[13px] text-deep-graphite md:text-[14px]">
+          {["No credit card required", "Setup in 1 day", "Cancel anytime", "SOC 2 compliant", "99.9% uptime SLA"].map((t) => (
+            <li key={t} className="flex items-center gap-2">
+              <span className="size-1.5 shrink-0 rounded-full bg-amber-glow" aria-hidden />
+              {t}
+            </li>
+          ))}
+        </ul>
+        <div className="mx-auto mt-10 flex max-w-xl flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
+          <a
+            href="#demo"
+            className="inline-flex min-h-[52px] w-full items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-10 font-mono text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] sm:w-auto hover:brightness-[1.03]"
+          >
+            Book your demo
+          </a>
+          <Link
+            href="/company/contact"
+            className="inline-flex min-h-[52px] w-full items-center justify-center rounded-[var(--radius-ui)] border-2 border-amber-glow bg-canvas-white px-8 font-mono text-[14px] font-semibold text-amber-glow transition-colors sm:w-auto hover:bg-amber-glow hover:text-canvas-white"
+          >
+            Start free trial
+          </Link>
+          <Link
+            href="/resources/roi-calculator"
+            className="inline-flex min-h-[52px] items-center justify-center font-mono text-[14px] font-semibold text-amber-glow underline-offset-4 hover:underline"
+          >
+            ROI calculator
+          </Link>
         </div>
-
-        <nav className="lg:col-span-2" aria-label="Footer products">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
-            Products
-          </p>
-          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
-            {productCol.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link href="/products" className="font-medium text-amber-glow hover:underline">
-                View all products →
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <nav className="lg:col-span-2" aria-label="Footer solutions">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
-            Solutions
-          </p>
-          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
-            {solutionLinks.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <nav className="lg:col-span-2" aria-label="Footer resources">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
-            Resources
-          </p>
-          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
-            {footerResourceLinks.map((l) => (
-              <li key={`${l.label}-${l.href}`}>
-                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <nav className="lg:col-span-2" aria-label="Footer company">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
-            Company
-          </p>
-          <ul className="mt-4 flex flex-col gap-2.5 font-mono text-[13px]">
-            {companyLinks.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="text-link-gray hover:text-amber-glow hover:underline">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link href={pricingNavItem.href} className="text-link-gray hover:text-amber-glow hover:underline">
-                {pricingNavItem.label}
-              </Link>
-            </li>
-          </ul>
-        </nav>
       </div>
-
-      <div className="mx-auto mt-12 max-w-[var(--page-max-width)] border-t border-light-steel px-6 pt-8 text-center font-mono text-[12px] text-muted-stone md:px-8 md:text-[13px]">
-        <p>
-          © {new Date().getFullYear()} Avishkar AI. All rights reserved. A product of Anjaneya AI Technologies Pvt
-          Ltd.
-        </p>
-        <p className="mt-3">
-          <a href="#platform-features" className="text-link-gray hover:text-deep-graphite hover:underline">
-            Platform features
-          </a>
-          <span className="mx-2 text-light-steel" aria-hidden>
-            ·
-          </span>
-          <a href="#how-it-works" className="text-link-gray hover:text-deep-graphite hover:underline">
-            How it works
-          </a>
-          <span className="mx-2 text-light-steel" aria-hidden>
-            ·
-          </span>
-          <a href="#pain" className="text-link-gray hover:text-deep-graphite hover:underline">
-            Problem we solve
-          </a>
-        </p>
-      </div>
-    </motion.footer>
+    </section>
   );
 }
 
@@ -787,7 +739,7 @@ export function LandingPage() {
         <MetricsRoiSection />
         <TestimonialsCarouselSection />
         <IntegrationsPartnersSection />
-        <CtaFooterReveal />
+        <FinalCtaWithScroll />
       </main>
     </>
   );

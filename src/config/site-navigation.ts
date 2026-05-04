@@ -236,37 +236,37 @@ export const resourcesMegaLinks: NavLink[] = [
 export const companyLinks: NavLink[] = [
   {
     label: "About Us",
-    href: "/company/about",
+    href: "/company#about",
     icon: "building",
     description: "Mission, story, and why we build for field service first.",
   },
   {
     label: "Leadership",
-    href: "/company/leadership",
+    href: "/company#leadership",
     icon: "users",
     description: "The team guiding product, partnerships, and customer success.",
   },
   {
     label: "Careers",
-    href: "/company/careers",
+    href: "/company#careers",
     icon: "briefcase",
     description: "Open roles across engineering, go-to-market, and operations.",
   },
   {
     label: "Partners",
-    href: "/company/partners",
+    href: "/company#partners",
     icon: "handshake",
     description: "Integrators, resellers, and technology partners we grow with.",
   },
   {
     label: "Press / Media",
-    href: "/company/press",
+    href: "/company#press",
     icon: "newspaper",
     description: "Brand assets, newsroom contacts, and recent coverage.",
   },
   {
     label: "Contact",
-    href: "/company/contact",
+    href: "/company#contact",
     icon: "mail",
     description: "Sales, support, and general inquiries— we respond quickly.",
   },

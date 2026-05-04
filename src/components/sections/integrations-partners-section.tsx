@@ -138,7 +138,8 @@ export function IntegrationsPartnersSection() {
             id="integrations-heading"
             className="mt-4 font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.04em] text-deep-graphite md:text-[44px]"
           >
-            Works with what you have
+            Works with what you{" "}
+            <span className="text-amber-glow">have</span>
           </h2>
 
           {/* Fills from Lenis scroll position through this section (not carousel scrubbing) */}

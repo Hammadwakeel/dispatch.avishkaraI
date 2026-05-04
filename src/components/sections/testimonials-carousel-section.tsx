@@ -132,7 +132,8 @@ export function TestimonialsCarouselSection() {
               id="testimonials-heading"
               className="mt-4 text-center font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.04em] text-deep-graphite md:text-[44px]"
             >
-              What our customers say
+              What our{" "}
+              <span className="text-amber-glow">customers</span> say
             </h2>
           </motion.div>
 

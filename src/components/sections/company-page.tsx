@@ -167,7 +167,7 @@ export function CompanyPage() {
   return (
     <main className="flex-1">
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-light-steel bg-canvas-white pb-16 pt-20 md:pb-24 md:pt-28">
+      <section id="about" className="relative overflow-hidden border-b border-light-steel bg-canvas-white pb-16 pt-20 md:pb-24 md:pt-28">
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <div className="absolute right-0 top-0 h-[600px] w-[600px] -translate-y-1/2 translate-x-1/3 rounded-full bg-[#e4562a]/8 blur-[120px]" />
           <div className="absolute left-1/4 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#d4a84b]/10 blur-[80px]" />
@@ -589,7 +589,7 @@ export function CompanyPage() {
       </section>
 
       {/* Day in the Life Section */}
-      <section className="border-b border-light-steel bg-canvas-white py-16 md:py-24">
+      <section id="leadership" className="border-b border-light-steel bg-canvas-white py-16 md:py-24">
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
           <motion.div
             initial="hidden"
@@ -697,7 +697,7 @@ export function CompanyPage() {
       </section>
 
       {/* Company Info Section */}
-      <section className="border-b border-light-steel bg-harvest-cream/50 py-16 md:py-24">
+      <section id="partners" className="border-b border-light-steel bg-harvest-cream/50 py-16 md:py-24">
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <motion.div
@@ -748,9 +748,10 @@ export function CompanyPage() {
               <motion.div
                 variants={staggerChild}
                 className="rounded-[var(--radius-card)] border border-light-steel/60 bg-canvas-white p-8 shadow-[0_12px_32px_-12px_rgba(42,35,32,0.08)]"
+                id="press"
               >
                 <h3 className="font-serif text-xl font-semibold text-deep-graphite">
-                  Get in Touch
+                  Press & Media
                 </h3>
                 <p className="mt-3 font-sans text-[15px] leading-relaxed text-muted-stone">
                   We&apos;d love to hear from you. Whether you&apos;re a potential customer, partner, or
@@ -779,7 +780,7 @@ export function CompanyPage() {
       </section>
 
       {/* Careers CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-harvest-cream to-canvas-white py-16 md:py-24">
+      <section id="careers" className="relative overflow-hidden bg-gradient-to-b from-harvest-cream to-canvas-white py-16 md:py-24">
         <div className="pointer-events-none absolute inset-0 z-0">
           <div className="absolute left-1/2 top-0 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-glow/10 blur-[100px]" />
         </div>

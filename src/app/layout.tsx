@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Playfair_Display } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { CustomCursor } from "@/components/custom-cursor";
 import "./globals.css";
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -35,9 +37,11 @@ export default function RootLayout({
       className={`${ibmPlexMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-mono">
+        <CustomCursor />
         <SmoothScroll>
           <SiteHeader />
           {children}
+          <SiteFooter />
         </SmoothScroll>
       </body>
     </html>
