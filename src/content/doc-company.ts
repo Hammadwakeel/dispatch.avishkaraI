@@ -173,13 +173,17 @@ export const companyDocPages: Record<string, DocPage> = {
         heading: "Contact channels",
         blocks: [
           {
-            kind: "ul",
-            items: [
-              "General: hello@avishkar.ai",
-              "Sales: sales@avishkar.ai",
-              "Support: support@avishkar.ai (24/7 for Enterprise; business hours for Professional)",
-              "Press: press@avishkar.ai",
-              "Partners: partners@avishkar.ai",
+            kind: "contactChannels",
+            entries: [
+              { label: "General", email: "hello@avishkar.ai" },
+              { label: "Sales", email: "sales@avishkar.ai" },
+              {
+                label: "Support",
+                email: "support@avishkar.ai",
+                suffix: "(24/7 for Enterprise; business hours for Professional)",
+              },
+              { label: "Press", email: "press@avishkar.ai" },
+              { label: "Partners", email: "partners@avishkar.ai" },
             ],
           },
         ],

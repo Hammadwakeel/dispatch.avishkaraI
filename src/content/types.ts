@@ -2,7 +2,12 @@
 
 export type DocBlock =
   | { kind: "p"; text: string }
-  | { kind: "ul"; title?: string; items: string[] };
+  | { kind: "ul"; title?: string; items: string[] }
+  /** Label + mailto (optional suffix after email, e.g. support hours) — company contact doc */
+  | {
+      kind: "contactChannels";
+      entries: Array<{ label: string; email: string; suffix?: string }>;
+    };
 
 export type DocSection = {
   heading: string;

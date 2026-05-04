@@ -1,19 +1,13 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useTransform } from "framer-motion";
 import type Lenis from "lenis";
 import { useLenis } from "lenis/react";
+import { Anton } from "next/font/google";
 import Link from "next/link";
-import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
-import { ChallengeScrollRevealCard } from "@/components/ui/challenge-scroll-reveal-card";
-import { ScrollRevealDropCard } from "@/components/ui/scroll-reveal-drop-card";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ChallengesStickyScrollSection } from "@/components/sections/challenges-sticky-scroll-section";
+import { DispatchLoopMarqueeCards } from "@/components/sections/dispatch-loop-marquee-cards";
 import { HeroEmbeddedVisual } from "./hero-embedded-visual";
 import { TestimonialsCarouselSection } from "./testimonials-carousel-section";
 
@@ -37,44 +31,42 @@ const problemNarratives = [
   },
 ] as const;
 
-const dispatchFeatureTabs = [
-  {
-    id: "fault-ingestion",
-    label: "Fault Ingestion",
-    headline: "Fault in. Ticket open. Instantly.",
-    body: "The moment your monitoring system fires a fault event — SCADA, NOC, telemetry, legacy software — Avishkar picks it up via API. No human triage. No queue. Instant classification by fault type, asset, severity, and location.",
-  },
-  {
-    id: "engineer-assignment",
-    label: "Engineer Assignment",
-    headline: "Right engineer. Right skills. Seconds.",
-    body: "Avishkar scans your field engineer network in real time — availability, location, certification, current workload — and assigns the best match. The engineer gets full fault context on mobile before they leave.",
-  },
-  {
-    id: "parts",
-    label: "Parts Orchestration",
-    headline: "Parts ordered before the engineer arrives.",
-    body: "Avishkar checks inventory in real time, reserves required parts, and coordinates delivery to the site — automatically. Engineers arrive ready to fix, not to diagnose.",
-  },
-  {
-    id: "follow-up",
-    label: "Real-Time Follow-Up",
-    headline: "AI follows up. You don't have to.",
-    body: "Avishkar tracks every open ticket in real time. If a repair is delayed, it follows up with the engineer automatically. If there's an escalation — the engineer talks directly back to the AI. No phone tag. No missed updates.",
-  },
-  {
-    id: "closure",
-    label: "Ticket Closure",
-    headline: "Closed loop. Every time.",
-    body: "When the fix is confirmed, Avishkar closes the ticket, logs the resolution, updates your CRM and reporting, and generates compliance documentation automatically. Nothing falls through the cracks.",
-  },
-  {
-    id: "analytics",
-    label: "Analytics",
-    headline: "Full visibility across your network.",
-    body: "Every engineer, every ticket, every asset — live. SLA risk flagged before breach. Resolution times, first-fix rates, and engineer performance tracked automatically. Operations managers finally have the dashboard they needed.",
-  },
-] as const;
+const challengesSectionHeading = (
+  <>
+    <span className="block text-left">
+      Every minute of downtime costs&nbsp;
+      <span className="text-amber-glow">thousands</span>.
+    </span>
+    <span className="mt-[0.15em] block text-left md:mt-2">
+      The fix took&nbsp;
+      <span className="text-amber-glow">45&nbsp;minutes</span>.
+    </span>
+  </>
+);
+
+const challengesSectionIntro = (
+  <>
+    <span className="block text-left text-deep-graphite">
+      ATM operators, tower companies, and medical device teams have accepted{" "}
+      <span className="text-amber-glow">slow,</span>
+    </span>
+    <span className="mt-4 block text-left text-deep-graphite md:mt-5">
+      <span className="text-amber-glow">manual dispatch</span>{" "}
+      <span className="text-deep-graphite">as a</span>{" "}
+      <span className="text-amber-glow">fact of life.</span>{" "}
+      <span className="text-deep-graphite">We proved it</span>{" "}
+      <span className="text-amber-glow">isn&apos;t</span>
+      <span className="text-deep-graphite">.</span>
+    </span>
+  </>
+);
+
+/** Condensed poster caps (Anton) — fault section + challenges headline. */
+const posterDisplay = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
 
 const fromFaultToFix = [
   {
@@ -156,209 +148,6 @@ const integrationTaxonomy = [
   },
 ] as const;
 
-/** Warm-tinted frosted glass panel — visually aligned with Apple-style glass (e.g. Nyx UI glass container). */
-function ChallengeGlassArticle({
-  className,
-  children,
-  hoverLift = true,
-}: {
-  className?: string;
-  children: ReactNode;
-  hoverLift?: boolean;
-}) {
-  const lift = hoverLift ? "hover:-translate-y-0.5" : "";
-  return (
-    <article
-      className={`group relative isolate overflow-hidden rounded-[var(--radius-card)] border border-black bg-canvas-white/14 p-6 shadow-[0_22px_44px_-24px_rgba(0,0,0,0.38),inset_0_1px_0_rgba(255,255,255,0.68),inset_0_-1px_0_rgba(0,0,0,0.12)] backdrop-blur-2xl backdrop-saturate-150 transition-[transform,box-shadow] duration-300 supports-[backdrop-filter]:bg-canvas-white/[0.08] ${lift} hover:shadow-[0_28px_52px_-24px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.78),inset_0_-1px_0_rgba(0,0,0,0.13)] md:p-7 ${className ?? ""}`}
-    >
-      <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,color-mix(in_srgb,var(--color-harvest-cream)_30%,transparent)_0%,rgba(255,255,255,0.42)_30%,rgba(255,255,255,0.14)_55%,rgba(255,255,255,0.04)_100%)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -inset-10 bg-[radial-gradient(circle_at_14%_0%,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0.08)_42%,transparent_72%)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-65 [background:linear-gradient(118deg,transparent_26%,rgba(255,255,255,0.56)_46%,rgba(255,255,255,0.14)_58%,transparent_76%)] transition-opacity duration-300 group-hover:opacity-95"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-x-7 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-95"
-        aria-hidden
-      />
-      <div className="relative">{children}</div>
-    </article>
-  );
-}
-
-/** Lenis-synced 0–1 progress while this section moves through the viewport (matches fault-steps timing). */
-function challengeCardsSectionProgress(lenis: Lenis, sectionEl: HTMLElement): number {
-  const scroll = lenis.scroll;
-  const innerH = window.innerHeight;
-  const top = sectionEl.getBoundingClientRect().top + scroll;
-  const height = sectionEl.offsetHeight;
-  const travel = Math.max(1, height - innerH * 0.45);
-  let p = (scroll - top + innerH * 0.72) / travel;
-  return Math.max(0, Math.min(1, p));
-}
-
-function DispatchLoopFeaturesSection() {
-  const [active, setActive] = useState(0);
-  const tab = dispatchFeatureTabs[active];
-
-  return (
-    <section
-      className="border-b border-light-steel bg-harvest-cream/35 py-16 md:py-20"
-      aria-labelledby="dispatch-loop-features-heading"
-    >
-      <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-        <h2
-          id="dispatch-loop-features-heading"
-          className="text-center font-sans text-[clamp(1.55rem,3.2vw,2.35rem)] font-semibold leading-tight text-deep-graphite"
-        >
-          The AI that runs the entire dispatch loop. End to end.
-        </h2>
-
-        <div
-          className="mt-8 flex flex-wrap justify-center gap-2 md:gap-2.5"
-          role="tablist"
-          aria-label="Dispatch capabilities"
-        >
-          {dispatchFeatureTabs.map((t, i) => (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              aria-selected={i === active}
-              id={`dispatch-tab-${t.id}`}
-              aria-controls={`dispatch-tabpanel-${t.id}`}
-              onClick={() => setActive(i)}
-              className={`rounded-full border px-3 py-2 font-mono text-[12px] font-semibold uppercase tracking-wide transition-colors md:px-4 md:text-[13px] ${
-                i === active
-                  ? "border-amber-glow bg-amber-glow text-canvas-white"
-                  : "border-light-steel bg-canvas-white/80 text-deep-graphite hover:border-amber-glow/45"
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        <div
-          role="tabpanel"
-          id={`dispatch-tabpanel-${tab.id}`}
-          aria-labelledby={`dispatch-tab-${tab.id}`}
-          className="mx-auto mt-8 max-w-3xl rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-6 shadow-[0_10px_36px_-22px_rgba(29,30,28,0.18)] md:p-8"
-        >
-          <h3 className="font-sans text-[20px] font-semibold leading-snug text-deep-graphite md:text-[22px]">{tab.headline}</h3>
-          <p className="mt-4 font-sans text-[15px] leading-[1.65] text-muted-stone md:text-[16px]">{tab.body}</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ChallengesBackdrop() {
-  return (
-    <>
-      <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(168deg,var(--color-canvas-white)_0%,color-mix(in_srgb,var(--color-harvest-cream)_72%,white)_42%,color-mix(in_srgb,var(--color-harvest-cream)_42%,var(--color-deep-graphite))_118%)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-[22%] top-[10%] h-[min(380px,58vw)] w-[min(380px,58vw)] rounded-full bg-[radial-gradient(circle_at_center,rgba(228,86,42,0.11)_0%,transparent_68%)] blur-3xl"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -bottom-[38%] -left-[18%] h-[min(360px,55vw)] w-[min(360px,55vw)] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,168,75,0.09)_0%,transparent_62%)] blur-3xl"
-        aria-hidden
-      />
-    </>
-  );
-}
-
-function FaultResponseChallengesSection() {
-  const reduceMotion = useReducedMotion();
-  const sectionRef = useRef<HTMLElement>(null);
-  const scrollProgress = useMotionValue(0);
-
-  const syncFromLenis = useCallback(
-    (l: Lenis) => {
-      const el = sectionRef.current;
-      if (!el || reduceMotion) return;
-      scrollProgress.set(challengeCardsSectionProgress(l, el));
-    },
-    [reduceMotion, scrollProgress],
-  );
-
-  useLenis(syncFromLenis, [reduceMotion]);
-
-  const lenisInstance = useLenis();
-  useEffect(() => {
-    if (lenisInstance && !reduceMotion) syncFromLenis(lenisInstance);
-  }, [lenisInstance, reduceMotion, syncFromLenis]);
-
-  const total = problemNarratives.length;
-
-  const cardInner = (item: (typeof problemNarratives)[number], i: number) => (
-    <>
-      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-glow">
-        Challenge {String(i + 1).padStart(2, "0")}
-      </p>
-      <h3 className="mt-3 font-sans text-[22px] font-semibold leading-snug text-deep-graphite">{item.title}</h3>
-      <p className="mt-3 font-sans text-[15px] leading-[1.62] text-muted-stone">{item.body}</p>
-    </>
-  );
-
-  return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden border-b border-light-steel py-16 md:py-20"
-      aria-labelledby="fault-response-challenges-heading"
-    >
-      <ChallengesBackdrop />
-
-      <div className="relative mx-auto min-h-[min(105vh,840px)] w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2
-            id="fault-response-challenges-heading"
-            className="font-sans text-[clamp(1.55rem,3.2vw,2.35rem)] font-semibold leading-tight text-deep-graphite"
-          >
-            Every minute of downtime costs thousands. The fix took 45 minutes.
-          </h2>
-          <p className="mt-5 font-sans text-[15px] leading-[1.65] text-muted-stone md:text-[16px]">
-            ATM operators, tower companies, and medical device teams have accepted slow, manual dispatch as a fact of life.
-            We proved it isn’t.
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-5 overflow-x-clip md:grid-cols-2">
-          {problemNarratives.map((item, i) =>
-            reduceMotion ? (
-              <ChallengeGlassArticle key={item.title}>{cardInner(item, i)}</ChallengeGlassArticle>
-            ) : (
-              <ChallengeScrollRevealCard
-                key={item.title}
-                index={i}
-                total={total}
-                scrollProgress={scrollProgress}
-                className="will-change-transform"
-              >
-                <ChallengeGlassArticle>{cardInner(item, i)}</ChallengeGlassArticle>
-              </ChallengeScrollRevealCard>
-            ),
-          )}
-        </div>
-
-        <p className="mx-auto mt-12 max-w-[52ch] text-center font-sans text-[15px] font-medium leading-relaxed text-deep-graphite md:text-[16px]">
-          The ATM industry’s average fault response time: 45 minutes. Avishkar’s: 5 minutes.
-        </p>
-      </div>
-    </section>
-  );
-}
-
 function OperatingProofStatCard({
   index,
   metric,
@@ -396,27 +185,33 @@ function OperatingProofPointsSection() {
   );
 }
 
-/** 0–1 progress through the fault-steps section using Lenis scroll (smooth-scroll sync). */
-function faultStepsSectionProgress(lenis: Lenis, sectionEl: HTMLElement): number {
+/** 0→1 while the tall pin runway scrolls through the viewport (Lenis-smoothed). */
+function faultPinSectionProgress(lenis: Lenis, sectionEl: HTMLElement): number {
   const scroll = lenis.scroll;
   const innerH = window.innerHeight;
   const top = sectionEl.getBoundingClientRect().top + scroll;
   const height = sectionEl.offsetHeight;
-  const travel = Math.max(1, height - innerH * 0.45);
-  let p = (scroll - top + innerH * 0.72) / travel;
-  return Math.max(0, Math.min(1, p));
+  const travel = Math.max(1, height - innerH);
+  return Math.max(0, Math.min(1, (scroll - top) / travel));
 }
+
+const liquidFaultCardClass =
+  "relative overflow-hidden rounded-[22px] border-2 border-deep-graphite bg-gradient-to-br from-white/[0.48] via-white/[0.18] to-white/[0.07] p-6 shadow-[0_18px_56px_-14px_rgba(29,30,28,0.22),inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-[26px] md:p-7";
 
 function FaultEventToFixedSection() {
   const reduceMotion = useReducedMotion();
-  const sectionRef = useRef<HTMLElement>(null);
+  /** Pin runway only (headline scrolls away above this). */
+  const pinRunwayRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const trackWrapRef = useRef<HTMLDivElement>(null);
+  const [trackXRange, setTrackXRange] = useState(0);
   const scrollProgress = useMotionValue(0);
 
   const syncFromLenis = useCallback(
     (l: Lenis) => {
-      const el = sectionRef.current;
+      const el = pinRunwayRef.current;
       if (!el || reduceMotion) return;
-      scrollProgress.set(faultStepsSectionProgress(l, el));
+      scrollProgress.set(faultPinSectionProgress(l, el));
     },
     [reduceMotion, scrollProgress],
   );
@@ -428,57 +223,116 @@ function FaultEventToFixedSection() {
     if (lenisInstance && !reduceMotion) syncFromLenis(lenisInstance);
   }, [lenisInstance, reduceMotion, syncFromLenis]);
 
-  const total = fromFaultToFix.length;
-  const cardClass =
-    "rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-6 shadow-[0_8px_30px_-24px_rgba(29,30,28,0.3)]";
+  useEffect(() => {
+    lenisInstance?.resize();
+  }, [lenisInstance]);
+
+  const measureHorizontalScroll = useCallback(() => {
+    const wrap = trackWrapRef.current;
+    const track = trackRef.current;
+    if (!wrap || !track) return;
+    setTrackXRange(Math.max(0, track.scrollWidth - wrap.clientWidth));
+  }, []);
+
+  useLayoutEffect(() => {
+    measureHorizontalScroll();
+    const ro = new ResizeObserver(() => measureHorizontalScroll());
+    if (trackWrapRef.current) ro.observe(trackWrapRef.current);
+    if (trackRef.current) ro.observe(trackRef.current);
+    window.addEventListener("resize", measureHorizontalScroll);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measureHorizontalScroll);
+    };
+  }, [measureHorizontalScroll]);
+
+  /** Vertical scroll progress → horizontal slide (Lenis-style pinned strip). */
+  const trackX = useTransform(scrollProgress, (p) => -p * trackXRange);
+
+  useEffect(() => {
+    lenisInstance?.resize();
+  }, [lenisInstance, trackXRange]);
+
+  const staticLiquidCard =
+    `${liquidFaultCardClass} bg-gradient-to-br from-canvas-white/95 via-canvas-white/80 to-harvest-cream/30`;
+
+  const headingBlock = (
+    <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 pt-14 pb-10 md:px-8 md:pt-20 md:pb-14">
+      <h2
+        id="fault-event-to-fixed-heading"
+        className={`${posterDisplay.className} text-left uppercase tracking-[-0.02em]`}
+      >
+        <span className="block text-[clamp(2.75rem,9.5vw,6.75rem)] leading-[0.9] text-deep-graphite">
+          From fault event to fixed
+        </span>
+        <span className="mt-1 block text-[clamp(2.75rem,9.5vw,6.75rem)] leading-[0.9] text-amber-glow md:mt-2">
+          In 5 minutes.
+        </span>
+      </h2>
+    </div>
+  );
 
   return (
     <section
-      ref={sectionRef}
-      className="border-b border-light-steel bg-canvas-white py-16 md:py-20"
+      className="border-b border-light-steel bg-gradient-to-b from-canvas-white via-harvest-cream/15 to-canvas-white"
       aria-labelledby="fault-event-to-fixed-heading"
     >
-      <div className="mx-auto min-h-[min(118vh,900px)] w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-        <div className="grid gap-10 md:grid-cols-12 md:items-center md:gap-10 lg:gap-14">
-          <div className="md:col-span-4 lg:col-span-3">
-            <h2
-              id="fault-event-to-fixed-heading"
-              className="max-w-[18ch] font-sans text-[clamp(1.55rem,3.2vw,2.35rem)] font-semibold leading-tight text-deep-graphite"
-            >
-              From fault event to fixed — in 5 minutes.
-            </h2>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 md:col-span-8 lg:col-span-9">
-            {fromFaultToFix.map((item, index) =>
-              reduceMotion ? (
-                <article key={item.step} className={cardClass}>
-                  <p className="font-mono text-[12px] font-semibold tabular-nums text-amber-glow">
-                    Step {item.step}
-                  </p>
-                  <h3 className="mt-2 font-sans text-[20px] font-semibold text-deep-graphite">{item.title}</h3>
-                  <p className="mt-3 font-sans text-[15px] leading-[1.62] text-muted-stone">{item.body}</p>
-                </article>
-              ) : (
-                <ScrollRevealDropCard
-                  key={item.step}
-                  index={index}
-                  total={total}
-                  scrollProgress={scrollProgress}
-                  className={`${cardClass} will-change-transform`}
-                  dropFromPx={40}
-                  initialOpacity={0.12}
-                >
-                  <p className="font-mono text-[12px] font-semibold tabular-nums text-amber-glow">
-                    Step {item.step}
-                  </p>
-                  <h3 className="mt-2 font-sans text-[20px] font-semibold text-deep-graphite">{item.title}</h3>
-                  <p className="mt-3 font-sans text-[15px] leading-[1.62] text-muted-stone">{item.body}</p>
-                </ScrollRevealDropCard>
-              ),
-            )}
+      {headingBlock}
+
+      {reduceMotion ? (
+        <div className="mx-auto grid w-full max-w-[var(--page-max-width)] grid-cols-1 gap-5 px-6 pb-20 sm:grid-cols-2 md:px-8">
+          {fromFaultToFix.map((item) => (
+            <article key={item.step} className={staticLiquidCard}>
+              <p className="font-mono text-[clamp(1.25rem,3vw,2rem)] font-bold tabular-nums text-amber-glow">
+                Step {item.step}
+              </p>
+              <h3 className="mt-3 font-sans text-[clamp(1rem,2vw,1.4rem)] font-extrabold uppercase text-deep-graphite">
+                {item.title}
+              </h3>
+              <p className="mt-3 font-sans text-[15px] font-semibold leading-[1.62] text-deep-graphite md:text-[16px]">
+                {item.body}
+              </p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div
+          ref={pinRunwayRef}
+          className="relative min-h-[min(280vh,3800px)] w-full"
+        >
+          <div className="sticky top-0 z-10 flex min-h-[100dvh] w-full flex-col justify-center overflow-hidden bg-gradient-to-b from-canvas-white/95 via-canvas-white/90 to-harvest-cream/25 py-12 md:py-16">
+            <div ref={trackWrapRef} className="w-full overflow-hidden">
+              <motion.div
+                ref={trackRef}
+                style={{ x: trackX }}
+                className="flex w-max flex-row items-stretch gap-5 px-6 md:gap-8 md:px-8"
+                aria-label="Fault to fixed steps"
+              >
+                {fromFaultToFix.map((item) => (
+                  <article
+                    key={item.step}
+                    className={`shrink-0 ${liquidFaultCardClass} w-[min(86vw,320px)] sm:w-[350px] md:w-[380px]`}
+                  >
+                    <div
+                      className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-amber-glow/15 blur-3xl md:-right-10 md:-top-10 md:h-36 md:w-36"
+                      aria-hidden
+                    />
+                    <p className="font-mono text-[clamp(1.35rem,3.4vw,2.35rem)] font-bold tabular-nums leading-none text-amber-glow">
+                      Step {item.step}
+                    </p>
+                    <h3 className="mt-3 font-sans text-[clamp(1rem,2vw,1.45rem)] font-extrabold uppercase tracking-[-0.02em] text-deep-graphite">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 font-sans text-[clamp(0.92rem,1.35vw,1rem)] font-semibold leading-[1.62] text-deep-graphite md:text-[16px]">
+                      {item.body}
+                    </p>
+                  </article>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
@@ -506,136 +360,51 @@ function IndustryCardFace({ item }: { item: IndustryCardItem }) {
   );
 }
 
-/** Two cards in one column: bottom stays anchored; top translates up over it (scroll-synced). */
-function IndustryStackPair({
-  bottomCard,
-  topCard,
-  scrollYProgress,
-  rangeStart,
-  rangeEnd,
-}: {
-  bottomCard: IndustryCardItem;
-  topCard: IndustryCardItem;
-  scrollYProgress: MotionValue<number>;
-  rangeStart: number;
-  rangeEnd: number;
-}) {
-  const reduceMotion = useReducedMotion();
-  const stackProgress = useTransform(scrollYProgress, [rangeStart, rangeEnd], [0, 1]);
-
-  const topY = useTransform(stackProgress, [0, 1], [132, 2]);
-  const bottomScale = useTransform(stackProgress, [0, 0.5, 1], [1, 0.986, 0.972]);
-  const topScale = useTransform(stackProgress, [0, 1], [0.92, 1]);
-
-  const shell =
-    "rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-6 md:p-7 will-change-transform";
-
-  if (reduceMotion) {
-    return (
-      <div className="mx-auto flex w-full max-w-[440px] flex-col gap-4">
-        <article className={`${shell} shadow-[0_22px_50px_-22px_rgba(29,30,28,0.34)]`}>
-          <IndustryCardFace item={topCard} />
-        </article>
-        <article className={`${shell} shadow-[0_12px_36px_-20px_rgba(29,30,28,0.22)]`}>
-          <IndustryCardFace item={bottomCard} />
-        </article>
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative mx-auto h-[min(380px,62vw)] w-full max-w-[440px] md:h-[420px]">
-      <motion.article
-        className={`absolute bottom-0 left-0 right-0 z-[1] origin-bottom ${shell} shadow-[0_16px_48px_-22px_rgba(29,30,28,0.26)]`}
-        style={{ scale: bottomScale }}
-      >
-        <IndustryCardFace item={bottomCard} />
-      </motion.article>
-
-      <motion.article
-        className={`absolute bottom-[52px] left-0 right-0 z-[2] origin-bottom ${shell} shadow-[0_32px_70px_-18px_rgba(29,30,28,0.42)] ring-1 ring-black/[0.07]`}
-        style={{
-          y: topY,
-          scale: topScale,
-        }}
-      >
-        <IndustryCardFace item={topCard} />
-      </motion.article>
-    </div>
-  );
-}
-
 function IndustrySegmentStacksSection() {
-  const reduceMotion = useReducedMotion();
-  const containerRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  if (reduceMotion) {
-    return (
-      <section className="border-b border-light-steel bg-harvest-cream/30 py-16 md:py-20">
-        <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-          <h2
-            id="industry-segments-heading"
-            className="font-sans text-[clamp(1.55rem,3.2vw,2.35rem)] font-semibold leading-tight text-deep-graphite"
-          >
-            Built for infrastructure that cannot fail.
-          </h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {industryCards.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-6 shadow-[0_10px_36px_-22px_rgba(29,30,28,0.22)]"
-              >
-                <IndustryCardFace item={item} />
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const segmentCardClass =
+    "flex h-full flex-col rounded-2xl border border-light-steel bg-canvas-white p-7 shadow-[0_2px_28px_-12px_rgba(29,30,28,0.12)] md:p-8";
 
   return (
     <section
-      ref={containerRef}
-      className="relative border-b border-light-steel bg-harvest-cream/30"
-      style={{ height: "clamp(220vh, 340vw, 2800px)" }}
+      className="border-b border-light-steel bg-canvas-white py-20 md:py-28"
       aria-labelledby="industry-segments-heading"
     >
-      <div className="sticky top-0 z-10 mx-auto flex min-h-[100dvh] max-w-[var(--page-max-width)] flex-col justify-center px-6 py-14 md:px-8 md:py-20">
-        <h2
-          id="industry-segments-heading"
-          className="max-w-[22ch] font-sans text-[clamp(1.55rem,3.2vw,2.35rem)] font-semibold leading-tight text-deep-graphite"
-          aria-describedby="industry-segments-desc"
-        >
-          Built for infrastructure that cannot fail.
-        </h2>
-        <p id="industry-segments-desc" className="sr-only">
-          While you scroll through this section, paired segment cards stack and overlap to show depth.
-        </p>
+      <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
+        <div className="w-full text-left">
+          <h2
+            id="industry-segments-heading"
+            className={`${posterDisplay.className} text-left uppercase tracking-[-0.02em]`}
+          >
+            <span className="block text-[clamp(2.75rem,9.5vw,6.75rem)] leading-[0.9] sm:whitespace-nowrap">
+              <span className="text-amber-glow">Built</span>{" "}
+              <span className="text-deep-graphite">for infrastructure that</span>{" "}
+              <span className="text-amber-glow">cannot fail.</span>
+            </span>
+          </h2>
+          <p className="mt-7 font-sans text-[clamp(1.2rem,2.8vw,1.85rem)] font-bold leading-[1.45] text-justify [text-align-last:left] text-deep-graphite md:mt-9 xl:whitespace-nowrap">
+            <span className="text-amber-glow">Four segments</span>{" "}
+            <span className="text-deep-graphite">we ship against today, or are </span>
+            <span className="text-amber-glow">actively deploying</span>
+            <span className="text-deep-graphite">, with the </span>
+            <span className="text-amber-glow">same dispatch core</span>
+            <span className="text-deep-graphite">.</span>
+          </p>
+        </div>
 
-        <div
-          className="mt-12 grid grid-cols-1 gap-14 md:mt-14 md:grid-cols-2 md:gap-10 lg:gap-14"
-          aria-describedby="industry-segments-desc"
-        >
-          <IndustryStackPair
-            bottomCard={industryCards[0]}
-            topCard={industryCards[1]}
-            scrollYProgress={scrollYProgress}
-            rangeStart={0.05}
-            rangeEnd={0.46}
-          />
-          <IndustryStackPair
-            bottomCard={industryCards[2]}
-            topCard={industryCards[3]}
-            scrollYProgress={scrollYProgress}
-            rangeStart={0.54}
-            rangeEnd={0.96}
-          />
+        <div className="mx-auto mt-14 grid max-w-6xl gap-8 md:mt-16 md:grid-cols-2 md:gap-x-10 md:gap-y-10">
+          {industryCards.map((item) => (
+            <article key={item.title} className={segmentCardClass}>
+              <IndustryCardFace item={item} />
+              <div className="mt-6 flex flex-1 flex-col justify-end pt-2">
+                <Link
+                  href="/solutions"
+                  className="inline-flex w-fit items-center justify-center rounded-full border border-light-steel bg-canvas-white px-5 py-2.5 font-sans text-[14px] font-medium text-deep-graphite shadow-[0_2px_12px_-4px_rgba(29,30,28,0.14)] transition-[box-shadow,background-color] hover:bg-harvest-cream/40 hover:shadow-[0_4px_18px_-6px_rgba(29,30,28,0.18)]"
+                >
+                  Learn more
+                </Link>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -647,7 +416,7 @@ export function LandingPage() {
     <main className="flex-1 overflow-x-clip bg-canvas-white">
       <section
         id="demo"
-        className="scroll-mt-28 border-b border-light-steel bg-gradient-to-b from-canvas-white to-harvest-cream/45 md:scroll-mt-32"
+        className="scroll-mt-28 border-b border-light-steel bg-canvas-white md:scroll-mt-32"
       >
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 py-16 md:px-8 md:py-20">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -684,9 +453,14 @@ export function LandingPage() {
         </div>
       </section>
 
-      <FaultResponseChallengesSection />
+      <ChallengesStickyScrollSection
+        heading={challengesSectionHeading}
+        headingFontClassName={posterDisplay.className}
+        intro={challengesSectionIntro}
+        challenges={problemNarratives}
+      />
 
-      <DispatchLoopFeaturesSection />
+      <DispatchLoopMarqueeCards />
 
       <FaultEventToFixedSection />
 
@@ -696,42 +470,8 @@ export function LandingPage() {
 
       <TestimonialsCarouselSection />
 
-      <section className="relative overflow-hidden border-b border-light-steel py-16 md:py-20">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(168deg,var(--color-canvas-white)_0%,color-mix(in_srgb,var(--color-harvest-cream)_78%,white)_38%,color-mix(in_srgb,var(--color-harvest-cream)_48%,var(--color-deep-graphite))_115%)]"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -right-[22%] -top-[18%] h-[min(580px,78vw)] w-[min(580px,78vw)] rounded-full bg-[radial-gradient(circle_at_center,rgba(228,86,42,0.24)_0%,rgba(228,86,42,0.08)_42%,transparent_70%)] blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -bottom-[36%] -left-[18%] h-[min(460px,62vw)] w-[min(460px,62vw)] rounded-full bg-[radial-gradient(circle_at_center,rgba(212,168,75,0.14)_0%,transparent_62%)] blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.22]"
-          aria-hidden
-          style={{
-            backgroundImage: `
-              repeating-linear-gradient(
-                -16deg,
-                transparent 0px,
-                transparent 72px,
-                rgba(228, 86, 42, 0.028) 72px,
-                rgba(228, 86, 42, 0.028) 73px
-              ),
-              repeating-linear-gradient(
-                74deg,
-                transparent 0px,
-                transparent 96px,
-                rgba(29, 30, 28, 0.022) 96px,
-                rgba(29, 30, 28, 0.022) 97px
-              )
-            `,
-          }}
-        />
-        <div className="relative mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
+      <section className="border-b border-light-steel bg-canvas-white py-16 md:py-20">
+        <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
           <h2 className="font-sans text-[clamp(1.55rem,3.2vw,2.35rem)] font-semibold leading-tight text-deep-graphite">
             Sits on top of your existing monitoring stack. No rip-and-replace.
           </h2>
@@ -739,23 +479,17 @@ export function LandingPage() {
             {integrationTaxonomy.map((item) => (
               <article
                 key={item.title}
-                className="group relative overflow-hidden rounded-[var(--radius-card)] border border-black/90 bg-canvas-white/10 p-6 shadow-[0_22px_44px_-24px_rgba(29,30,28,0.55),inset_0_1px_0_rgba(255,255,255,0.65),inset_0_-1px_0_rgba(0,0,0,0.12)] backdrop-blur-2xl transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_28px_54px_-24px_rgba(29,30,28,0.58),inset_0_1px_0_rgba(255,255,255,0.72),inset_0_-1px_0_rgba(0,0,0,0.14)]"
+                className="rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-6 shadow-[0_10px_36px_-22px_rgba(29,30,28,0.22)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-22px_rgba(29,30,28,0.26)]"
               >
-                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.2)_34%,rgba(255,255,255,0.08)_62%,rgba(255,255,255,0.03)_100%)]" />
-                <div className="pointer-events-none absolute -inset-10 bg-[radial-gradient(circle_at_12%_0%,rgba(255,255,255,0.52)_0%,rgba(255,255,255,0.06)_42%,transparent_72%)]" />
-                <div className="pointer-events-none absolute inset-0 opacity-70 [background:linear-gradient(115deg,transparent_28%,rgba(255,255,255,0.62)_45%,rgba(255,255,255,0.16)_57%,transparent_74%)] transition-opacity duration-300 group-hover:opacity-100" />
-                <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/95 to-transparent" />
-                <div className="relative">
-                  <h3 className="font-sans text-[19px] font-semibold text-deep-graphite">{item.title}</h3>
-                  <ul className="mt-3 space-y-2">
-                    {item.items.map((line) => (
-                      <li key={line} className="flex items-start gap-2 font-sans text-[14px] text-muted-stone">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-glow" />
-                        <span>{line}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <h3 className="font-sans text-[19px] font-semibold text-deep-graphite">{item.title}</h3>
+                <ul className="mt-3 space-y-2">
+                  {item.items.map((line) => (
+                    <li key={line} className="flex items-start gap-2 font-sans text-[14px] text-muted-stone">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-glow" />
+                      <span>{line}</span>
+                    </li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
@@ -764,7 +498,7 @@ export function LandingPage() {
 
       <section className="bg-canvas-white py-16 md:py-20">
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-          <div className="rounded-[var(--radius-card)] border border-light-steel bg-gradient-to-br from-canvas-white to-harvest-cream/40 p-8 text-center md:p-10">
+          <div className="rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-8 text-center md:p-10">
             <h2 className="font-sans text-[clamp(1.55rem,3.2vw,2.3rem)] font-semibold leading-tight text-deep-graphite">
               See a live fault dispatched in under 5 minutes.
             </h2>

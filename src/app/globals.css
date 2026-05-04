@@ -155,3 +155,25 @@ a, button, [role="button"], input, select, textarea, label, [tabindex]:not([tabi
   transition-delay: 0.15s;
   opacity: 0.2;
 }
+
+/* Homepage dispatch loop — infinite horizontal marquee (right-to-left drift) */
+@keyframes avk-dispatch-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.dispatch-loop-marquee-track {
+  animation: avk-dispatch-marquee 80s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dispatch-loop-marquee-track {
+    animation: none;
+    transform: none;
+  }
+}

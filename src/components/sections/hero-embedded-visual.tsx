@@ -4,12 +4,11 @@ import Image from "next/image";
 
 /**
  * Hero illustration from `/public/hero-home.jpeg` (export from design).
- * Keeps Harvest surfaces: cream bleed, soft border, elevated golden shadow.
  */
 export function HeroEmbeddedVisual({ className }: { className?: string }) {
   return (
     <div className={`relative w-full ${className ?? ""}`}>
-      <div className="overflow-hidden rounded-[var(--radius-card)] border border-soft-fog bg-harvest-cream shadow-[var(--shadow-lg)]">
+      <div className="overflow-hidden rounded-[var(--radius-card)] border border-soft-fog bg-canvas-white shadow-[var(--shadow-lg)]">
         <Image
           src="/hero-home.jpeg"
           alt="Avishkar AI — real-time fault dispatch for ATM and telecom infrastructure"

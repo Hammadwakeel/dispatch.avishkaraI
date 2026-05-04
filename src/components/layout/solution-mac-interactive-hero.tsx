@@ -61,6 +61,9 @@ function MacBlock({ block }: { block: DocBlock }) {
       </p>
     );
   }
+  if (block.kind === "contactChannels") {
+    return null;
+  }
 
   const list = (
     <ul className="list-none space-y-2.5 font-sans text-[10px] leading-snug text-link-gray md:text-[11px] lg:text-[12px]">

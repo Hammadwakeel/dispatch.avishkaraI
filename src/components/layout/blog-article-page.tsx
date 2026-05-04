@@ -13,6 +13,9 @@ function renderBlock(b: DocBlock, key: string) {
       </p>
     );
   }
+  if (b.kind === "contactChannels") {
+    return null;
+  }
 
   const list = (
     <ul className="list-none space-y-3 font-sans text-[15px] leading-[1.55] text-deep-graphite md:text-[16px]">

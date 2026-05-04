@@ -26,6 +26,24 @@ const staggerChild = {
 /** Scroll distance multiplier for sticky story (per card). */
 const SVH_PER_CARD = 72;
 
+function ContactChannelsBlock({ block }: { block: Extract<DocBlock, { kind: "contactChannels" }> }) {
+  return (
+    <dl className="space-y-3 font-sans text-[15px] leading-[1.55] text-link-gray md:text-[16px]">
+      {block.entries.map((e) => (
+        <div key={e.email}>
+          <dt className="inline font-semibold text-deep-graphite">{e.label}:</dt>{" "}
+          <dd className="inline">
+            <a href={`mailto:${e.email}`} className="text-amber-glow underline-offset-2 hover:underline">
+              {e.email}
+            </a>
+            {e.suffix ? <span className="text-muted-stone"> {e.suffix}</span> : null}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 function DocBlocks({ blocks }: { blocks: DocBlock[] }) {
   return (
     <div className="flex flex-col gap-5">
@@ -39,6 +57,9 @@ function DocBlocks({ blocks }: { blocks: DocBlock[] }) {
               {b.text}
             </p>
           );
+        }
+        if (b.kind === "contactChannels") {
+          return <ContactChannelsBlock key={i} block={b} />;
         }
         const list = (
           <ul className="list-disc space-y-2 pl-5 font-sans text-[15px] leading-[1.55] text-link-gray md:text-[16px]">

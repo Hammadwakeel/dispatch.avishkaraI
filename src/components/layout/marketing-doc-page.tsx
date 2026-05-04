@@ -22,6 +22,22 @@ export function MarketingDocPage({
 
   const heroCardClass = boxedSections ? "w-full" : "";
 
+  const renderContactChannels = (b: Extract<DocBlock, { kind: "contactChannels" }>, blockKey: string) => (
+    <dl key={blockKey} className="space-y-3 font-sans text-[15px] leading-[1.55] text-link-gray md:text-[16px]">
+      {b.entries.map((e) => (
+        <div key={e.email}>
+          <dt className="inline font-semibold text-deep-graphite">{e.label}:</dt>{" "}
+          <dd className="inline">
+            <a href={`mailto:${e.email}`} className="text-amber-glow underline-offset-2 hover:underline">
+              {e.email}
+            </a>
+            {e.suffix ? <span className="text-muted-stone"> {e.suffix}</span> : null}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+
   const renderList = (b: Extract<DocBlock, { kind: "ul" }>, blockKey: string) => {
     const list = (
       <ul className="list-disc space-y-2 pl-5 font-sans text-[15px] leading-[1.55] text-link-gray md:text-[16px]">
@@ -98,6 +114,9 @@ export function MarketingDocPage({
                           {b.text}
                         </p>
                       );
+                    }
+                    if (b.kind === "contactChannels") {
+                      return renderContactChannels(b, `${sec.heading}-${i}`);
                     }
                     return renderList(b, `${sec.heading}-${i}`);
                   })}

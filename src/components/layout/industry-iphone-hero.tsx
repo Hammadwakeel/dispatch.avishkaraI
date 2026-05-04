@@ -51,6 +51,9 @@ function IOSBlock({ block }: { block: DocBlock }) {
       </p>
     );
   }
+  if (block.kind === "contactChannels") {
+    return null;
+  }
 
   const list = (
     <ul className="space-y-3">

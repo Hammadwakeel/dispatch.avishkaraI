@@ -4,7 +4,7 @@ export function TestimonialsCarouselSection() {
   return (
     <section
       id="testimonials"
-      className="relative scroll-mt-28 border-t border-light-steel bg-gradient-to-b from-canvas-white to-harvest-cream/35 py-16 md:scroll-mt-32 md:py-20"
+      className="relative scroll-mt-28 border-t border-light-steel bg-canvas-white py-16 md:scroll-mt-32 md:py-20"
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
