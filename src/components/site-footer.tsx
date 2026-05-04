@@ -1,14 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Anton } from "next/font/google";
 import type { ReactNode } from "react";
 import { blogCategoryLinks, companyLinks, productLinks, solutionLinks } from "@/config/site-navigation";
-
-const footerCtaDisplay = Anton({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
+import { posterDisplay } from "@/lib/poster-font";
 
 const footerResourceLinks: { label: string; href: string }[] = [
   { label: "Resources hub", href: "/resources" },
@@ -52,7 +46,7 @@ export function SiteFooter() {
       {/* CTA band — headline + primary / outline buttons */}
       <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 pb-12 pt-14 md:px-8 md:pb-14 md:pt-16">
         <h2
-          className={`${footerCtaDisplay.className} max-w-[min(100%,48rem)] text-left font-bold uppercase leading-[0.95] tracking-[-0.02em] text-white`}
+          className={`${posterDisplay.className} max-w-[min(100%,48rem)] text-left font-bold uppercase leading-[0.95] tracking-[-0.02em] text-white`}
         >
           <span className="block text-[clamp(2.15rem,6vw,4rem)]">
             Get advanced tools to run{" "}

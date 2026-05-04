@@ -11,11 +11,11 @@ import {
 } from "framer-motion";
 import type Lenis from "lenis";
 import { useLenis } from "lenis/react";
-import { Anton } from "next/font/google";
 import Link from "next/link";
+import { posterDisplay } from "@/lib/poster-font";
 import { type ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ChallengesStickyScrollSection } from "@/components/sections/challenges-sticky-scroll-section";
-import { DispatchLoopMarqueeCards } from "@/components/sections/dispatch-loop-marquee-cards";
+import { DispatchGlobeSection } from "@/components/sections/dispatch-globe-section";
 import { TestimonialsCarouselSection } from "./testimonials-carousel-section";
 
 /** Homepage problem tabs — update/avishkar_complete_copy_replacement.md.pdf */
@@ -65,13 +65,6 @@ const challengesSectionIntro = (
     </span>
   </>
 );
-
-/** Condensed poster caps (Anton) — fault section + challenges headline. */
-const posterDisplay = Anton({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
 
 const fromFaultToFix = [
   {
@@ -246,6 +239,48 @@ const integrationTaxonomy = [
     items: ["CRM Platforms", "Compliance Dashboards", "SLA Tracking Tools"],
   },
 ] as const;
+
+type IntegrationCluster = (typeof integrationTaxonomy)[number];
+
+const integrationCardBorder = "border-deep-graphite/35";
+
+/** Leading word(s) in amber — remainder graphite — for titles & bullets. */
+function AccentLeadingWord({ text }: { text: string }) {
+  const i = text.indexOf(" ");
+  if (i === -1) {
+    return <span className="text-amber-glow">{text}</span>;
+  }
+  return (
+    <>
+      <span className="text-amber-glow">{text.slice(0, i)}</span>
+      <span className="text-deep-graphite">{text.slice(i)}</span>
+    </>
+  );
+}
+
+function IntegrationClusterCard({ item, className }: { item: IntegrationCluster; className?: string }) {
+  return (
+    <article
+      className={`relative z-20 flex h-full flex-col rounded-[var(--radius-card)] bg-canvas-white p-7 md:p-8 ${className ?? ""}`}
+    >
+      <h3
+        className={`${posterDisplay.className} text-[clamp(1.05rem,2.2vw,1.45rem)] font-normal uppercase leading-snug tracking-[-0.02em]`}
+      >
+        <AccentLeadingWord text={item.title} />
+      </h3>
+      <ul className="mt-4 flex flex-1 flex-col space-y-3 md:mt-5 md:space-y-3.5">
+        {item.items.map((line) => (
+          <li key={line} className="flex items-start gap-3 font-sans text-[clamp(0.98rem,1.85vw,1.18rem)] font-bold leading-snug">
+            <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-glow" aria-hidden />
+            <span>
+              <AccentLeadingWord text={line} />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
 
 /** Leading integer + optional suffix (e.g. "5 min", "2"). Returns null for non-numeric metrics like "APAC". */
 function parseNumericProofMetric(metric: string): { target: number; suffix: string } | null {
@@ -461,7 +496,9 @@ function FaultEventToFixedSection() {
               <p className="font-mono text-[clamp(1.25rem,3vw,2rem)] font-bold tabular-nums text-amber-glow">
                 Step {item.step}
               </p>
-              <h3 className="mt-3 font-sans text-[clamp(1rem,2vw,1.4rem)] font-extrabold uppercase text-deep-graphite">
+              <h3
+                className={`${posterDisplay.className} mt-3 text-[clamp(0.95rem,2vw,1.35rem)] font-normal uppercase leading-snug tracking-[-0.02em] text-deep-graphite`}
+              >
                 {item.title}
               </h3>
               <p className="mt-3 font-sans text-[15px] font-semibold leading-[1.62] text-deep-graphite md:text-[16px]">
@@ -495,7 +532,9 @@ function FaultEventToFixedSection() {
                     <p className="font-mono text-[clamp(1.35rem,3.4vw,2.35rem)] font-bold tabular-nums leading-none text-amber-glow">
                       Step {item.step}
                     </p>
-                    <h3 className="mt-3 font-sans text-[clamp(1rem,2vw,1.45rem)] font-extrabold uppercase tracking-[-0.02em] text-deep-graphite">
+                    <h3
+                      className={`${posterDisplay.className} mt-3 text-[clamp(0.95rem,2vw,1.4rem)] font-normal uppercase leading-snug tracking-[-0.02em] text-deep-graphite`}
+                    >
                       {item.title}
                     </h3>
                     <p className="mt-3 font-sans text-[clamp(0.92rem,1.35vw,1rem)] font-semibold leading-[1.62] text-deep-graphite md:text-[16px]">
@@ -516,7 +555,9 @@ function IndustryCardFace({ item }: { item: IndustryCardItem }) {
   return (
     <>
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <h3 className="font-sans text-[clamp(1.45rem,3vw,2.05rem)] font-extrabold leading-[1.08] tracking-[-0.02em] text-deep-graphite">
+        <h3
+          className={`${posterDisplay.className} text-[clamp(1.15rem,3vw,1.9rem)] font-normal uppercase leading-[1.05] tracking-[-0.02em] text-deep-graphite`}
+        >
           {item.title}
         </h3>
         <span className="shrink-0 rounded-full border-2 border-amber-glow/45 bg-amber-glow/12 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-amber-glow md:text-[12px]">
@@ -770,7 +811,7 @@ export function LandingPage() {
         challenges={problemNarratives}
       />
 
-      <DispatchLoopMarqueeCards />
+      <DispatchGlobeSection />
 
       <FaultEventToFixedSection />
 
@@ -782,26 +823,62 @@ export function LandingPage() {
 
       <section className="border-b border-light-steel bg-canvas-white py-16 md:py-20">
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-          <h2 className="font-sans text-[clamp(1.55rem,3.2vw,2.35rem)] font-semibold leading-tight text-deep-graphite">
-            Sits on top of your existing monitoring stack. No rip-and-replace.
+          <h2 className={`${posterDisplay.className} max-w-[min(100%,52rem)] text-left uppercase tracking-[-0.02em]`}>
+            <span className="block text-[clamp(1.85rem,5vw,3.35rem)] leading-[0.95]">
+              <span className="text-deep-graphite">Sits on top of your </span>
+              <span className="text-amber-glow">existing</span>
+              <span className="text-deep-graphite"> </span>
+              <span className="text-amber-glow">monitoring stack.</span>
+            </span>
+            <span className="mt-2 block text-[clamp(1.85rem,5vw,3.35rem)] leading-[0.95] md:mt-3">
+              <span className="text-deep-graphite">No </span>
+              <span className="text-amber-glow">rip-and-replace.</span>
+            </span>
           </h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {integrationTaxonomy.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-6 shadow-[0_10px_36px_-22px_rgba(29,30,28,0.22)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-22px_rgba(29,30,28,0.26)]"
-              >
-                <h3 className="font-sans text-[19px] font-semibold text-deep-graphite">{item.title}</h3>
-                <ul className="mt-3 space-y-2">
-                  {item.items.map((line) => (
-                    <li key={line} className="flex items-start gap-2 font-sans text-[14px] text-muted-stone">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-glow" />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+
+          {/* Mobile: four stacked panels with strong dividers */}
+          <div
+            className={`mt-11 overflow-hidden rounded-[var(--radius-card)] border-2 ${integrationCardBorder} bg-canvas-white md:hidden`}
+          >
+            <IntegrationClusterCard
+              item={integrationTaxonomy[0]}
+              className="rounded-none border-0 shadow-none ring-0"
+            />
+            <IntegrationClusterCard
+              item={integrationTaxonomy[1]}
+              className={`rounded-none border-0 border-t-2 ${integrationCardBorder} shadow-none ring-0`}
+            />
+            <IntegrationClusterCard
+              item={integrationTaxonomy[2]}
+              className={`rounded-none border-0 border-t-2 ${integrationCardBorder} shadow-none ring-0`}
+            />
+            <IntegrationClusterCard
+              item={integrationTaxonomy[3]}
+              className={`rounded-none border-0 border-t-2 ${integrationCardBorder} shadow-none ring-0`}
+            />
+          </div>
+
+          {/* md+: 2×2 grid; borders meet at center (no overlay glyph) */}
+          <div className="relative mx-auto mt-11 hidden max-w-6xl md:mt-14 md:block lg:max-w-7xl">
+            <div
+              className={`relative overflow-hidden rounded-[var(--radius-card)] border-2 ${integrationCardBorder} bg-canvas-white`}
+            >
+              <div className="relative z-10 grid grid-cols-2">
+                <IntegrationClusterCard
+                  item={integrationTaxonomy[0]}
+                  className={`rounded-none border-0 border-r-2 border-b-2 ${integrationCardBorder} shadow-none ring-0`}
+                />
+                <IntegrationClusterCard
+                  item={integrationTaxonomy[1]}
+                  className={`rounded-none border-0 border-b-2 ${integrationCardBorder} shadow-none ring-0`}
+                />
+                <IntegrationClusterCard
+                  item={integrationTaxonomy[2]}
+                  className={`rounded-none border-0 border-r-2 ${integrationCardBorder} shadow-none ring-0`}
+                />
+                <IntegrationClusterCard item={integrationTaxonomy[3]} className="rounded-none border-0 shadow-none ring-0" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -809,8 +886,11 @@ export function LandingPage() {
       <section className="bg-canvas-white py-16 md:py-20">
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
           <div className="rounded-[var(--radius-card)] border border-light-steel bg-canvas-white p-8 text-center md:p-10">
-            <h2 className="font-sans text-[clamp(1.55rem,3.2vw,2.3rem)] font-semibold leading-tight text-deep-graphite">
-              See a live fault dispatched in under 5 minutes.
+            <h2 className={`${posterDisplay.className} uppercase tracking-[-0.02em] text-deep-graphite`}>
+              <span className="block text-[clamp(1.45rem,3.5vw,2.55rem)] leading-[1.02]">
+                See a live fault dispatched in under{" "}
+                <span className="text-amber-glow">5 minutes.</span>
+              </span>
             </h2>
             <p className="mx-auto mt-4 max-w-[62ch] font-sans text-[15px] leading-[1.65] text-muted-stone md:text-[16px]">
               We’ll show you exactly how Avishkar detects a fault, assigns an engineer, coordinates parts, and closes the ticket — on your infrastructure type. No slides. No generic demo. Your use case.

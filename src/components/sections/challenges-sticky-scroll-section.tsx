@@ -79,6 +79,18 @@ function challengesIntroClassName(headingFontClassName?: string, darkSurface?: b
   return "mt-7 w-full text-left font-sans text-[18px] font-semibold leading-[1.65] text-muted-stone md:mt-8 md:text-[20px]";
 }
 
+/** Match homepage poster (Anton) for challenge titles when `headingFontClassName` is passed. */
+function challengeItemTitleClass(
+  headingFontClassName: string | undefined,
+  sizeClass: string,
+  colorClass: string,
+) {
+  if (headingFontClassName) {
+    return `${headingFontClassName} font-normal uppercase tracking-[-0.02em] ${sizeClass} ${colorClass}`;
+  }
+  return `font-sans font-bold ${sizeClass} ${colorClass}`;
+}
+
 export function ChallengesStickyScrollSection({
   sectionId = "fault-response-challenges",
   headingId = "fault-response-challenges-heading",
@@ -139,7 +151,13 @@ export function ChallengesStickyScrollSection({
                   <span className="text-deep-graphite">Challenge</span>{" "}
                   <span className="text-amber-glow">{String(i + 1).padStart(2, "0")}</span>
                 </p>
-                <h3 className="mt-4 font-sans text-[24px] font-bold leading-snug text-deep-graphite md:text-[26px]">
+                <h3
+                  className={challengeItemTitleClass(
+                    headingFontClassName,
+                    "mt-4 text-[24px] leading-snug md:text-[26px]",
+                    "text-deep-graphite",
+                  )}
+                >
                   {item.title}
                 </h3>
                 <p className="mt-4 font-sans text-[18px] font-semibold leading-[1.65] text-deep-graphite md:text-[19px]">
@@ -192,7 +210,13 @@ export function ChallengesStickyScrollSection({
                   <span className="text-deep-graphite">Challenge</span>{" "}
                   <span className="text-amber-glow">{String(i + 1).padStart(2, "0")}</span>
                 </p>
-                <h3 className="mt-2 font-sans text-[22px] font-bold leading-snug text-deep-graphite md:text-[24px]">
+                <h3
+                  className={challengeItemTitleClass(
+                    headingFontClassName,
+                    "mt-2 text-[22px] leading-snug md:text-[24px]",
+                    "text-deep-graphite",
+                  )}
+                >
                   {item.title}
                 </h3>
                 <p className="mt-3 font-sans text-[18px] font-semibold leading-[1.65] text-deep-graphite">{item.body}</p>
@@ -218,7 +242,13 @@ export function ChallengesStickyScrollSection({
                     <span className="h-1.5 w-1.5 rounded-full bg-amber-glow" aria-hidden />
                     Challenges
                   </p>
-                  <p className="mt-6 font-sans text-[clamp(1.25rem,2.4vw,1.6rem)] font-bold leading-snug text-deep-graphite transition-opacity duration-300 ease-out">
+                  <p
+                    className={`mt-6 transition-opacity duration-300 ease-out ${challengeItemTitleClass(
+                      headingFontClassName,
+                      "text-[clamp(1.15rem,2.4vw,1.55rem)] leading-snug",
+                      "text-deep-graphite",
+                    )}`}
+                  >
                     {activeChallenge?.title}
                   </p>
 
@@ -262,9 +292,11 @@ export function ChallengesStickyScrollSection({
                         </span>
                       </p>
                       <h3
-                        className={`mt-3 font-sans text-[clamp(1.45rem,2.8vw,2.15rem)] font-bold leading-snug transition-colors duration-300 ease-out ${
-                          isActive ? ink : inkSoft
-                        }`}
+                        className={`mt-3 transition-colors duration-300 ease-out ${challengeItemTitleClass(
+                          headingFontClassName,
+                          "text-[clamp(1.35rem,2.8vw,2.05rem)] leading-snug",
+                          isActive ? ink : inkSoft,
+                        )}`}
                       >
                         {item.title}
                       </h3>
