@@ -6,43 +6,28 @@ import type { LucideIcon } from "lucide-react";
 import {
   BookMarked,
   BookOpen,
-  Briefcase,
   Building,
-  Building2,
-  Calculator,
   Camera,
   ChevronDown,
   ChevronRight,
-  Droplets,
   Factory,
   FileText,
   Gauge,
-  Handshake,
-  Home,
   Landmark,
   LayoutDashboard,
   LayoutGrid,
   Mail,
   Megaphone,
   Menu,
-  Newspaper,
-  Phone,
-  Scale,
-  Siren,
-  Sparkles,
   Thermometer,
   TrendingUp,
-  Users,
-  Video,
   Waypoints,
   X,
-  Zap,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
 import {
   headerDropdowns,
-  pricingNavItem,
   type MegaMenuIconId,
   type NavDropdown,
   type NavLink,
@@ -50,33 +35,19 @@ import {
 
 const megaIconMap: Record<MegaMenuIconId, LucideIcon> = {
   "layout-dashboard": LayoutDashboard,
-  phone: Phone,
   camera: Camera,
   gauge: Gauge,
   waypoints: Waypoints,
   "layout-grid": LayoutGrid,
-  thermometer: Thermometer,
-  droplets: Droplets,
-  zap: Zap,
-  home: Home,
-  "building-2": Building2,
-  siren: Siren,
   factory: Factory,
   landmark: Landmark,
+  thermometer: Thermometer,
   "book-open": BookOpen,
-  sparkles: Sparkles,
   "trending-up": TrendingUp,
   "file-text": FileText,
   megaphone: Megaphone,
   "book-marked": BookMarked,
-  calculator: Calculator,
-  scale: Scale,
-  video: Video,
   building: Building,
-  users: Users,
-  briefcase: Briefcase,
-  handshake: Handshake,
-  newspaper: Newspaper,
   mail: Mail,
 };
 
@@ -90,9 +61,6 @@ const barSheen = (
     <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.92)_42%,rgba(255,255,255,0.92)_58%,transparent)] opacity-90" />
   </>
 );
-
-const homeJumpLinkClass =
-  "shrink-0 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-sans text-[14px] font-normal text-deep-graphite/90 transition-colors hover:bg-white/35 hover:text-amber-glow md:px-4 md:py-2 md:text-[15px]";
 
 function MegaNavTile({ item, onPick }: { item: NavLink; onPick: () => void }) {
   const Icon: LucideIcon = item.icon ? megaIconMap[item.icon] : LayoutGrid;
@@ -295,29 +263,15 @@ export function SiteHeader() {
               {headerDropdowns.map((d) => (
                 <DesktopMegaNavDropdown key={d.label} dropdown={d} />
               ))}
-              <span
-                className="hidden h-6 w-px shrink-0 bg-light-steel/80 sm:block md:mx-1 lg:mx-1.5"
-                aria-hidden
-              />
-              <Link href={pricingNavItem.href} className={homeJumpLinkClass}>
-                {pricingNavItem.label}
-              </Link>
             </nav>
 
             <div className="flex shrink-0 items-center gap-2 md:gap-3">
-              <Link
-                href="/company/contact"
-                className="hidden items-center justify-center whitespace-nowrap rounded-[var(--radius-ui)] border border-white/55 bg-white/35 px-4 py-2 font-sans text-[13px] font-medium text-deep-graphite shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-md transition-[border-color,background-color,color] hover:border-amber-glow/35 hover:bg-white/45 hover:text-amber-glow sm:inline-flex md:px-5 md:py-2.5 md:text-[14px] lg:text-[15px]"
-                style={{ transitionDuration: "var(--transition-interactive)" }}
-              >
-                Get started
-              </Link>
               <Link
                 href="/#demo"
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-ui)] bg-gradient-to-r from-amber-glow to-[#c2410c] px-4 py-2 font-sans text-[13px] font-semibold text-canvas-white shadow-[0_8px_24px_-8px_rgba(234,88,12,0.45)] hover:brightness-[1.05] md:px-5 md:py-2.5 md:text-[14px] lg:text-[15px]"
                 style={{ transitionDuration: "var(--transition-interactive)" }}
               >
-                Book demo
+                Book Demo
               </Link>
 
               <button
@@ -373,27 +327,13 @@ export function SiteHeader() {
                     </div>
                   </details>
                 ))}
-                <Link
-                  href={pricingNavItem.href}
-                  className="rounded-xl px-3 py-3.5 font-sans text-[15px] text-deep-graphite transition-colors hover:bg-white/35 hover:text-amber-glow"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {pricingNavItem.label}
-                </Link>
                 <div className="mt-3 flex flex-col gap-3 border-t border-light-steel/60 pt-4">
-                  <Link
-                    href="/company/contact"
-                    className="inline-flex items-center justify-center rounded-[var(--radius-ui)] border border-white/55 bg-white/35 px-4 py-3 font-sans text-[14px] font-medium text-deep-graphite hover:border-amber-glow/30 hover:text-amber-glow"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    Get started
-                  </Link>
                   <Link
                     href="/#demo"
                     className="inline-flex items-center justify-center rounded-[var(--radius-ui)] bg-gradient-to-r from-amber-glow to-[#c2410c] px-4 py-3 font-sans text-[14px] font-semibold text-canvas-white shadow-[0_8px_24px_-8px_rgba(234,88,12,0.4)]"
                     onClick={() => setMobileOpen(false)}
                   >
-                    Book demo
+                    Book Demo
                   </Link>
                 </div>
               </nav>

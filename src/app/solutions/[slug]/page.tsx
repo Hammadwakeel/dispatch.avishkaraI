@@ -20,15 +20,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   if (!isSolutionSlug(slug)) {
-    return { title: "Solution | Avishkar AI" };
+    return { title: "Solution" };
   }
   const pageDoc = solutionDocPages[slug];
   if (!pageDoc) {
-    return { title: "Solution | Avishkar AI" };
+    return { title: "Solution" };
   }
+  const ogTitle = `${pageDoc.heroTitle} | Avishkar AI`;
   return {
-    title: `${pageDoc.heroTitle} | Avishkar AI`,
+    title: pageDoc.heroTitle,
     description: pageDoc.heroSubtitle,
+    openGraph: { title: ogTitle, description: pageDoc.heroSubtitle },
+    twitter: { title: ogTitle, description: pageDoc.heroSubtitle },
   };
 }
 

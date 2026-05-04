@@ -79,7 +79,7 @@ const TABS: Tab[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Planning notes and calendar on a desk",
-    learnMoreHref: "/products/fsm-platform?focus=scheduling-engine",
+    learnMoreHref: "/products/fsm-platform?focus=fault-ingestion",
   },
   {
     id: "voice",
@@ -94,11 +94,12 @@ const TABS: Tab[] = [
         {" that actually books jobs"}
       </>
     ),
-    teaser: "AI that answers, qualifies, and books—explore conversation and booking flows on the Voice Agent product page.",
+    teaser:
+      "Voice and messaging intake folds into the same dispatch queue—see fault ingestion and triage on the platform product page.",
     imageSrc:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Smartphone on a desk representing customer voice channels",
-    learnMoreHref: "/products/ai-voice-agent?focus=conversation-intelligence",
+    learnMoreHref: "/products/fsm-platform?focus=fault-ingestion",
   },
   {
     id: "mobile",
@@ -117,7 +118,7 @@ const TABS: Tab[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Hand holding a phone showing a mobile field app",
-    learnMoreHref: "/products/fsm-platform?focus=dispatch-board",
+    learnMoreHref: "/products/fsm-platform?focus=engineer-assignment",
   },
   {
     id: "portal",
@@ -128,7 +129,7 @@ const TABS: Tab[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Customer using a laptop for self-service and account access",
-    learnMoreHref: "/products/fsm-platform?focus=customer-and-job-management",
+    learnMoreHref: "/products/fsm-platform?focus=real-time-follow-up",
   },
   {
     id: "inventory",
@@ -147,7 +148,7 @@ const TABS: Tab[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Warehouse logistics and pallet inventory",
-    learnMoreHref: "/products/fsm-platform?focus=customer-and-job-management",
+    learnMoreHref: "/products/fsm-platform?focus=parts-orchestration",
   },
   {
     id: "predictive",
@@ -165,7 +166,7 @@ const TABS: Tab[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Technician inspecting industrial equipment for predictive maintenance",
-    learnMoreHref: "/products/fsm-platform?focus=reporting-and-analytics",
+    learnMoreHref: "/products/fsm-platform?focus=analytics",
   },
   {
     id: "bi",
@@ -183,7 +184,7 @@ const TABS: Tab[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Analytics dashboard on a screen",
-    learnMoreHref: "/products/fsm-platform?focus=reporting-and-analytics",
+    learnMoreHref: "/products/fsm-platform?focus=analytics",
   },
 ];
 

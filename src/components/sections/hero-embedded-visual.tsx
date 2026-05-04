@@ -12,7 +12,7 @@ export function HeroEmbeddedVisual({ className }: { className?: string }) {
       <div className="overflow-hidden rounded-[var(--radius-card)] border border-soft-fog bg-harvest-cream shadow-[var(--shadow-lg)]">
         <Image
           src="/hero-home.jpeg"
-          alt="AvishkarAI dispatch workspace: live routes, next assignment, stops, and fleet map."
+          alt="Avishkar AI — real-time fault dispatch for ATM and telecom infrastructure"
           width={2400}
           height={1800}
           priority

@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { solutionLinks } from "@/config/site-navigation";
+
+export const metadata: Metadata = {
+  title: "Solutions",
+  description:
+    "ATM networks, telecom towers, medical devices — fault intake through compliant closure. Same dispatch discipline backing 45 minutes to 5 minutes and India deployments.",
+};
 
 export default function SolutionsHubPage() {
   const cards = solutionLinks;
@@ -21,21 +28,19 @@ export default function SolutionsHubPage() {
           </p>
           <div className="hidden lg:block" aria-hidden />
           <h1 className="min-w-0 text-left font-serif text-[clamp(1.85rem,4vw,2.75rem)] font-normal leading-[1.1] tracking-[-0.04em] text-deep-graphite md:text-[44px]">
-            AI solutions for every field service operation
+            Solutions for uptime-critical infrastructure
           </h1>
           <p className="min-w-0 text-left font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px]">
-            Whether you&apos;re running a five-truck operation or a five-hundred-tech
-            enterprise, Avishkar AI applies the same intelligence stack—tuned for your
-            trade, your contracts, and how your teams actually work.
+            ATM fleets, telecom towers, and regulated medical devices share one burden: faults cannot wait on fragmented tooling.
+            Each playbook below aligns intake, dispatch, evidence, and closure with how Avishkar AI ships in production.
           </p>
         </div>
 
         <h2 className="mt-14 text-center font-serif text-[22px] font-normal text-deep-graphite md:mt-16 md:text-[24px]">
-          By trade & program
+          By operating environment
         </h2>
         <p className="mx-auto mt-4 max-w-[56ch] text-center font-mono text-[14px] leading-relaxed text-muted-stone">
-          Content on each page is aligned with our core website brief—challenges, AI
-          capabilities, and how Avishkar AI fits your workflows.
+          Each solution page covers fault realities on the ground, what AI-native dispatch automates, and how modules plug into your compliance posture.
         </p>
 
         <ul className="mt-10 grid list-none grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
@@ -72,13 +77,6 @@ export default function SolutionsHubPage() {
             </li>
           ))}
         </ul>
-
-        <Link
-          href="/"
-          className="mt-14 inline-block font-sans text-[14px] font-semibold text-amber-glow underline decoration-soft-fog underline-offset-[6px] hover:text-deep-graphite md:mt-16"
-        >
-          ← Back to home
-        </Link>
       </div>
     </main>
   );

@@ -500,14 +500,7 @@ export function PricingFromDoc() {
               >
                 Inputs such as technician count, jobs per tech, dispatch minutes per job, ticket size,
                 first-time fix rate, and CSAT feed an ROI model—outputs include annual time saved, revenue
-                uplift, and months to payback. See the{" "}
-                <Link
-                  href="/resources/roi-calculator"
-                  className="font-semibold text-amber-glow underline decoration-amber-glow/40 underline-offset-[5px] transition-colors hover:text-deep-graphite hover:decoration-deep-graphite/30"
-                >
-                  ROI calculator
-                </Link>{" "}
-                page for the full variable list, or book a demo for a tailored model.
+                uplift, and months to payback. Our team can walk through inputs with your fleet metrics—or skip straight to a tailored demo.
               </motion.p>
 
               <motion.div
@@ -519,10 +512,10 @@ export function PricingFromDoc() {
               >
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
-                    href="/resources/roi-calculator"
+                    href="/company/contact"
                     className="inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-[var(--radius-ui)] bg-amber-glow px-7 font-sans text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] transition-[filter] hover:brightness-[1.05] sm:w-auto sm:min-w-[14rem]"
                   >
-                    Open ROI calculator
+                    Contact sales for modeling
                     <ArrowRight className="size-4 shrink-0" strokeWidth={2} aria-hidden />
                   </Link>
                 </motion.div>

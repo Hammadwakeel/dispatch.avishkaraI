@@ -282,9 +282,9 @@ export function IndustryIPhoneHero({
     >
       <div className="sticky top-20 z-[1] py-10 md:top-24 md:py-12 lg:top-28 lg:py-14">
         <div className="mx-auto w-full max-w-[var(--page-max-width)] px-4 sm:px-6 md:px-8">
-          <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-[1fr_280px] lg:gap-6 xl:gap-8">
+          <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:items-center lg:gap-12 xl:gap-16">
             {/* Left side - Text and tabs */}
-            <div className="flex min-h-0 w-full min-w-0 flex-col justify-center text-left">
+            <div className="flex min-h-0 w-full min-w-0 flex-col justify-center text-left lg:max-w-xl xl:max-w-2xl">
               {doc.eyebrow ? (
                 <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ff9500]">
                   {doc.eyebrow}
@@ -301,8 +301,8 @@ export function IndustryIPhoneHero({
               {tabNav}
             </div>
 
-            {/* Right side - Half iPhone */}
-            <div className="flex min-h-0 w-full items-center justify-center lg:justify-end">
+            {/* Right side - Half iPhone (centered in column for symmetry) */}
+            <div className="flex min-h-0 w-full items-center justify-center">
               {iphone}
             </div>
           </div>

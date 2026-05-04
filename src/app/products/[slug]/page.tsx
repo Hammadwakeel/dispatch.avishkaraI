@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MarketingDocPage } from "@/components/layout/marketing-doc-page";
 import {
@@ -8,6 +9,28 @@ import { productDocPages } from "@/content/doc-products";
 
 export function generateStaticParams() {
   return PRODUCT_SLUGS.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  if (!isProductSlug(slug)) {
+    return { title: "Product" };
+  }
+  const doc = productDocPages[slug];
+  if (!doc) {
+    return { title: "Product" };
+  }
+  const title = `${doc.heroTitle} | Avishkar AI`;
+  return {
+    title: doc.heroTitle,
+    description: doc.heroSubtitle,
+    openGraph: { title, description: doc.heroSubtitle },
+    twitter: { title, description: doc.heroSubtitle },
+  };
 }
 
 export default async function ProductDetailPage({
@@ -28,7 +51,6 @@ export default async function ProductDetailPage({
     <MarketingDocPage
       doc={pageDoc}
       boxedSections
-      hideBackLink
       initialMacFocus={initialMacFocus}
     />
   );

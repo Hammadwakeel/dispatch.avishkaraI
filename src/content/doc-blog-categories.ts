@@ -2,28 +2,6 @@ import type { DocPage } from "./types";
 
 /** Source: docs/avishkar-ai-website-content.docx — Blog content strategy */
 export const blogCategoryDocPages: Record<string, DocPage> = {
-  "ai-insights": {
-    eyebrow: "Blog",
-    heroTitle: "AI & technology",
-    heroSubtitle:
-      "Deep dives on neural scheduling, voice AI, computer vision, and predictive maintenance in field service.",
-    sections: [
-      {
-        heading: "Featured themes",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "How neural networks are replacing traditional scheduling",
-              "The evolution of voice AI in field service",
-              "Computer vision for service quality assurance",
-              "Predictive maintenance: from reactive to proactive",
-            ],
-          },
-        ],
-      },
-    ],
-  },
   "industry-trends": {
     eyebrow: "Blog",
     heroTitle: "Industry insights",

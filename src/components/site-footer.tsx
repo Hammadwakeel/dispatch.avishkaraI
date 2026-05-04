@@ -4,14 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { companyLinks, pricingNavItem, productLinks, solutionLinks } from "@/config/site-navigation";
 
+/** PDF footer: Blog, Documentation, API Docs (+ hub link for discovery). */
 const footerResourceLinks: { label: string; href: string }[] = [
+  { label: "Resources hub", href: "/resources" },
   { label: "Blog", href: "/resources/blog" },
   { label: "Documentation", href: "/resources/documentation" },
   { label: "API docs", href: "/resources/documentation" },
-  { label: "ROI calculator", href: "/resources/roi-calculator" },
-  { label: "Comparison guide", href: "/resources/comparison-guide" },
-  { label: "Webinars & events", href: "/resources/webinars" },
-  { label: "Case studies", href: "/resources/blog/case-studies" },
 ];
 
 export function SiteFooter() {
@@ -35,7 +33,7 @@ export function SiteFooter() {
               />
             </Link>
             <p className="mt-4 max-w-[32ch] font-sans text-[14px] leading-relaxed text-muted-stone">
-              Flagship brand of Anjaneya AI Technologies Pvt Ltd—AI-native field service management for operators worldwide.
+              AI-native dispatch for critical infrastructure — ATMs, towers, and medical devices.
             </p>
             <p className="mt-4 font-sans text-[13px] text-link-gray">
               <a href="mailto:hello@avishkar.ai" className="text-amber-glow hover:underline">

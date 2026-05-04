@@ -1,38 +1,24 @@
 /**
  * Single source of truth for marketing header routes.
- * See docs/FOLDER_STRUCTURE.md for the full site map diagram.
+ * Aligned with update/avishkar_complete_copy_replacement.md.pdf
  */
 
 /** Lucide icon keys mapped in `SiteHeader` for mega-menu tiles. */
 export type MegaMenuIconId =
   | "layout-dashboard"
-  | "phone"
   | "camera"
   | "gauge"
   | "waypoints"
   | "layout-grid"
-  | "thermometer"
-  | "droplets"
-  | "zap"
-  | "home"
-  | "building-2"
-  | "siren"
   | "factory"
   | "landmark"
+  | "thermometer"
   | "book-open"
-  | "sparkles"
   | "trending-up"
   | "file-text"
   | "megaphone"
   | "book-marked"
-  | "calculator"
-  | "scale"
-  | "video"
   | "building"
-  | "users"
-  | "briefcase"
-  | "handshake"
-  | "newspaper"
   | "mail";
 
 export type NavLink = {
@@ -59,117 +45,67 @@ export type NavDropdown = {
 
 export const productLinks: NavLink[] = [
   {
-    label: "FSM Platform",
+    label: "AI-Native Dispatch",
     href: "/products/fsm-platform",
     icon: "layout-dashboard",
     description:
-      "Scheduling, dispatch, customers, jobs, and analytics—one intelligent core that learns your operation.",
-  },
-  {
-    label: "AI Voice Agent",
-    href: "/products/ai-voice-agent",
-    icon: "phone",
-    description:
-      "Answers calls 24/7, qualifies intent, checks availability, and books jobs without waiting on a human line.",
+      "Fault ingestion through closure — autonomous AI dispatch loop for ATM, telecom, and medical-device fleets.",
   },
   {
     label: "Vision Inspection",
     href: "/products/vision-inspection",
     icon: "camera",
     description:
-      "Turns site photos into proof: before/after, damage detection, compliance packs, and QA you can defend.",
-  },
-  {
-    label: "Predictive Maintenance",
-    href: "/products/predictive-maintenance",
-    icon: "gauge",
-    description:
-      "Equipment health scores and failure signals so you sell proactive service instead of chasing emergencies.",
+      "Vision evidence and compliance capture that feeds the same dispatch loop.",
   },
   {
     label: "Field Intelligence Suite",
     href: "/products/field-intelligence-suite",
     icon: "waypoints",
     description:
-      "Route, parts, pricing, and performance intelligence that makes every technician and truck run smarter.",
+      "Live visibility across engineers, tickets, assets, and SLAs.",
   },
   {
     label: "View all products",
     href: "/products",
     emphasis: true,
     icon: "layout-grid",
-    description: "See the full suite on one page—ideal for stakeholder walkthroughs.",
+    description: "See every module on one page for stakeholder walkthroughs.",
   },
 ];
 
 export const solutionLinks: NavLink[] = [
   {
-    label: "HVAC",
+    label: "ATM Networks",
+    href: "/solutions/atm",
+    icon: "landmark",
+    description:
+      "5 min avg dispatch vs 45 min industry standard — cash-out and uptime SLAs.",
+  },
+  {
+    label: "Telecom Towers",
+    href: "/solutions/towers",
+    icon: "factory",
+    description:
+      "Certified engineers dispatched before your SLA clock runs out.",
+  },
+  {
+    label: "Medical Devices",
+    href: "/solutions/medical-devices",
+    icon: "gauge",
+    description:
+      "Biomedical response speed with audit-ready closure.",
+  },
+  {
+    label: "HVAC — Critical Facilities",
     href: "/solutions/hvac",
     icon: "thermometer",
-    description: "Seasonal demand, tune-ups, and install workflows tuned for residential and light commercial.",
-  },
-  {
-    label: "Plumbing",
-    href: "/solutions/plumbing",
-    icon: "droplets",
-    description: "Emergency triage, dispatch, and follow-up that keeps crews moving and customers informed.",
-  },
-  {
-    label: "Electrical",
-    href: "/solutions/electrical",
-    icon: "zap",
-    description: "Permits, safety checks, and multi-day jobs coordinated from first call to invoice.",
-  },
-  {
-    label: "Home Services",
-    href: "/solutions/home-services",
-    icon: "home",
-    description: "Bundled trades and memberships with one schedule of record across your brands.",
-  },
-  {
-    label: "Commercial",
-    href: "/solutions/commercial",
-    icon: "building-2",
-    description: "SLAs, recurring maintenance, and multi-site coordination built for facility teams.",
-  },
-  {
-    label: "Emergency Services",
-    href: "/solutions/emergency-services",
-    icon: "siren",
-    description: "After-hours routing, on-call rotations, and rapid response without burning out dispatch.",
-  },
-];
-
-export const industryLinks: NavLink[] = [
-  {
-    label: "Residential",
-    href: "/industries/residential",
-    icon: "home",
-    description: "High-volume homeowner jobs, reviews, and repeat business at scale.",
-  },
-  {
-    label: "Commercial",
-    href: "/industries/commercial",
-    icon: "building-2",
-    description: "Contracts, compliance, and multi-location service programs.",
-  },
-  {
-    label: "Industrial",
-    href: "/industries/industrial",
-    icon: "factory",
-    description: "Asset-heavy sites, inspections, and technician certifications in one place.",
-  },
-  {
-    label: "Government / Municipal",
-    href: "/industries/government-municipal",
-    icon: "landmark",
-    description: "Public-sector procurement, documentation, and audit-ready reporting.",
+    description:
+      "Data centers, hospitals, cold chain — priority dispatch (coming soon).",
   },
 ];
 
 export const blogCategoryLinks: NavLink[] = [
-  { label: "AI Insights", href: "/resources/blog/ai-insights" },
   { label: "Industry Trends", href: "/resources/blog/industry-trends" },
   { label: "Case Studies", href: "/resources/blog/case-studies" },
   { label: "Product Updates", href: "/resources/blog/product-updates" },
@@ -184,22 +120,16 @@ export const resourcesMegaLinks: NavLink[] = [
     description: "Guides, announcements, and deep dives from the Avishkar team.",
   },
   {
-    label: "AI Insights",
-    href: "/resources/blog/ai-insights",
-    icon: "sparkles",
-    description: "How AI changes scheduling, voice, and field operations in practice.",
-  },
-  {
     label: "Industry Trends",
     href: "/resources/blog/industry-trends",
     icon: "trending-up",
-    description: "Market moves, labor, and technology shaping trades and services.",
+    description: "Benchmarks and operating lessons from critical infrastructure teams.",
   },
   {
     label: "Case Studies",
     href: "/resources/blog/case-studies",
     icon: "file-text",
-    description: "Real outcomes from teams who modernized dispatch and customer experience.",
+    description: "Measured outcomes from modernized dispatch and field evidence workflows.",
   },
   {
     label: "Product Updates",
@@ -213,104 +143,49 @@ export const resourcesMegaLinks: NavLink[] = [
     icon: "book-marked",
     description: "Reference material for admins, integrators, and power users.",
   },
-  {
-    label: "ROI Calculator",
-    href: "/resources/roi-calculator",
-    icon: "calculator",
-    description: "Estimate time and revenue impact before you roll out.",
-  },
-  {
-    label: "Comparison Guide",
-    href: "/resources/comparison-guide",
-    icon: "scale",
-    description: "How Avishkar stacks up on the criteria buyers actually care about.",
-  },
-  {
-    label: "Webinars & Events",
-    href: "/resources/webinars",
-    icon: "video",
-    description: "Live sessions, replays, and field meetups.",
-  },
 ];
 
+/** PDF: Company ▾ — About Us | Contact only (no Leadership/Careers/Partners/Press in nav). */
 export const companyLinks: NavLink[] = [
   {
     label: "About Us",
     href: "/company#about",
     icon: "building",
-    description: "Mission, story, and why we build for field service first.",
-  },
-  {
-    label: "Leadership",
-    href: "/company#leadership",
-    icon: "users",
-    description: "The team guiding product, partnerships, and customer success.",
-  },
-  {
-    label: "Careers",
-    href: "/company#careers",
-    icon: "briefcase",
-    description: "Open roles across engineering, go-to-market, and operations.",
-  },
-  {
-    label: "Partners",
-    href: "/company#partners",
-    icon: "handshake",
-    description: "Integrators, resellers, and technology partners we grow with.",
-  },
-  {
-    label: "Press / Media",
-    href: "/company#press",
-    icon: "newspaper",
-    description: "Brand assets, newsroom contacts, and recent coverage.",
+    description: "Our story, platform layers, and how we operate.",
   },
   {
     label: "Contact",
-    href: "/company#contact",
+    href: "/company/contact",
     icon: "mail",
-    description: "Sales, support, and general inquiries— we respond quickly.",
+    description: "Sales, support, and general inquiries.",
   },
 ];
 
-/** Top-level link (not a dropdown). */
+/** Legacy: top-bar contact link removed per PDF (Book Demo only). Kept for footer label reuse. */
 export const pricingNavItem = {
-  label: "Pricing",
-  href: "/pricing",
+  label: "Contact",
+  href: "/company/contact",
 } as const;
 
 export const headerDropdowns: NavDropdown[] = [
   {
     label: "Products",
-    megaTitle: "Product suite",
-    megaSubtitle: "AI-native tools for dispatch, voice, vision, and intelligence",
+    megaTitle: "Products",
+    megaSubtitle: "AI-Native Dispatch · Vision Inspection · Field Intelligence Suite",
     megaHref: "/products",
     children: productLinks,
   },
   {
     label: "Solutions",
     megaTitle: "Solutions",
-    megaSubtitle: "Playbooks tailored to how you run jobs today",
+    megaSubtitle: "ATM Networks · Telecom Towers · Medical Devices · HVAC — Critical Facilities",
     megaHref: "/solutions",
     children: solutionLinks,
   },
   {
-    label: "Industries",
-    megaTitle: "Industries",
-    megaSubtitle: "Segments we support out of the box",
-    megaHref: "/industries",
-    children: industryLinks,
-  },
-  {
-    label: "Resources",
-    megaTitle: "Resource center",
-    megaSubtitle: "Learn, compare, and plan your rollout",
-    megaHref: "/resources",
-    children: resourcesMegaLinks,
-  },
-  {
     label: "Company",
     megaTitle: "Company",
-    megaSubtitle: "People, partners, and how to reach us",
+    megaSubtitle: "Our story and contact",
     megaHref: "/company",
     children: companyLinks,
   },
@@ -324,17 +199,19 @@ export const SOLUTION_SLUGS = solutionLinks.map(
   (l) => l.href.replace("/solutions/", ""),
 ) as readonly string[];
 
-export const INDUSTRY_SLUGS = industryLinks.map(
-  (l) => l.href.replace("/industries/", ""),
-) as readonly string[];
-
 export const BLOG_SLUGS = blogCategoryLinks.map(
   (l) => l.href.replace("/resources/blog/", ""),
 ) as readonly string[];
 
-export const COMPANY_SLUGS = companyLinks.map(
-  (l) => l.href.replace("/company/", ""),
-) as readonly string[];
+/** Keys of `companyDocPages` — `/company/[slug]` detail routes */
+export const COMPANY_SLUGS = [
+  "about",
+  "leadership",
+  "careers",
+  "partners",
+  "press",
+  "contact",
+] as const;
 
 export function isProductSlug(slug: string): slug is (typeof PRODUCT_SLUGS)[number] {
   return (PRODUCT_SLUGS as readonly string[]).includes(slug);
@@ -342,10 +219,6 @@ export function isProductSlug(slug: string): slug is (typeof PRODUCT_SLUGS)[numb
 
 export function isSolutionSlug(slug: string): slug is (typeof SOLUTION_SLUGS)[number] {
   return (SOLUTION_SLUGS as readonly string[]).includes(slug);
-}
-
-export function isIndustrySlug(slug: string): slug is (typeof INDUSTRY_SLUGS)[number] {
-  return (INDUSTRY_SLUGS as readonly string[]).includes(slug);
 }
 
 export function isBlogSlug(slug: string): slug is (typeof BLOG_SLUGS)[number] {
@@ -364,14 +237,20 @@ export function labelForSolutionSlug(slug: string): string | undefined {
   return solutionLinks.find((l) => l.href === `/solutions/${slug}`)?.label;
 }
 
-export function labelForIndustrySlug(slug: string): string | undefined {
-  return industryLinks.find((l) => l.href === `/industries/${slug}`)?.label;
-}
-
 export function labelForBlogSlug(slug: string): string | undefined {
   return blogCategoryLinks.find((l) => l.href === `/resources/blog/${slug}`)?.label;
 }
 
 export function labelForCompanySlug(slug: string): string | undefined {
-  return companyLinks.find((l) => l.href === `/company/${slug}`)?.label;
+  const labels: Record<(typeof COMPANY_SLUGS)[number], string> = {
+    about: "About Us",
+    leadership: "Leadership",
+    careers: "Careers",
+    partners: "Partners",
+    press: "Press / Media",
+    contact: "Contact",
+  };
+  return (COMPANY_SLUGS as readonly string[]).includes(slug)
+    ? labels[slug as (typeof COMPANY_SLUGS)[number]]
+    : undefined;
 }

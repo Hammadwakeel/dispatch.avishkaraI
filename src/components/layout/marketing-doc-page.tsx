@@ -1,4 +1,4 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
 import { ProductMacInteractiveHero } from "@/components/layout/product-mac-interactive-hero";
 import type { DocBlock, DocPage } from "@/content/types";
 
@@ -6,17 +6,17 @@ type MarketingDocPageProps = {
   doc: DocPage;
   /** When true, product hero + Mac only (section cards omitted — content lives in Mac). */
   boxedSections?: boolean;
-  /** Omit footer “Back to home” (e.g. product detail pages). */
-  hideBackLink?: boolean;
   /** Opens the Mac tab whose heading slug matches `?focus=` (see `headingToFocusParam`). */
   initialMacFocus?: string;
+  /** Rendered after doc sections (e.g. related articles on blog categories). */
+  afterSections?: ReactNode;
 };
 
 export function MarketingDocPage({
   doc,
   boxedSections,
-  hideBackLink,
   initialMacFocus,
+  afterSections,
 }: MarketingDocPageProps) {
   const sectionShell = "max-w-[65ch]";
 
@@ -107,15 +107,8 @@ export function MarketingDocPage({
           </div>
         ) : null}
 
-        {!hideBackLink ? (
-          <footer className="mt-16 border-t border-light-steel pt-10 md:mt-20 md:pt-12">
-            <Link
-              href="/"
-              className="font-sans text-[14px] font-medium text-amber-glow hover:underline"
-            >
-              ← Back to home
-            </Link>
-          </footer>
+        {!boxedSections && afterSections ? (
+          <div className="mt-14 w-full md:mt-16">{afterSections}</div>
         ) : null}
       </article>
     </main>

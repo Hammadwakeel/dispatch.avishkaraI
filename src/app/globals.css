@@ -54,6 +54,12 @@ body {
   line-height: 1.5;
 }
 
+/* Lenis drives interpolation; keep CSS scroll-behavior native so we never double-smooth. */
+html.lenis,
+html.lenis body {
+  scroll-behavior: auto !important;
+}
+
 @supports not (background: color-mix(in srgb, white, black)) {
   body {
     background: linear-gradient(165deg, #fff8f0 0%, #fce5d6 45%, #fad4be 100%);

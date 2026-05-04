@@ -1,36 +1,82 @@
 import type { DocPage } from "./types";
 
+/** Hub hero / facts card — keep in sync with company narrative in doc pages */
+export const companyHubMeta = {
+  legalName: "Anjaneya AI Technologies Pvt Ltd",
+  flagshipBrand: "Avishkar AI",
+  founded: "2024",
+  primaryEmail: "hello@avishkar.ai",
+} as const;
+
 /** Source: docs/avishkar-ai-website-content.docx + brand context */
 export const companyDocPages: Record<string, DocPage> = {
   about: {
-    eyebrow: "Company",
-    heroTitle: "About Avishkar AI",
+    eyebrow: "Our Story",
+    heroTitle: "We built the dispatch system critical infrastructure deserved — but never had.",
     heroSubtitle:
-      "Avishkar AI is the flagship brand of Anjaneya AI Technologies Pvt Ltd—an AI-native field service management platform engineered for intelligence from day one, not bolted on as an afterthought.",
+      "The ATM industry accepted 45-minute response times. Telecom operators assumed manual dispatch was inevitable. We looked at both and asked: what if the entire dispatch loop was run by AI? Five minutes later, we had our answer. Today dispatch coordination runs from 45 minutes to 5 minutes on the platform, and we are live with ATM manufacturers and telecom tower operators in India.",
     sections: [
       {
-        heading: "What we build",
+        heading: "The problem nobody was questioning",
         blocks: [
           {
             kind: "p",
-            text: "We transform reactive field service into autonomous operations: scheduling, dispatch, customer communication, inventory, and predictive maintenance—so teams focus on the work, not the logistics.",
-          },
-          {
-            kind: "p",
-            text: "Reference positioning: ServiceTitan-class breadth—AI-native, autonomous, and intelligence-first.",
+            text: "Critical infrastructure — ATMs, towers, medical devices — goes down constantly. Every time, a human picks up the phone, finds an engineer, and dispatches manually. The industry accepted 45 minutes as the minimum response time. We didn't.",
           },
         ],
       },
       {
-        heading: "Principles",
+        heading: "The gap we found",
+        blocks: [
+          {
+            kind: "p",
+            text: "The technology to dispatch in 5 minutes already existed. The monitoring systems were already firing fault events. The engineers were already in the field. Nobody had built the AI layer connecting all of it — end to end, without a human in the middle.",
+          },
+        ],
+      },
+      {
+        heading: "What we built",
+        blocks: [
+          {
+            kind: "p",
+            text: "Avishkar is an AI-native dispatch layer that sits on top of your existing monitoring stack. Fault in → engineer assigned → parts coordinated → ticket closed. Fully autonomous. Live with ATM manufacturers and tower operators in India. Expanding across APAC.",
+          },
+        ],
+      },
+      {
+        heading: "The platform. Three layers.",
         blocks: [
           {
             kind: "ul",
             items: [
-              "Transparency in AI decisions & auditability",
-              "Human-in-the-loop where it matters",
-              "Security & data ownership for operators",
+              "AI-Native Dispatch — The core engine. Receives fault events, assigns engineers, coordinates parts, follows up, closes tickets. End to end. No human dispatcher.",
+              "Vision Inspection — Computer vision layer that detects faults from cameras and IoT sensors — before a human reports them. Triggers the dispatch loop automatically.",
+              "Field Intelligence Suite — Real-time visibility into every engineer, ticket, asset, and SLA across your network. Operations teams finally have the dashboard they needed.",
             ],
+          },
+        ],
+      },
+      {
+        heading: "How we operate",
+        blocks: [
+          {
+            kind: "ul",
+            items: [
+              "We own the outcome — When a fault fires and an ATM goes down, our customers are losing money. We measure ourselves by dispatch time, resolution rate, and SLA compliance — not feature releases.",
+              "Specificity over claims — 5 minutes. 45 minutes. Two live customers. APAC expansion. We say what we've actually done — not what we could theoretically do.",
+              "Integration, not replacement — We don't ask customers to rip out their monitoring systems. We sit on top. That's how you get to deployment in weeks, not 18 months.",
+              "Build for the hardest use case — Medical devices. ATM networks. Telecom towers. If it works here, it works everywhere. We chose critical infrastructure deliberately.",
+              "Founders on every call — Every demo is run by a founder. Every customer gets our personal number. We don't hire account managers before we earn the right to.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "We're a small team building something big.",
+        blocks: [
+          {
+            kind: "p",
+            text: "We're early. We're lean. We're live with enterprise customers and expanding across APAC. If you want to build the infrastructure that keeps critical systems running worldwide — talk to us.",
           },
         ],
       },
@@ -57,14 +103,27 @@ export const companyDocPages: Record<string, DocPage> = {
     eyebrow: "Company",
     heroTitle: "Careers",
     heroSubtitle:
-      "Join a team shipping production AI for technicians, dispatchers, and customers in the field.",
+      "No ping-pong-table narrative here. We are a small, execution-heavy team shipping production systems for high-stakes field operations.",
     sections: [
       {
         heading: "Open roles",
         blocks: [
           {
             kind: "p",
-            text: "We are hiring across engineering, applied AI, product design, customer success, and sales. Send your profile and portfolio link to careers@avishkar.ai (mailbox coming online per launch checklist).",
+            text: "We hire when a customer need is immediate and clear. If you have built dependable systems for operations, AI, or field workflows, send your profile and proof of work to careers@avishkar.ai.",
+          },
+        ],
+      },
+      {
+        heading: "What working here feels like",
+        blocks: [
+          {
+            kind: "ul",
+            items: [
+              "Fast feedback loops with real operators in the field.",
+              "Small teams with direct ownership from idea to deployment.",
+              "High accountability for reliability, security, and customer outcomes.",
+            ],
           },
         ],
       },
@@ -131,9 +190,9 @@ export const companyDocPages: Record<string, DocPage> = {
           {
             kind: "ul",
             items: [
-              "Company name & number of technicians",
-              "Industry (HVAC, plumbing, electrical, home services, commercial, other)",
-              "What you want to explore: FSM platform, voice agent, vision inspection, predictive maintenance, or full platform",
+              "Sites or assets under coverage (ATM, tower, medical device, critical facility)",
+              "Team size and current dispatch tooling",
+              "Whether you want dispatch-only, vision, intelligence suite, or full stack",
               "Biggest operational challenge today",
               "Preferred demo timing: ASAP, this week, this month, or exploring",
             ],

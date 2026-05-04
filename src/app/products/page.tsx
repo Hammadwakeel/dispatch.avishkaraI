@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { productLinks } from "@/config/site-navigation";
+
+export const metadata: Metadata = {
+  title: "Products",
+  description:
+    "AI-native dispatch platform, vision inspection, and field intelligence for critical infrastructure. 45 minutes to 5 minutes coordination; live with ATM and telecom operators in India.",
+};
 
 export default function ProductsHubPage() {
   const cards = productLinks.filter((p) => !p.emphasis);
@@ -21,12 +28,11 @@ export default function ProductsHubPage() {
           </p>
           <div className="hidden lg:block" aria-hidden />
           <h1 className="min-w-0 text-left font-serif text-[clamp(1.85rem,4vw,2.75rem)] font-normal leading-[1.1] tracking-[-0.04em] text-deep-graphite md:text-[44px]">
-            The AI-native field service platform
+            AI-native dispatch products for critical infrastructure
           </h1>
           <p className="min-w-0 text-left font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px]">
-            Every product in Avishkar AI is built from the ground up with AI at its
-            core—not bolted on, not integrated—engineered for intelligence from day
-            one.
+            Vision, intelligence, and platform capabilities ship as one stack—purpose-built for ATM,
+            tower, and regulated medical workflows rather than generic trades tooling.
           </p>
         </div>
 

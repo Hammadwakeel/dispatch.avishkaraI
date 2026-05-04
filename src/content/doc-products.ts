@@ -1,160 +1,124 @@
 import type { DocPage } from "./types";
 
-/** Source: docs/avishkar-ai-website-content.docx — Products page + product sections */
+/** Source: update/avishkar_complete_copy_replacement.md.pdf — Products + FSM platform */
 export const productDocPages: Record<string, DocPage> = {
   "fsm-platform": {
-    eyebrow: "Products",
-    heroTitle: "The AI-native field service platform core",
+    eyebrow: "AI-Native Dispatch Platform",
+    heroTitle: "The dispatch system your engineers wish they had.",
     heroSubtitle:
-      "The flagship Avishkar AI FSM layer—scheduling, dispatch, customer and job management, inventory, and analytics—built for operators who want intelligence-first automation, not another passive system of record.",
+      "Avishkar replaces manual dispatch with a fully autonomous AI loop — from fault detection to ticket closure. No human dispatcher required. No missed SLAs. No phone tag. Dispatch coordination from 45 minutes to 5 minutes. Live with ATM manufacturers and telecom tower operators in India.",
     sections: [
       {
-        heading: "Scheduling engine",
+        heading: "Fault Ingestion",
         blocks: [
           {
             kind: "ul",
             items: [
-              "Neural network–powered scheduling",
-              "47+ variables considered simultaneously",
-              "Real-time optimization & multi-day planning",
-              "Skill-based matching & travel-time intelligence",
-              "Overtime prevention",
+              "Receives fault events from any monitoring system via API",
+              "Reads fault code, asset ID, location, and severity instantly",
+              "Classifies ticket by type, priority, and required resource",
+              "No human triage. No queue. Zero delay.",
             ],
           },
         ],
       },
       {
-        heading: "Dispatch board",
+        heading: "Engineer Assignment",
         blocks: [
           {
             kind: "ul",
             items: [
-              "Real-time job visualization",
-              "Drag-and-drop manual override",
-              "Tech status monitoring & conflict detection",
-              "Auto-conflict resolution",
-              "Historical performance view",
+              "Scans field engineer network in real time",
+              "Matches by: location, skill certification, availability, current workload",
+              "Assignment confirmed in seconds",
+              "Engineer receives full fault context on mobile instantly",
             ],
           },
         ],
       },
       {
-        heading: "Customer & job management",
+        heading: "Parts Orchestration",
         blocks: [
           {
             kind: "ul",
-            title: "Customer management",
             items: [
-              "Complete customer profiles & property / equipment database",
-              "Service history, invoices & payment history",
-              "Communication log, preference learning, lifetime value tracking",
-            ],
-          },
-          {
-            kind: "ul",
-            title: "Job management",
-            items: [
-              "Custom job types & pricing, multi-line invoices",
-              "Quote generation, e-signatures, photo documentation",
-              "Notes & task lists",
+              "Checks parts inventory against fault requirements automatically",
+              "Reserves or orders required components before engineer departs",
+              "Coordinates delivery to site or engineer location",
+              "Zero parts-related return visits",
             ],
           },
         ],
       },
       {
-        heading: "Reporting & analytics",
+        heading: "Real-Time Follow-Up & Escalation",
         blocks: [
           {
             kind: "ul",
             items: [
-              "Real-time dashboards & custom report builder",
-              "Scheduled report delivery, KPI & goal tracking",
-              "Trend analysis & AI-generated insights",
+              "Tracks every open ticket against SLA clock",
+              "Follows up with engineer automatically if delayed",
+              "Engineers escalate directly back to AI via mobile",
+              "Escalation routed to right person with full context, instantly",
             ],
           },
         ],
       },
       {
-        heading: "Pricing (indicative)",
+        heading: "Ticket Closure & Compliance",
         blocks: [
           {
             kind: "ul",
             items: [
-              "Starter: ₹999 / technician / month",
-              "Professional: ₹1,999 / technician / month",
-              "Enterprise: custom pricing",
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  "ai-voice-agent": {
-    eyebrow: "Products",
-    heroTitle: "Your AI Receptionist That Books Jobs",
-    heroSubtitle:
-      "Never miss a call. AI answers, understands, qualifies, and books—24/7, 365 days a year.",
-    sections: [
-      {
-        heading: "Conversation intelligence",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "Natural language understanding & intent classification",
-              "Entity extraction (address, phone, job type)",
-              "Context across multi-turn dialogue",
+              "Auto-closes ticket when fix confirmed by engineer",
+              "Logs resolution code, parts used, time-to-fix",
+              "Updates CRM and reporting dashboards automatically",
+              "Generates compliance documentation for every service event",
             ],
           },
         ],
       },
       {
-        heading: "Booking automation",
+        heading: "Analytics",
         blocks: [
           {
             kind: "ul",
             items: [
-              "Real-time availability & slot selection",
-              "Customer confirmation, calendar sync, reminder automation",
+              "Every engineer, every ticket, every asset — live",
+              "SLA risk flagged before breach",
+              "Resolution times, first-fix rates, and engineer performance tracked automatically",
+              "Operations managers finally have the dashboard they needed",
             ],
           },
         ],
       },
       {
-        heading: "Call handling & CRM",
+        heading: "The old way. And ours.",
         blocks: [
           {
             kind: "ul",
+            title: "The Old Way",
             items: [
-              "Inbound answering, outbound campaigns, after-hours coverage",
-              "Emergency routing & human transfer when needed",
-              "Call recording & transcription",
-              "Automatic customer create/update, activity logging, lead scoring",
+              "Fault fires → human picks ticket",
+              "Manual call to find engineer",
+              "Parts checked manually",
+              "Follow-up via phone calls",
+              "Engineer calls dispatcher to escalate",
+              "Ticket closed manually",
+              "Average response: 45 minutes",
             ],
           },
-        ],
-      },
-      {
-        heading: "Impact (reference metrics)",
-        blocks: [
           {
             kind: "ul",
+            title: "Avishkar",
             items: [
-              "68% of calls handled end-to-end by AI",
-              "12% increase in booking rate",
-              "~45s average handling time · 99.2% answer rate",
-            ],
-          },
-        ],
-      },
-      {
-        heading: "Pricing (indicative)",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "Included in Professional & Enterprise plans",
-              "Add-on for Starter: ₹15,000 / month",
+              "Fault fires → AI picks ticket instantly",
+              "AI assigns nearest qualified engineer in seconds",
+              "AI checks + pre-orders parts automatically",
+              "AI follows up with engineer in real time",
+              "Engineer talks directly to AI",
+              "Ticket auto-closes on fix confirmation",
+              "Average response: 5 minutes",
             ],
           },
         ],
@@ -163,9 +127,9 @@ export const productDocPages: Record<string, DocPage> = {
   },
   "vision-inspection": {
     eyebrow: "Products",
-    heroTitle: "Photo Intelligence for Field Service",
+    heroTitle: "Vision Inspection",
     heroSubtitle:
-      "Transform photos into actionable data—documentation, compliance, and quality assurance powered by AI.",
+      "Computer vision for critical infrastructure evidence — fault documentation and compliance closure for ATM, telecom, and medical-device workflows. Live with ATM manufacturers and telecom tower operators in India; dispatch coordination from 45 minutes to 5 minutes when paired with Avishkar Dispatch.",
     sections: [
       {
         heading: "Before / after documentation",
@@ -219,83 +183,11 @@ export const productDocPages: Record<string, DocPage> = {
       },
     ],
   },
-  "predictive-maintenance": {
-    eyebrow: "Products",
-    heroTitle: "Equipment Intelligence That Prevents Failures",
-    heroSubtitle:
-      "AI analyzes equipment data to predict failures before they happen—turning reactive customers into proactive service contracts.",
-    sections: [
-      {
-        heading: "Equipment profiling",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "Equipment database with specs",
-              "Installation & warranty tracking",
-              "Service history association & age-based deterioration modeling",
-            ],
-          },
-        ],
-      },
-      {
-        heading: "Health scoring & predictive alerts",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "Real-time health score & degradation trends",
-              "Failure probability & risk stratification",
-              "Automatic failure prediction, customer notification",
-              "Service scheduling automation & parts pre-positioning",
-            ],
-          },
-        ],
-      },
-      {
-        heading: "Service opportunities",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "Maintenance-due identification & upsell detection",
-              "Contract utilization alerts & churn risk indicators",
-            ],
-          },
-        ],
-      },
-      {
-        heading: "Reference ROI (from playbook)",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "23% increase in service agreement revenue",
-              "34% reduction in emergency call-outs",
-              "3.2× customer retention improvement (illustrative benchmarks)",
-            ],
-          },
-        ],
-      },
-      {
-        heading: "Pricing (indicative)",
-        blocks: [
-          {
-            kind: "ul",
-            items: [
-              "Included in Professional & Enterprise",
-              "Add-on for Starter: ₹9,999 / month",
-            ],
-          },
-        ],
-      },
-    ],
-  },
   "field-intelligence-suite": {
     eyebrow: "Products",
-    heroTitle: "AI That Makes Every Tech Smarter",
+    heroTitle: "Field Intelligence Suite",
     heroSubtitle:
-      "Route optimization, parts intelligence, pricing guidance, and performance feedback—built for the truck roll.",
+      "Real-time visibility into every engineer, ticket, asset, and SLA across ATM, tower, and medical-device networks. Same proof bar as the rest of Avishkar: 45 minutes → 5 minutes coordination; live with ATM manufacturers and telecom tower operators in India.",
     sections: [
       {
         heading: "Route optimization",
@@ -303,22 +195,22 @@ export const productDocPages: Record<string, DocPage> = {
           {
             kind: "ul",
             items: [
-              "Real-time traffic integration",
-              "Multi-stop optimization & time-window management",
-              "Fuel-efficient routing",
+              "Dynamic routing based on traffic, job priority & technician skills",
+              "Multi-stop optimization across territories",
+              "Real-time rerouting when emergencies arise",
             ],
           },
         ],
       },
       {
-        heading: "Parts & pricing intelligence",
+        heading: "Parts intelligence",
         blocks: [
           {
             kind: "ul",
             items: [
-              "Job-based parts suggestions, van inventory, low-stock alerts",
-              "Market-rate recommendations, margin tracking, discount guidelines",
-              "Upsell prompts",
+              "Predictive parts stocking by job type & geography",
+              "Van inventory optimization",
+              "Vendor coordination & emergency sourcing",
             ],
           },
         ],
@@ -329,9 +221,9 @@ export const productDocPages: Record<string, DocPage> = {
           {
             kind: "ul",
             items: [
-              "Real-time technician performance",
-              "Skill gap identification & coaching opportunities",
-              "Incentive tracking",
+              "Technician scorecards & utilization",
+              "Revenue per truck & margin insights",
+              "Customer satisfaction correlation",
             ],
           },
         ],
@@ -341,7 +233,10 @@ export const productDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "ul",
-            items: ["Included in Professional & Enterprise plans"],
+            items: [
+              "₹12,500 / month",
+              "Included in Enterprise; optional add-on for Professional",
+            ],
           },
         ],
       },

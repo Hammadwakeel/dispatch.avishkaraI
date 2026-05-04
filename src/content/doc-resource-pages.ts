@@ -1,5 +1,29 @@
 import type { DocPage } from "./types";
 
+/** Blog landing — aligned with Resources mega-menu “Blog” row */
+export const blogHubDocPage: DocPage = {
+  eyebrow: "Blog",
+  heroTitle: "Guides, announcements, and deep dives",
+  heroSubtitle:
+    "Evaluate AI-native field service with explainers, release notes, industry analysis, and rollout stories from the Avishkar team.",
+  sections: [
+    {
+      heading: "What you’ll find",
+      blocks: [
+        {
+          kind: "ul",
+          items: [
+            "AI & technology explainers",
+            "Industry trends and benchmarks",
+            "Case studies and measured outcomes",
+            "Product updates and integrations",
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 /** Source: docs/avishkar-ai-website-content.docx — Resources sections */
 export const documentationDocPage: DocPage = {
   eyebrow: "Resources",
