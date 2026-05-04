@@ -10,6 +10,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       options={{
         autoRaf: true,
         anchors: true,
+        /** Softer, Lenis-site-like inertia */
+        lerp: 0.085,
+        wheelMultiplier: 1,
+        smoothWheel: true,
+        syncTouch: true,
       }}
     >
       {children}

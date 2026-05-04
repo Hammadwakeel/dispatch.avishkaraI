@@ -1,6 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import {
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { DocBlock, DocPage, DocSection } from "@/content/types";
 import { headingToFocusParam } from "@/lib/heading-to-focus-param";
 
@@ -8,6 +13,11 @@ function activeIndexForFocus(sections: DocSection[], focus: string | undefined):
   if (!focus || sections.length === 0) return 0;
   const i = sections.findIndex((s) => headingToFocusParam(s.heading) === focus);
   return i >= 0 ? i : 0;
+}
+
+function indexFromScrollProgress(p: number, n: number): number {
+  if (n <= 0) return 0;
+  return Math.min(n - 1, Math.max(0, Math.floor(p * n)));
 }
 
 function MacSectionBody({ section }: { section: DocSection }) {
@@ -70,7 +80,28 @@ export function ProductMacInteractiveHero({
   initialMacFocus?: string;
 }) {
   const sections = doc.sections;
+  const reduceMotion = useReducedMotion();
+  const scrollTrackRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(() => activeIndexForFocus(sections, initialMacFocus));
+  const scrollLockRef = useRef(false);
+
+  const { scrollYProgress } = useScroll({
+    target: scrollTrackRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (reduceMotion || scrollLockRef.current || sections.length === 0) return;
+    const idx = indexFromScrollProgress(p, sections.length);
+    setActive((prev) => (prev === idx ? prev : idx));
+  });
+
+  useEffect(() => {
+    if (reduceMotion || sections.length === 0) return;
+    const p = scrollYProgress.get();
+    const idx = indexFromScrollProgress(p, sections.length);
+    setActive((prev) => (prev === idx ? prev : idx));
+  }, [reduceMotion, scrollYProgress, sections.length]);
 
   const safeIndex = sections.length > 0 ? Math.min(active, sections.length - 1) : 0;
   const activeSection = sections[safeIndex] ?? null;
@@ -83,6 +114,10 @@ export function ProductMacInteractiveHero({
   if (sections.length === 0) {
     return null;
   }
+
+  const n = sections.length;
+  const scrollTrackMinHeight =
+    n <= 1 ? "auto" : `${Math.max(n * 72, 280)}svh`;
 
   const tabNav = (
     <nav className="mt-6" aria-label="Product feature areas">
@@ -104,7 +139,13 @@ export function ProductMacInteractiveHero({
               id={`product-mac-tab-${i}`}
               aria-selected={selected}
               aria-controls="product-mac-panel"
-              onClick={() => setActive(i)}
+              onClick={() => {
+                scrollLockRef.current = true;
+                setActive(i);
+                window.setTimeout(() => {
+                  scrollLockRef.current = false;
+                }, 600);
+              }}
               className={`w-full rounded-[var(--radius-ui)] border px-3 py-2.5 text-left font-sans text-[13px] leading-snug transition-colors md:text-[14px] lg:py-3 lg:text-[15px] ${
                 selected
                   ? "border-amber-glow/40 bg-harvest-cream font-semibold text-deep-graphite shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5)]"
@@ -158,26 +199,35 @@ export function ProductMacInteractiveHero({
   );
 
   return (
-    <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-x-16 lg:gap-y-0 xl:gap-x-20 2xl:gap-x-28">
-      <div className="min-w-0 w-full max-w-[min(100%,26rem)] justify-self-start text-left xl:max-w-[28rem]">
-        {doc.eyebrow ? (
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
-            {doc.eyebrow}
-          </p>
-        ) : null}
-        <h1
-          className={`font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-normal leading-[1.12] tracking-[-0.04em] text-deep-graphite md:text-[44px] lg:text-[48px] ${doc.eyebrow ? "mt-4" : ""}`}
-        >
-          {doc.heroTitle}
-        </h1>
-        <p className="mt-5 max-w-[52ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px] lg:text-[18px]">
-          {doc.heroSubtitle}
-        </p>
-        {tabNav}
+    <section
+      ref={scrollTrackRef}
+      style={{ minHeight: scrollTrackMinHeight }}
+      className="relative w-full overflow-visible"
+      aria-label="Product overview and interactive preview"
+    >
+      <div className="sticky top-20 z-[1] pb-10 pt-0 md:top-24 md:pb-14 lg:top-28 lg:pb-16">
+        <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-x-16 lg:gap-y-0 xl:gap-x-20 2xl:gap-x-28">
+          <div className="flex min-h-0 w-full min-w-0 max-w-[min(100%,26rem)] flex-col justify-center justify-self-start text-left xl:max-w-[28rem]">
+            {doc.eyebrow ? (
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
+                {doc.eyebrow}
+              </p>
+            ) : null}
+            <h1
+              className={`font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-normal leading-[1.12] tracking-[-0.04em] text-deep-graphite md:text-[44px] lg:text-[48px] ${doc.eyebrow ? "mt-4" : ""}`}
+            >
+              {doc.heroTitle}
+            </h1>
+            <p className="mt-5 max-w-[52ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px] lg:text-[18px]">
+              {doc.heroSubtitle}
+            </p>
+            {tabNav}
+          </div>
+          <div className="flex min-h-0 w-full min-w-0 items-center justify-center lg:justify-end">
+            {mac}
+          </div>
+        </div>
       </div>
-      <div className="flex w-full min-w-0 items-start justify-center lg:justify-end">
-        {mac}
-      </div>
-    </div>
+    </section>
   );
 }

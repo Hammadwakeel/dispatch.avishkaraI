@@ -1,11 +1,29 @@
 "use client";
 
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import {
+  AnimatePresence,
+  LayoutGroup,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+} from "framer-motion";
+import type Lenis from "lenis";
+import { useLenis } from "lenis/react";
 import { ArrowRight, Calculator, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { useId, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
+
+function sectionScrollProgress(lenis: Lenis, sectionEl: HTMLElement): number {
+  const scroll = lenis.scroll;
+  const innerH = window.innerHeight;
+  const top = sectionEl.getBoundingClientRect().top + scroll;
+  const height = sectionEl.offsetHeight;
+  const travel = Math.max(1, height - innerH);
+  let p = (scroll - top) / travel;
+  return Math.max(0, Math.min(1, p));
+}
 
 /** Pricing tiers from docs/avishkar-ai-website-content.docx — PRICING PAGE CONTENT */
 const tiers = [
@@ -91,41 +109,123 @@ const faq = [
 export function PricingFromDoc() {
   const faqBaseId = useId();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const reduceMotion = useReducedMotion();
+  const pricingTiersRef = useRef<HTMLElement>(null);
+  const faqSectionRef = useRef<HTMLElement>(null);
+  const tiersScrollProgress = useMotionValue(0);
+
+  const syncTiersProgressFromLenis = useCallback(
+    (l: Lenis) => {
+      const el = pricingTiersRef.current;
+      if (!el || reduceMotion) return;
+      tiersScrollProgress.set(sectionScrollProgress(l, el));
+    },
+    [reduceMotion, tiersScrollProgress],
+  );
+
+  useLenis(syncTiersProgressFromLenis, [reduceMotion]);
+
+  const lenisInstance = useLenis();
+
+  const syncFaqOpenFromLenis = useCallback(
+    (l: Lenis) => {
+      const el = faqSectionRef.current;
+      if (!el || reduceMotion) return;
+      const p = sectionScrollProgress(l, el);
+      const idx = Math.min(faq.length - 1, Math.max(0, Math.floor(p * faq.length)));
+      setOpenFaq((prev) => (prev === idx ? prev : idx));
+    },
+    [reduceMotion],
+  );
+
+  useLenis(syncFaqOpenFromLenis, [reduceMotion]);
+
+  useEffect(() => {
+    if (!lenisInstance || reduceMotion) return;
+    syncTiersProgressFromLenis(lenisInstance);
+    syncFaqOpenFromLenis(lenisInstance);
+  }, [
+    lenisInstance,
+    reduceMotion,
+    syncTiersProgressFromLenis,
+    syncFaqOpenFromLenis,
+  ]);
 
   return (
     <main className="flex-1 border-t border-light-steel bg-gradient-to-b from-harvest-cream/90 via-canvas-white to-[color-mix(in_srgb,var(--color-harvest-cream)_88%,var(--color-amber-glow)_12%)]">
       <div className="mx-auto max-w-[var(--page-max-width)] px-6 py-14 md:px-8 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease }}
+        <section
+          ref={pricingTiersRef}
+          id="pricing-tiers"
+          className="scroll-mt-28 md:scroll-mt-32"
+          aria-labelledby="pricing-doc-heading"
         >
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
-            Pricing
-          </p>
-          <h1 className="font-serif mt-4 text-[clamp(1.85rem,4vw,2.85rem)] font-normal leading-[1.1] tracking-[-0.04em] text-deep-graphite md:text-[46px]">
-            Simple, transparent pricing
-          </h1>
-          <p className="mt-6 max-w-[52ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px]">
-            Pay for what you need. Scale as you grow. No hidden fees.
-          </p>
-        </motion.div>
+          <div className="grid items-stretch gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+            {/* Left: centered in the column, vertically middle vs. tier stack on large screens */}
+            <div className="flex items-center justify-center lg:col-span-4">
+              <div className="w-full max-w-md text-center lg:sticky lg:top-28 lg:py-2 xl:top-32">
+                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
+                  Pricing
+                </p>
+                <h1
+                  id="pricing-doc-heading"
+                  className="font-serif mt-4 text-[clamp(1.85rem,4vw,2.85rem)] font-normal leading-[1.1] tracking-[-0.04em] text-deep-graphite md:text-[46px]"
+                >
+                  Simple, transparent pricing
+                </h1>
+                <p className="mx-auto mt-6 max-w-[40ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:max-w-[48ch] md:text-[17px]">
+                  Pay for what you need. Scale as you grow. No hidden fees.
+                </p>
+                <div
+                  className="mx-auto mt-8 h-[3px] w-full max-w-[220px] overflow-hidden rounded-full bg-light-steel/80 lg:mt-10"
+                  aria-hidden
+                >
+                  <motion.div
+                    className="h-full rounded-full bg-gradient-to-r from-amber-glow/90 to-amber-glow"
+                    style={{
+                      scaleX: tiersScrollProgress,
+                      transformOrigin: "center center",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
 
-        <div className="mt-14 grid gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-7">
-          {tiers.map((t, i) => (
+            {/* Right: tiers stack; each card rises from below, one after another */}
             <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, ease, delay: i * 0.07 }}
-              whileHover={{ y: -4, transition: { duration: 0.25, ease } }}
-              className={`flex flex-col rounded-[var(--radius-card)] border px-6 py-8 md:px-7 md:py-9 ${
-                t.highlighted
-                  ? "border-amber-glow/50 bg-canvas-white shadow-[0_20px_56px_-24px_rgba(228,86,42,0.22),var(--shadow-lg)] ring-1 ring-amber-glow/15"
-                  : "border-light-steel bg-canvas-white/90 shadow-[0_12px_40px_-28px_rgba(29,30,28,0.1)]"
-              }`}
+              className="flex flex-col gap-6 lg:col-span-8 lg:gap-7"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-10% 0px -8% 0px", amount: 0.15 }}
+              variants={{
+                visible: {
+                  transition: { staggerChildren: 0.16, delayChildren: 0.06 },
+                },
+                hidden: {},
+              }}
             >
+              {tiers.map((t) => (
+                <motion.div
+                  key={t.name}
+                  variants={{
+                    hidden: { opacity: 0, y: 52 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.58, ease },
+                    },
+                  }}
+                  whileHover={
+                    reduceMotion
+                      ? undefined
+                      : { y: -4, transition: { duration: 0.22, ease } }
+                  }
+                  className={`flex flex-col rounded-[var(--radius-card)] border px-6 py-8 md:px-7 md:py-9 ${
+                    t.highlighted
+                      ? "border-amber-glow/50 bg-canvas-white shadow-[0_20px_56px_-24px_rgba(228,86,42,0.22),var(--shadow-lg)] ring-1 ring-amber-glow/15"
+                      : "border-light-steel bg-canvas-white/90 shadow-[0_12px_40px_-28px_rgba(29,30,28,0.1)]"
+                  }`}
+                >
               <h2 className="font-serif text-[22px] font-normal text-deep-graphite md:text-[24px]">
                 {t.name}
               </h2>
@@ -171,14 +271,19 @@ export function PricingFromDoc() {
               >
                 Book a demo
               </Link>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </div>
+          </div>
+        </section>
 
         <section
-          className="mt-20 md:mt-24"
+          ref={faqSectionRef}
+          style={{ minHeight: `${faq.length * 72}svh` }}
+          className="relative mt-20 md:mt-24"
           aria-labelledby="pricing-faq-heading"
         >
+          <div className="sticky top-20 z-10 pb-10 md:top-24 md:pb-14 lg:top-28 lg:pb-16">
           <motion.div
             className="relative overflow-hidden rounded-[var(--radius-card)] border border-light-steel bg-canvas-white/80 p-[1px] shadow-[0_24px_64px_-32px_rgba(29,30,28,0.14)] backdrop-blur-sm md:rounded-[calc(var(--radius-card)+4px)]"
             initial={{ opacity: 0, y: 20 }}
@@ -316,6 +421,7 @@ export function PricingFromDoc() {
               </LayoutGroup>
             </div>
           </motion.div>
+          </div>
         </section>
 
         <section className="mt-16 md:mt-20" aria-labelledby="pricing-roi-heading">

@@ -12,6 +12,10 @@ export const solutionDocPages: Record<string, DocPage> = {
         heading: "Challenges we solve",
         blocks: [
           {
+            kind: "p",
+            text: "Residential and light-commercial HVAC businesses balance seasonal peaks, skilled labor, and long-term maintenance agreements—often with the same trucks and technicians year-round. Avishkar AI targets the operational friction that shows up in dispatch boards, compliance logs, and contract renewals.",
+          },
+          {
             kind: "ul",
             items: [
               "Seasonal demand spikes overwhelming dispatch",
@@ -26,6 +30,10 @@ export const solutionDocPages: Record<string, DocPage> = {
       {
         heading: "AI capabilities for HVAC",
         blocks: [
+          {
+            kind: "p",
+            text: "Our models combine job history, equipment context, and voice interactions so scheduling, parts, and customer communication stay aligned—from tune-ups and replacements to after-hours emergencies.",
+          },
           {
             kind: "ul",
             title: "Predictive service",
@@ -65,6 +73,10 @@ export const solutionDocPages: Record<string, DocPage> = {
         heading: "Challenges we solve",
         blocks: [
           {
+            kind: "p",
+            text: "Plumbing crews constantly trade off emergencies against booked work, variable job durations, and parts availability. These dynamics show up as callbacks, idle drive time, and frustrated customers when dispatch cannot reprioritize fast enough.",
+          },
+          {
             kind: "ul",
             items: [
               "Emergency calls disrupting planned schedules",
@@ -79,6 +91,10 @@ export const solutionDocPages: Record<string, DocPage> = {
       {
         heading: "AI capabilities for plumbing",
         blocks: [
+          {
+            kind: "p",
+            text: "Avishkar AI classifies inbound intent, forecasts realistic job lengths, and keeps technicians equipped with context—photos, specs, and permit status—before they arrive on site.",
+          },
           {
             kind: "ul",
             items: [
@@ -102,6 +118,10 @@ export const solutionDocPages: Record<string, DocPage> = {
         heading: "Challenges we solve",
         blocks: [
           {
+            kind: "p",
+            text: "Electrical contractors carry heavy documentation, licensing, and safety obligations on every truck roll. Missed permits, unclear load documentation, or expired certifications directly translate into rework, fines, and liability exposure.",
+          },
+          {
             kind: "ul",
             items: [
               "Code compliance documentation burden",
@@ -116,6 +136,10 @@ export const solutionDocPages: Record<string, DocPage> = {
       {
         heading: "AI capabilities for electrical",
         blocks: [
+          {
+            kind: "p",
+            text: "Vision-assisted capture, structured checklists, and automated routing rules help your team prove work was done to code and that the right technician—still certified for the task—is assigned every time.",
+          },
           {
             kind: "ul",
             items: [
@@ -138,6 +162,10 @@ export const solutionDocPages: Record<string, DocPage> = {
       {
         heading: "Multi-trade features",
         blocks: [
+          {
+            kind: "p",
+            text: "When homeowners trust you with more than one trade, disconnected systems become the bottleneck. Avishkar AI keeps a single customer record, one schedule of truth, and shared equipment history so cross-sell and follow-up feel intentional—not improvised.",
+          },
           {
             kind: "ul",
             title: "Unified customer view",
@@ -175,6 +203,10 @@ export const solutionDocPages: Record<string, DocPage> = {
         heading: "Commercial-specific capabilities",
         blocks: [
           {
+            kind: "p",
+            text: "Facility and commercial programs demand visibility across locations, vendors, and budgets. Avishkar AI aligns dispatch decisions with SLAs, spend controls, and subcontractor performance so enterprise accounts stay auditable and profitable.",
+          },
+          {
             kind: "ul",
             items: [
               "Central dashboard, site-specific scheduling, cross-location deployment",
@@ -195,6 +227,10 @@ export const solutionDocPages: Record<string, DocPage> = {
       {
         heading: "Emergency capabilities",
         blocks: [
+          {
+            kind: "p",
+            text: "After-hours volume is unpredictable, but customer expectations are not. AI-first intake captures every call, triages severity, and mobilizes the nearest qualified resource—while preserving human escalation paths when situations demand it.",
+          },
           {
             kind: "ul",
             items: [

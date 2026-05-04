@@ -4,6 +4,7 @@ import {
   AnimatePresence,
   motion,
   useScroll,
+  useSpring,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -104,8 +105,33 @@ const problemItems = [
 ] as const;
 
 function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  /** Soft follow so motion feels aligned with Lenis inertia (no overshoot). */
+  const scrollEase = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 38,
+    mass: 0.35,
+  });
+
+  const headingScale = useTransform(scrollEase, [0, 1], [1, 1.07]);
+  const eyebrowY = useTransform(scrollEase, [0, 1], [0, -18]);
+  const eyebrowOpacity = useTransform(scrollEase, [0, 0.55, 1], [1, 0.92, 0.82]);
+  const bodyY = useTransform(scrollEase, [0, 1], [0, -12]);
+  const bodyOpacity = useTransform(scrollEase, [0, 1], [1, 0.88]);
+  const formY = useTransform(scrollEase, [0, 1], [0, -8]);
+  const visualY = useTransform(scrollEase, [0, 1], [0, 56]);
+  const visualDesktopScale = useTransform(scrollEase, [0, 1], [1, 1.035]);
+
   return (
-    <section className="relative bg-gradient-to-b from-canvas-white via-canvas-white to-[color-mix(in_srgb,var(--color-canvas-white)_88%,var(--color-amber-glow)_12%)]">
+    <section
+      ref={sectionRef}
+      className="relative overflow-x-clip bg-gradient-to-b from-canvas-white via-canvas-white to-[color-mix(in_srgb,var(--color-canvas-white)_88%,var(--color-amber-glow)_12%)]"
+    >
       <div className={`${containerPx} py-[80px] md:py-[96px]`}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
@@ -116,19 +142,22 @@ function Hero() {
           >
             <motion.p
               variants={staggerChild}
-              className="font-mono text-[12px] font-normal uppercase tracking-[0.14em] text-muted-stone"
+              style={{ y: eyebrowY, opacity: eyebrowOpacity }}
+              className="font-mono text-[12px] font-normal uppercase tracking-[0.14em] text-muted-stone will-change-transform"
             >
               AI-native field service
             </motion.p>
             <motion.h1
               variants={staggerChild}
-              className="font-serif mt-8 text-balance text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[0.94] tracking-[-0.045em] text-deep-graphite md:text-[64px]"
+              style={{ scale: headingScale }}
+              className="font-serif origin-[center_top] mt-8 text-balance text-[clamp(2.25rem,5.5vw,4rem)] font-normal leading-[0.94] tracking-[-0.045em] text-deep-graphite will-change-transform md:text-[64px] lg:origin-left"
             >
               The AI-native field service platform that runs itself
             </motion.h1>
             <motion.p
               variants={staggerChild}
-              className="mx-auto mt-10 max-w-[52ch] text-pretty font-mono text-[16px] leading-[1.5] text-muted-stone lg:mx-0 md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
+              style={{ y: bodyY, opacity: bodyOpacity }}
+              className="mx-auto mt-10 max-w-[52ch] text-pretty font-mono text-[16px] leading-[1.5] text-muted-stone will-change-transform lg:mx-0 md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
             >
               Avishkar AI transforms reactive field service into autonomous operations.
               AI handles scheduling, dispatch, customer communication, inventory, and
@@ -136,20 +165,23 @@ function Hero() {
             </motion.p>
             <motion.div
               variants={staggerChild}
-              className="mx-auto mt-10 w-full max-w-md lg:hidden"
+              style={{ y: visualY }}
+              className="mx-auto mt-10 w-full max-w-md will-change-transform lg:hidden"
             >
               <HeroEmbeddedVisual />
             </motion.div>
             <motion.div
               variants={staggerChild}
-              className="mt-10 flex justify-center lg:mt-12 lg:justify-start"
+              style={{ y: formY }}
+              className="mt-10 flex justify-center will-change-transform lg:mt-12 lg:justify-start"
             >
               <HeroLeadForm />
             </motion.div>
           </motion.div>
 
           <motion.div
-            className="relative hidden min-w-0 lg:flex lg:justify-end"
+            className="relative hidden min-w-0 lg:flex lg:justify-end will-change-transform"
+            style={{ y: visualY, scale: visualDesktopScale }}
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, ease, delay: 0.28 }}
@@ -210,8 +242,8 @@ function Problem() {
     >
       <div className="sticky top-20 z-10 py-[80px] md:top-24 md:py-[96px] lg:top-28">
         <div className={containerPx}>
-        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.22fr)] lg:gap-16 xl:gap-20">
-          <div className="min-w-0">
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16 xl:gap-20">
+          <div className="min-w-0 lg:flex-[1] lg:min-w-0">
             <motion.h2
               id="problem-heading"
               className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
@@ -223,7 +255,7 @@ function Problem() {
               Field service is broken. Here&apos;s why.
             </motion.h2>
             <motion.p
-              className="mt-4 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:mt-5 md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
+              className="mt-4 max-w-[52ch] font-mono text-[14px] leading-[1.55] text-muted-stone md:mt-5 md:text-[15px] md:leading-[1.5] md:tracking-[-0.02px]"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -278,7 +310,7 @@ function Problem() {
           </div>
 
           <motion.div
-            className="relative mx-auto w-full max-w-[min(100%,700px)] lg:mx-0 lg:max-w-none lg:justify-self-stretch"
+            className="relative mx-auto w-full max-w-[min(100%,700px)] shrink-0 lg:mx-0 lg:flex-[1.22] lg:min-w-0 lg:max-w-none"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -346,11 +378,11 @@ type HowItWorksStep = {
   body: string;
 };
 
-/** Lenis-style fan: each step shifts right and down; scroll scrubs in from the left. */
-const HOW_IT_WORKS_STAGGER_X = 46;
-const HOW_IT_WORKS_STAGGER_Y = 22;
-const HOW_IT_WORKS_OFF_LEFT_PX = 520;
-const HOW_IT_WORKS_CARD_W = 272;
+/** Lenis-style fan: each step shifts right and down; scroll scrubs in right → left. */
+const HOW_IT_WORKS_STAGGER_X = 54;
+const HOW_IT_WORKS_STAGGER_Y = 26;
+const HOW_IT_WORKS_OFF_RIGHT_PX = 640;
+const HOW_IT_WORKS_CARD_W = 352;
 const HOW_IT_WORKS_CARD_H = Math.round((HOW_IT_WORKS_CARD_W * 5) / 4);
 
 function smoothstep01(t: number) {
@@ -377,16 +409,16 @@ function HowItWorksStackCard({
 }) {
   const restX = index * HOW_IT_WORKS_STAGGER_X;
   const restY = index * HOW_IT_WORKS_STAGGER_Y;
-  const offLeft = HOW_IT_WORKS_OFF_LEFT_PX;
+  const offRight = HOW_IT_WORKS_OFF_RIGHT_PX;
 
   const x = useTransform(scrollYProgress, (p) => {
     const range = HOW_IT_WORKS_ENTER[index];
     if (!range) return restX;
     const [start, end] = range;
-    if (p <= start) return restX - offLeft;
+    if (p <= start) return restX + offRight;
     if (p >= end) return restX;
     const raw = (p - start) / (end - start);
-    return restX - offLeft * (1 - smoothstep01(raw));
+    return restX + offRight * (1 - smoothstep01(raw));
   });
 
   return (
@@ -401,15 +433,15 @@ function HowItWorksStackCard({
       className="absolute left-0 top-0 will-change-transform rounded-xl border border-white/55 bg-gradient-to-br from-white/45 via-white/22 to-white/14 shadow-[0_20px_48px_-18px_rgba(42,35,32,0.18),inset_0_1px_0_rgba(255,255,255,0.7)] ring-1 ring-inset ring-white/50 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/[0.12] md:rounded-2xl"
       role="listitem"
     >
-      <div className="flex h-full flex-col justify-between gap-4 overflow-y-auto p-6 md:gap-5 md:p-7">
-        <span className="select-none font-mono text-[clamp(2.35rem,6.5vw,3.2rem)] font-bold leading-none tabular-nums tracking-tight text-amber-glow md:text-[3.25rem]">
+      <div className="flex h-full flex-col justify-between gap-5 overflow-y-auto p-7 md:gap-6 md:p-8">
+        <span className="select-none font-mono text-[clamp(2.65rem,7vw,3.85rem)] font-bold leading-none tabular-nums tracking-tight text-amber-glow md:text-[4rem]">
           {s.step}
         </span>
         <div className="min-w-0">
-          <h3 className="font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.14em] text-deep-graphite md:text-[12px] md:tracking-[0.16em]">
+          <h3 className="font-sans text-[12px] font-bold uppercase leading-snug tracking-[0.14em] text-deep-graphite md:text-[13px] md:tracking-[0.16em]">
             {s.title}
           </h3>
-          <p className="mt-2 line-clamp-6 font-mono text-[12px] leading-[1.5] text-muted-stone md:mt-2.5 md:text-[13px] md:leading-[1.45]">
+          <p className="mt-2 line-clamp-7 font-mono text-[13px] leading-[1.5] text-muted-stone md:mt-3 md:text-[14px] md:leading-[1.45]">
             {s.body}
           </p>
         </div>
@@ -459,7 +491,7 @@ function HowItWorks() {
     >
       <div className={containerPx}>
         <motion.h2
-          className="max-w-[20ch] font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:max-w-none md:text-[48px] md:leading-none"
+          className="mx-auto max-w-[min(28ch,92vw)] text-center font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:max-w-4xl md:text-[48px] md:leading-none"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -487,7 +519,16 @@ function HowItWorks() {
   );
 }
 
-function FinalCta() {
+function FinalCta({ scrollEase }: { scrollEase: MotionValue<number> }) {
+  /** Progress is shared with footer reveal (full CTA+footer gate); effects weighted to first half. */
+  const headingScale = useTransform(scrollEase, [0, 0.42], [1, 1.06]);
+  const businessFill = useTransform(scrollEase, [0.1, 0.52], ["0% 92%", "0% 8%"]);
+  const subY = useTransform(scrollEase, [0, 0.42], [0, -14]);
+  const subOpacity = useTransform(scrollEase, [0, 0.22, 0.42], [1, 0.94, 0.88]);
+  const trustY = useTransform(scrollEase, [0, 0.42], [0, -10]);
+  const trustOpacity = useTransform(scrollEase, [0, 0.42], [1, 0.9]);
+  const ctaY = useTransform(scrollEase, [0, 0.42], [0, -12]);
+
   const trust = [
     "No credit card required",
     "Setup in 1 day",
@@ -497,42 +538,46 @@ function FinalCta() {
   ] as const;
 
   return (
-    <motion.section
-      className="relative border-t border-light-steel bg-gradient-to-b from-warm-linen to-[color-mix(in_srgb,var(--color-warm-linen)_78%,var(--color-amber-glow)_22%)] py-[80px]"
-      initial={{ opacity: 0, scale: 0.99 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55, ease }}
-    >
+    <section className="relative z-0 min-h-[min(118svh,920px)] overflow-x-clip border-t border-light-steel bg-gradient-to-b from-warm-linen to-[color-mix(in_srgb,var(--color-warm-linen)_78%,var(--color-amber-glow)_22%)] py-[80px] pb-[min(30svh,260px)]">
       <span
         id="pricing"
         className="pointer-events-none absolute left-0 top-0 block h-px w-px scroll-mt-28"
         aria-hidden
       />
       <div className={`${containerPx} text-center`}>
-        <h2 className="font-serif text-[36px] font-normal leading-[1] tracking-[-0.05px] text-deep-graphite md:text-[48px]">
-          Ready to run your business on AI?
-        </h2>
-        <p className="mx-auto mt-8 max-w-[48ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:text-[20px] md:leading-[1.41]">
+        <motion.h2
+          style={{ scale: headingScale }}
+          className="font-serif origin-[center_top] text-[36px] font-normal leading-[1] tracking-[-0.05px] text-deep-graphite will-change-transform md:text-[48px]"
+        >
+          <span className="inline">Ready to run your </span>
+          <motion.span
+            className="relative inline-block bg-gradient-to-b from-deep-graphite from-[25%] via-[color-mix(in_srgb,var(--color-amber-glow)_85%,var(--color-deep-graphite)_15%)] to-canvas-white bg-clip-text text-transparent [background-size:100%_240%]"
+            style={{ backgroundPosition: businessFill }}
+          >
+            business
+          </motion.span>
+          <span className="inline"> on AI?</span>
+        </motion.h2>
+        <motion.p
+          style={{ y: subY, opacity: subOpacity }}
+          className="mx-auto mt-8 max-w-[48ch] font-mono text-[16px] leading-[1.5] text-muted-stone will-change-transform md:text-[20px] md:leading-[1.41]"
+        >
           Join 500+ service businesses already on Avishkar AI. See how AI-native field
           service management can transform your operations, increase revenue, and make
           everyone—your team and your customers—happier.
-        </p>
-        <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-2 font-mono text-[12px] text-muted-stone md:text-[13px]">
+        </motion.p>
+        <motion.ul
+          style={{ y: trustY, opacity: trustOpacity }}
+          className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-2 font-mono text-[12px] text-muted-stone will-change-transform md:text-[13px]"
+        >
           {trust.map((t) => (
             <li key={t} className="flex items-center gap-2">
               <span className="size-1.5 shrink-0 rounded-full bg-amber-glow/90" aria-hidden />
               {t}
             </li>
           ))}
-        </ul>
-        <motion.div
-          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, ease, delay: 0.12 }}
-        >
+        </motion.ul>
+        <motion.div style={{ y: ctaY }} className="mt-10 flex flex-col items-center justify-center gap-3 will-change-transform sm:flex-row sm:flex-wrap sm:gap-4">
           <motion.a
             href="#demo"
             className="inline-flex min-h-[52px] items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-10 font-mono text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] hover:brightness-[1.03]"
@@ -556,7 +601,31 @@ function FinalCta() {
           </Link>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
+  );
+}
+
+function CtaFooterReveal() {
+  const gateRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: gateRef,
+    offset: ["start start", "end start"],
+  });
+
+  const scrollEase = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 38,
+    mass: 0.35,
+  });
+
+  /** Footer rides up into view as you finish scrolling this gate (synced with Lenis). */
+  const footerY = useTransform(scrollEase, [0.34, 0.82], [140, 0]);
+
+  return (
+    <div ref={gateRef} className="relative">
+      <FinalCta scrollEase={scrollEase} />
+      <Footer footerY={footerY} />
+    </div>
   );
 }
 
@@ -570,28 +639,17 @@ const footerResourceLinks: { label: string; href: string }[] = [
   { label: "Case studies", href: "/resources/blog/case-studies" },
 ];
 
-const footerLegal: { label: string }[] = [
-  { label: "Privacy Policy" },
-  { label: "Terms of Service" },
-  { label: "Cookie Policy" },
-  { label: "GDPR compliance" },
-  { label: "Security" },
-];
-
-function Footer() {
+function Footer({ footerY }: { footerY?: MotionValue<number> }) {
   const productCol = productLinks.filter((l) => !l.emphasis);
 
   return (
     <motion.footer
       id="footer"
-      className="border-t border-light-steel bg-canvas-white py-12 text-deep-graphite md:py-16"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.45, ease }}
+      style={footerY ? { y: footerY } : undefined}
+      className="relative z-20 -mt-[min(22vh,176px)] border-t border-light-steel bg-canvas-white py-12 text-deep-graphite shadow-[0_-28px_60px_-48px_rgba(29,30,28,0.18)] md:py-16"
     >
       <div className={`${containerPx} grid gap-12 lg:grid-cols-12 lg:gap-10`}>
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-4">
           <p className="font-mono text-[15px] font-semibold text-deep-graphite">Avishkar AI</p>
           <p className="mt-3 max-w-[32ch] font-mono text-[13px] leading-relaxed text-muted-stone">
             Flagship brand of Anjaneya AI Technologies Pvt Ltd—AI-native field service
@@ -687,48 +745,6 @@ function Footer() {
             </li>
           </ul>
         </nav>
-
-        <div className="lg:col-span-3">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
-            Newsletter
-          </p>
-          <p className="mt-2 font-serif text-[18px] text-deep-graphite">Get AI insights for field service</p>
-          <form
-            className="mt-4 flex flex-col gap-2 sm:flex-row"
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <label htmlFor="footer-email" className="sr-only">
-              Email
-            </label>
-            <input
-              id="footer-email"
-              name="email"
-              type="email"
-              placeholder="Email address"
-              className="min-h-[44px] flex-1 rounded-[var(--radius-ui)] border border-light-steel bg-canvas-white px-4 font-mono text-[13px] text-deep-graphite placeholder:text-text-gray"
-            />
-            <button
-              type="submit"
-              className="min-h-[44px] shrink-0 rounded-[var(--radius-ui)] bg-amber-glow px-5 font-mono text-[13px] font-semibold text-canvas-white hover:brightness-[1.03]"
-            >
-              Subscribe
-            </button>
-          </form>
-          <div className="mt-8 border-t border-light-steel pt-6">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
-              Legal
-            </p>
-            <ul className="mt-3 flex flex-col gap-2 font-mono text-[12px] text-muted-stone">
-              {footerLegal.map((l) => (
-                <li key={l.label}>
-                  <span className="cursor-default">{l.label} — coming soon</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
 
       <div className="mx-auto mt-12 max-w-[var(--page-max-width)] border-t border-light-steel px-6 pt-8 text-center font-mono text-[12px] text-muted-stone md:px-8 md:text-[13px]">
@@ -771,9 +787,8 @@ export function LandingPage() {
         <MetricsRoiSection />
         <TestimonialsCarouselSection />
         <IntegrationsPartnersSection />
-        <FinalCta />
+        <CtaFooterReveal />
       </main>
-      <Footer />
     </>
   );
 }
