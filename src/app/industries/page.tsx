@@ -5,13 +5,13 @@ export default function IndustriesHubPage() {
   return (
     <main className="flex-1 border-t border-light-steel bg-canvas-white">
       <div className="mx-auto max-w-[var(--page-max-width)] px-6 py-14 md:px-8 md:py-20">
-        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
+        <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
           Industries
         </p>
         <h1 className="font-serif mt-4 text-[clamp(1.85rem,4vw,2.75rem)] font-normal leading-[1.1] tracking-[-0.04em] text-deep-graphite md:text-[44px]">
           AI-native field service for every industry
         </h1>
-        <p className="mt-6 max-w-[60ch] font-mono text-[16px] leading-[1.55] text-muted-stone md:text-[17px]">
+        <p className="mt-6 max-w-[60ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px]">
           The technology is the same. The intelligence is adapted to your industry.
         </p>
 
@@ -23,7 +23,7 @@ export default function IndustriesHubPage() {
             <li key={p.href}>
               <Link
                 href={p.href}
-                className="block rounded-[var(--radius-card)] border border-light-steel bg-warm-linen/70 px-5 py-4 font-mono text-[15px] text-deep-graphite transition-colors hover:border-amber-glow/40 hover:bg-warm-linen"
+                className="block rounded-[var(--radius-card)] border border-light-steel bg-harvest-cream/70 px-5 py-4 font-sans text-[15px] text-deep-graphite transition-colors hover:border-amber-glow/40 hover:bg-harvest-cream"
               >
                 {p.label}
               </Link>
@@ -33,7 +33,7 @@ export default function IndustriesHubPage() {
 
         <Link
           href="/"
-          className="mt-12 inline-block font-mono text-[14px] font-semibold text-amber-glow underline decoration-soft-fog underline-offset-[6px] hover:text-deep-graphite"
+          className="mt-12 inline-block font-sans text-[14px] font-semibold text-amber-glow underline decoration-soft-fog underline-offset-[6px] hover:text-deep-graphite"
         >
           ← Back to home
         </Link>

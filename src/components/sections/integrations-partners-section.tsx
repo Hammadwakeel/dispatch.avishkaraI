@@ -46,7 +46,7 @@ export function IntegrationsPartnersSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease }}
         >
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
             Integration partners
           </p>
           <h2
@@ -65,14 +65,14 @@ export function IntegrationsPartnersSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, ease, delay: i * 0.04 }}
-              className="rounded-[var(--radius-card)] border border-light-steel bg-warm-linen/20 p-6 md:p-7"
+              className="rounded-[var(--radius-card)] border border-light-steel bg-harvest-cream/20 p-6 md:p-7"
             >
               <h3 className="font-serif text-[18px] font-normal text-deep-graphite md:text-[19px]">
                 {cat.title}
               </h3>
               <ul className="mt-4 flex flex-col gap-2">
                 {cat.items.map((item) => (
-                  <li key={item} className="font-mono text-[13px] text-link-gray md:text-[14px]">
+                  <li key={item} className="font-sans text-[13px] text-link-gray md:text-[14px]">
                     {item}
                   </li>
                 ))}
@@ -82,7 +82,7 @@ export function IntegrationsPartnersSection() {
         </ul>
 
         <motion.p
-          className="mx-auto mt-10 max-w-2xl text-center font-mono text-[14px] font-semibold leading-relaxed text-amber-glow md:mt-12 md:text-[15px]"
+          className="mx-auto mt-10 max-w-2xl text-center font-sans text-[14px] font-semibold leading-relaxed text-amber-glow md:mt-12 md:text-[15px]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

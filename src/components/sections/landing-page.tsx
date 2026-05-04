@@ -1,7 +1,16 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import type Lenis from "lenis";
+import { useLenis } from "lenis/react";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CorePlatformTabsSection } from "./core-platform-tabs-section";
 import { HeroEmbeddedVisual } from "./hero-embedded-visual";
@@ -10,8 +19,46 @@ import { IndustrySnapshotsSection } from "./industry-snapshots-section";
 import { IntegrationsPartnersSection } from "./integrations-partners-section";
 import { MetricsRoiSection } from "./metrics-roi-section";
 import { TestimonialsCarouselSection } from "./testimonials-carousel-section";
-import { TrustedMarqueeSection } from "./trusted-marquee";
 import { companyLinks, pricingNavItem, productLinks, solutionLinks } from "@/config/site-navigation";
+
+/** Route-level code split: social proof chunk loads separately from the main landing bundle. */
+const TrustedMarqueeSection = dynamic(
+  () => import("./trusted-marquee").then((mod) => mod.TrustedMarqueeSection),
+  {
+    loading: () => <SocialProofSectionSkeleton />,
+  },
+);
+
+function SocialProofSectionSkeleton() {
+  return (
+    <section
+      className="border-y border-light-steel bg-gradient-to-b from-canvas-white to-[color-mix(in_srgb,var(--color-harvest-cream)_70%,var(--color-warm-linen)_30%)] py-[72px] md:py-[88px]"
+      aria-hidden={true}
+      aria-busy="true"
+    >
+      <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
+        <div className="mx-auto max-w-3xl space-y-4 text-center">
+          <div className="mx-auto h-3 w-24 animate-pulse rounded bg-amber-glow/25" />
+          <div className="mx-auto h-10 max-w-md animate-pulse rounded-md bg-light-steel/40" />
+          <div className="mx-auto h-16 max-w-xl animate-pulse rounded-md bg-light-steel/30" />
+        </div>
+        <div className="mx-auto mt-10 flex max-w-3xl justify-center gap-6 border-y border-light-steel/50 py-8">
+          {["a", "b", "c"].map((k) => (
+            <div key={k} className="flex flex-col items-center gap-2">
+              <div className="h-6 w-16 animate-pulse rounded bg-light-steel/45" />
+              <div className="h-3 w-24 animate-pulse rounded bg-light-steel/30" />
+            </div>
+          ))}
+        </div>
+        <div className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-2.5">
+          {["s1", "s2", "s3", "s4", "s5", "s6", "s7"].map((k) => (
+            <div key={k} className="h-9 w-24 animate-pulse rounded-full bg-light-steel/35" />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -33,9 +80,32 @@ const staggerChild = {
 
 const containerPx = "mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8";
 
+const problemItems = [
+  {
+    id: "dispatch",
+    title: "The dispatch chaos",
+    body: "Manual scheduling creates conflicts, missed windows, and wasted drive time—technicians lose 2–3 hours daily to poor routing. Average Indian field businesses lose ₹35+ lakh/year to dispatch inefficiency.",
+  },
+  {
+    id: "communication",
+    title: "The communication gap",
+    body: "Customers wait for updates, miss appointments, and call constantly. About 40% of inbound calls are status updates AI can handle—68% of Indian customers rate field service experiences as frustrating.",
+  },
+  {
+    id: "knowledge",
+    title: "The knowledge leak",
+    body: "Best practices live in technicians’ heads, not systems—inconsistent quality and repeated mistakes follow. 73% of field service knowledge walks out the door when people leave.",
+  },
+  {
+    id: "inventory",
+    title: "The inventory blind spot",
+    body: "Parts gaps cause return trips and delays; return trips average about ₹8,000 per occurrence in India. 23% of scheduled jobs need a revisit because of parts issues.",
+  },
+] as const;
+
 function Hero() {
   return (
-    <section className="relative bg-gradient-to-b from-canvas-white via-[color-mix(in_srgb,var(--color-warm-linen)_92%,var(--color-amber-glow)_8%)] to-warm-linen">
+    <section className="relative bg-gradient-to-b from-canvas-white via-canvas-white to-[color-mix(in_srgb,var(--color-canvas-white)_88%,var(--color-amber-glow)_12%)]">
       <div className={`${containerPx} py-[80px] md:py-[96px]`}>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
@@ -76,31 +146,6 @@ function Hero() {
             >
               <HeroLeadForm />
             </motion.div>
-            <motion.div
-              variants={staggerChild}
-              className="mt-6 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
-            >
-              <Link
-                href="#platform-features"
-                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius-ui)] border border-light-steel bg-canvas-white px-5 font-mono text-[13px] font-medium text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/50 hover:bg-warm-linen/40 md:text-[14px]"
-              >
-                See it in action
-              </Link>
-              <Link
-                href="/resources/roi-calculator"
-                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius-ui)] border border-transparent px-5 font-mono text-[13px] font-semibold text-amber-glow underline-offset-4 hover:underline md:text-[14px]"
-              >
-                Calculate your ROI
-              </Link>
-            </motion.div>
-            <motion.p
-              variants={staggerChild}
-              className="mt-5 font-mono text-[12px] leading-[1.5] text-muted-stone md:text-[13px]"
-            >
-              Human-in-the-loop by default. Prefer a walkthrough first? Use{" "}
-              <em className="not-italic font-medium text-deep-graphite/90">See it in action</em>{" "}
-              to jump to platform features, or open the ROI calculator anytime.
-            </motion.p>
           </motion.div>
 
           <motion.div
@@ -118,40 +163,54 @@ function Hero() {
 }
 
 function Problem() {
-  const items = [
-    {
-      id: "dispatch",
-      title: "The dispatch chaos",
-      body: "Manual scheduling creates conflicts, missed windows, and wasted drive time—technicians lose 2–3 hours daily to poor routing. Average Indian field businesses lose ₹35+ lakh/year to dispatch inefficiency.",
-    },
-    {
-      id: "communication",
-      title: "The communication gap",
-      body: "Customers wait for updates, miss appointments, and call constantly. About 40% of inbound calls are status updates AI can handle—68% of Indian customers rate field service experiences as frustrating.",
-    },
-    {
-      id: "knowledge",
-      title: "The knowledge leak",
-      body: "Best practices live in technicians’ heads, not systems—inconsistent quality and repeated mistakes follow. 73% of field service knowledge walks out the door when people leave.",
-    },
-    {
-      id: "inventory",
-      title: "The inventory blind spot",
-      body: "Parts gaps cause return trips and delays; return trips average about ₹8,000 per occurrence in India. 23% of scheduled jobs need a revisit because of parts issues.",
-    },
-  ] as const;
-
   const [active, setActive] = useState(0);
-  const activeItem = items[active];
+  const activeItem = problemItems[active];
+  const sectionRef = useRef<HTMLElement>(null);
+  const lenis = useLenis();
+
+  const syncActiveFromScroll = useCallback((l: Lenis) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const scroll = l.scroll;
+    const innerH = window.innerHeight;
+    const top = el.getBoundingClientRect().top + scroll;
+    const height = el.offsetHeight;
+    const travel = Math.max(1, height - innerH);
+    let p = (scroll - top) / travel;
+    p = Math.max(0, Math.min(1, p));
+    const idx = Math.min(problemItems.length - 1, Math.floor(p * problemItems.length));
+    setActive((prev) => (prev === idx ? prev : idx));
+  }, []);
+
+  useLenis(syncActiveFromScroll, []);
+
+  useEffect(() => {
+    if (lenis) syncActiveFromScroll(lenis);
+  }, [lenis, syncActiveFromScroll]);
+
+  const scrollToPanel = (i: number) => {
+    const el = sectionRef.current;
+    if (!lenis || !el) return;
+    const scroll = lenis.scroll;
+    const innerH = window.innerHeight;
+    const top = el.getBoundingClientRect().top + scroll;
+    const height = el.offsetHeight;
+    const travel = Math.max(1, height - innerH);
+    const target = top + ((i + 0.5) / problemItems.length) * travel;
+    lenis.scrollTo(target, { duration: 0.85 });
+  };
 
   return (
     <section
+      ref={sectionRef}
       id="pain"
-      className="scroll-mt-28 bg-warm-linen py-[80px] md:scroll-mt-32 md:py-[96px]"
+      className="relative scroll-mt-28 bg-gradient-to-b from-canvas-white via-harvest-cream to-[color-mix(in_srgb,var(--color-harvest-cream)_86%,var(--color-amber-glow)_14%)] md:scroll-mt-32"
+      style={{ minHeight: `${problemItems.length * 92}svh` }}
       aria-labelledby="problem-heading"
     >
-      <div className={containerPx}>
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+      <div className="sticky top-20 z-10 py-[80px] md:top-24 md:py-[96px] lg:top-28">
+        <div className={containerPx}>
+        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.22fr)] lg:gap-16 xl:gap-20">
           <div className="min-w-0">
             <motion.h2
               id="problem-heading"
@@ -164,7 +223,7 @@ function Problem() {
               Field service is broken. Here&apos;s why.
             </motion.h2>
             <motion.p
-              className="mt-8 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
+              className="mt-4 max-w-[52ch] font-mono text-[16px] leading-[1.5] text-muted-stone md:mt-5 md:text-[20px] md:leading-[1.41] md:tracking-[-0.025px]"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -176,11 +235,11 @@ function Problem() {
             </motion.p>
 
             <div
-              className="mt-12 flex flex-col gap-2 border-t border-light-steel pt-10"
+              className="mt-6 flex flex-col gap-0.5 border-t border-light-steel pt-5 md:mt-7 md:pt-6"
               role="tablist"
               aria-label="Field service challenges"
             >
-              {items.map((item, i) => {
+              {problemItems.map((item, i) => {
                 const selected = i === active;
                 return (
                   <button
@@ -190,12 +249,15 @@ function Problem() {
                     aria-selected={selected}
                     aria-controls="problem-mac-screen"
                     id={`problem-tab-${item.id}`}
-                    className={`group text-left transition-colors duration-200 ${
+                    className={`group py-1 text-left transition-colors duration-200 md:py-1.5 ${
                       selected
-                        ? "border-l-[3px] border-amber-glow pl-5"
-                        : "border-l-[3px] border-transparent pl-5 hover:border-soft-fog"
+                        ? "border-l-[3px] border-amber-glow pl-4"
+                        : "border-l-[3px] border-transparent pl-4 hover:border-soft-fog"
                     }`}
-                    onClick={() => setActive(i)}
+                    onClick={() => {
+                      setActive(i);
+                      scrollToPanel(i);
+                    }}
                   >
                     <span
                       className={`block font-serif text-[22px] font-normal leading-snug tracking-[-0.025px] transition-colors md:text-[26px] md:leading-[1.25] ${
@@ -206,7 +268,7 @@ function Problem() {
                     >
                       {item.title}
                     </span>
-                    <span className="mt-1 block font-mono text-[12px] font-normal uppercase tracking-[0.12em] text-muted-stone">
+                    <span className="mt-0.5 block font-mono text-[11px] font-normal uppercase tracking-[0.12em] text-muted-stone md:text-[12px]">
                       {selected ? "On screen" : "Show in preview"}
                     </span>
                   </button>
@@ -216,18 +278,18 @@ function Problem() {
           </div>
 
           <motion.div
-            className="relative mx-auto w-full max-w-[540px] lg:mx-0 lg:max-w-none lg:justify-self-end"
+            className="relative mx-auto w-full max-w-[min(100%,700px)] lg:mx-0 lg:max-w-none lg:justify-self-stretch"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.55, ease, delay: 0.08 }}
           >
             <div
-              className="relative rounded-[1.35rem] bg-gradient-to-b from-[#d8d6d3] via-[#b9b7b4] to-[#9c9a97] p-[11px] shadow-[0_28px_56px_-24px_rgba(29,30,28,0.35),0_12px_24px_-16px_rgba(29,30,28,0.2),inset_0_1px_0_rgba(255,255,255,0.55)] ring-1 ring-black/10"
+              className="relative rounded-[1.2rem] bg-gradient-to-b from-[#d8d6d3] via-[#b9b7b4] to-[#9c9a97] p-2 shadow-[0_32px_64px_-24px_rgba(29,30,28,0.35),0_14px_28px_-16px_rgba(29,30,28,0.2),inset_0_1px_0_rgba(255,255,255,0.55)] ring-1 ring-black/10 md:rounded-[1.45rem] md:p-[10px]"
               aria-label="Preview window"
             >
-              <div className="overflow-hidden rounded-[1.05rem] bg-[#2a2a2a] p-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.45)]">
-                <div className="grid h-9 grid-cols-[3.25rem_1fr_3.25rem] items-center rounded-t-lg bg-[#3d3d3d] px-3">
+              <div className="overflow-hidden rounded-[1rem] bg-[#2a2a2a] p-2 shadow-[inset_0_2px_8px_rgba(0,0,0,0.45)] md:rounded-[1.12rem] md:p-2.5">
+                <div className="grid h-8 grid-cols-[3rem_1fr_3rem] items-center rounded-t-lg bg-[#3d3d3d] px-2.5 md:h-9 md:grid-cols-[3.5rem_1fr_3.5rem] md:px-3.5">
                   <span className="flex justify-start gap-1.5" aria-hidden>
                     <span className="size-2.5 rounded-full bg-[#ff5f57] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.25)]" />
                     <span className="size-2.5 rounded-full bg-[#febc2e] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)]" />
@@ -242,12 +304,12 @@ function Problem() {
                   id="problem-mac-screen"
                   role="tabpanel"
                   aria-labelledby={`problem-tab-${activeItem.id}`}
-                  className="relative min-h-[220px] rounded-b-lg rounded-t-none border border-t-0 border-light-steel bg-canvas-white px-5 py-6 shadow-inner sm:min-h-[260px] md:min-h-[280px] md:px-7 md:py-8"
+                  className="relative min-h-[220px] rounded-b-lg rounded-t-none border border-t-0 border-light-steel bg-canvas-white px-4 py-4 shadow-inner sm:min-h-[240px] md:min-h-[280px] md:px-6 md:py-6 lg:min-h-[300px]"
                 >
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-amber-glow">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-glow md:text-[11px]">
                     {activeItem.title}
                   </p>
-                  <div className="relative mt-4 min-h-[8.5rem] md:min-h-[9.5rem]">
+                  <div className="relative mt-3 min-h-[7.5rem] md:mt-4 md:min-h-[8.5rem] lg:min-h-[9rem]">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeItem.id}
@@ -257,7 +319,7 @@ function Problem() {
                         transition={{ duration: 0.22, ease }}
                         className="absolute inset-0"
                       >
-                        <p className="font-mono text-[15px] leading-[1.6] text-link-gray md:text-[16px] md:leading-[1.55]">
+                        <p className="font-mono text-[14px] leading-[1.55] text-link-gray md:text-[15px] md:leading-[1.58] lg:text-[16px]">
                           {activeItem.body}
                         </p>
                       </motion.div>
@@ -265,20 +327,99 @@ function Problem() {
                   </div>
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute bottom-3 left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-deep-graphite/10"
+                    className="pointer-events-none absolute bottom-2 left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-deep-graphite/10 md:bottom-3"
                   />
                 </div>
               </div>
             </div>
           </motion.div>
         </div>
+        </div>
       </div>
     </section>
   );
 }
 
+type HowItWorksStep = {
+  step: string;
+  title: string;
+  body: string;
+};
+
+/** Lenis-style fan: each step shifts right and down; scroll scrubs in from the left. */
+const HOW_IT_WORKS_STAGGER_X = 46;
+const HOW_IT_WORKS_STAGGER_Y = 22;
+const HOW_IT_WORKS_OFF_LEFT_PX = 520;
+const HOW_IT_WORKS_CARD_W = 272;
+const HOW_IT_WORKS_CARD_H = Math.round((HOW_IT_WORKS_CARD_W * 5) / 4);
+
+function smoothstep01(t: number) {
+  const x = Math.min(1, Math.max(0, t));
+  return x * x * (3 - 2 * x);
+}
+
+/** Scroll segment (0–1) when each card flies in and settles on the stack. */
+const HOW_IT_WORKS_ENTER: Record<number, readonly [number, number]> = {
+  0: [0.05, 0.2],
+  1: [0.26, 0.4],
+  2: [0.46, 0.6],
+  3: [0.66, 0.8],
+};
+
+function HowItWorksStackCard({
+  s,
+  index,
+  scrollYProgress,
+}: {
+  s: HowItWorksStep;
+  index: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const restX = index * HOW_IT_WORKS_STAGGER_X;
+  const restY = index * HOW_IT_WORKS_STAGGER_Y;
+  const offLeft = HOW_IT_WORKS_OFF_LEFT_PX;
+
+  const x = useTransform(scrollYProgress, (p) => {
+    const range = HOW_IT_WORKS_ENTER[index];
+    if (!range) return restX;
+    const [start, end] = range;
+    if (p <= start) return restX - offLeft;
+    if (p >= end) return restX;
+    const raw = (p - start) / (end - start);
+    return restX - offLeft * (1 - smoothstep01(raw));
+  });
+
+  return (
+    <motion.article
+      style={{
+        x,
+        y: restY,
+        zIndex: 10 + index,
+        width: HOW_IT_WORKS_CARD_W,
+        height: HOW_IT_WORKS_CARD_H,
+      }}
+      className="absolute left-0 top-0 will-change-transform rounded-xl border border-white/55 bg-gradient-to-br from-white/45 via-white/22 to-white/14 shadow-[0_20px_48px_-18px_rgba(42,35,32,0.18),inset_0_1px_0_rgba(255,255,255,0.7)] ring-1 ring-inset ring-white/50 backdrop-blur-2xl backdrop-saturate-150 supports-[backdrop-filter]:bg-white/[0.12] md:rounded-2xl"
+      role="listitem"
+    >
+      <div className="flex h-full flex-col justify-between gap-4 overflow-y-auto p-6 md:gap-5 md:p-7">
+        <span className="select-none font-mono text-[clamp(2.35rem,6.5vw,3.2rem)] font-bold leading-none tabular-nums tracking-tight text-amber-glow md:text-[3.25rem]">
+          {s.step}
+        </span>
+        <div className="min-w-0">
+          <h3 className="font-sans text-[11px] font-bold uppercase leading-snug tracking-[0.14em] text-deep-graphite md:text-[12px] md:tracking-[0.16em]">
+            {s.title}
+          </h3>
+          <p className="mt-2 line-clamp-6 font-mono text-[12px] leading-[1.5] text-muted-stone md:mt-2.5 md:text-[13px] md:leading-[1.45]">
+            {s.body}
+          </p>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
 function HowItWorks() {
-  const steps = [
+  const steps: HowItWorksStep[] = [
     {
       step: "01",
       title: "Connect your business",
@@ -300,14 +441,25 @@ function HowItWorks() {
       body: "Every outcome is measured, improvements are identified and tested, wins are reported, and the system evolves as you grow.",
     },
   ];
+
+  const scrollTrackRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollTrackRef,
+    offset: ["start start", "end end"],
+  });
+
+  const n = steps.length;
+  const fanW = (n - 1) * HOW_IT_WORKS_STAGGER_X + HOW_IT_WORKS_CARD_W;
+  const fanH = (n - 1) * HOW_IT_WORKS_STAGGER_Y + HOW_IT_WORKS_CARD_H;
+
   return (
     <section
       id="how-it-works"
-      className="scroll-mt-28 bg-warm-linen py-[80px] md:scroll-mt-32"
+      className="scroll-mt-28 overflow-x-visible bg-warm-linen pb-10 pt-[80px] md:scroll-mt-32 md:pb-16 md:pt-[88px]"
     >
       <div className={containerPx}>
         <motion.h2
-          className="font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:text-[48px] md:leading-none"
+          className="max-w-[20ch] font-serif text-[32px] font-normal leading-[1.13] tracking-[-0.05px] text-deep-graphite md:max-w-none md:text-[48px] md:leading-none"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -315,27 +467,21 @@ function HowItWorks() {
         >
           From chaos to clarity in four steps
         </motion.h2>
-        <motion.ol
-          className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerParent}
-        >
-          {steps.map((s) => (
-            <motion.li key={s.step} variants={staggerChild} className="relative">
-              <span className="inline-flex min-w-[2.75rem] items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-3 py-1 font-mono text-[12px] font-semibold tabular-nums tracking-normal text-canvas-white shadow-[var(--shadow-sm)]">
-                {s.step}
-              </span>
-              <h3 className="mt-5 font-serif text-[28px] font-normal leading-[1.33] tracking-[-0.025px] text-deep-graphite">
-                {s.title}
-              </h3>
-              <p className="mt-4 font-mono text-[16px] leading-[1.5] text-link-gray">
-                {s.body}
-              </p>
-            </motion.li>
-          ))}
-        </motion.ol>
+      </div>
+
+      <div ref={scrollTrackRef} className="relative mt-14 min-h-[300svh] md:mt-16 md:min-h-[320svh]">
+        <div className="sticky top-20 flex min-h-[calc(100svh-5.5rem)] items-center justify-center px-4 py-8 sm:px-6 md:top-24 md:min-h-[calc(100svh-6rem)] lg:top-28 lg:min-h-[calc(100svh-7rem)] md:px-8">
+          <div
+            className="relative isolate mx-auto max-w-[min(100%,var(--page-max-width))] overflow-x-auto overflow-y-visible sm:overflow-x-visible"
+            style={{ width: fanW, height: fanH }}
+            role="list"
+            aria-label="Four steps to clarity"
+          >
+            {steps.map((s, i) => (
+              <HowItWorksStackCard key={s.step} s={s} index={i} scrollYProgress={scrollYProgress} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

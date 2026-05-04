@@ -2,6 +2,13 @@
 
 import { useMemo, useState } from "react";
 import type { DocBlock, DocPage, DocSection } from "@/content/types";
+import { headingToFocusParam } from "@/lib/heading-to-focus-param";
+
+function activeIndexForFocus(sections: DocSection[], focus: string | undefined): number {
+  if (!focus || sections.length === 0) return 0;
+  const i = sections.findIndex((s) => headingToFocusParam(s.heading) === focus);
+  return i >= 0 ? i : 0;
+}
 
 function MacSectionBody({ section }: { section: DocSection }) {
   return (
@@ -21,14 +28,14 @@ function MacSectionBody({ section }: { section: DocSection }) {
 function MacBlock({ block }: { block: DocBlock }) {
   if (block.kind === "p") {
     return (
-      <p className="font-mono text-[11px] leading-relaxed text-link-gray md:text-[12px] lg:text-[13px]">
+      <p className="font-sans text-[11px] leading-relaxed text-link-gray md:text-[12px] lg:text-[13px]">
         {block.text}
       </p>
     );
   }
 
   const list = (
-    <ul className="list-none space-y-2.5 font-mono text-[10px] leading-snug text-link-gray md:text-[11px] lg:text-[12px]">
+    <ul className="list-none space-y-2.5 font-sans text-[10px] leading-snug text-link-gray md:text-[11px] lg:text-[12px]">
       {block.items.map((item, li) => (
         <li key={`${li}-${item.slice(0, 24)}`} className="flex gap-2">
           <span
@@ -43,8 +50,8 @@ function MacBlock({ block }: { block: DocBlock }) {
 
   if (block.title) {
     return (
-      <div className="rounded-lg border border-light-steel/80 bg-warm-linen/40 p-3 md:p-3.5">
-        <p className="font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-deep-graphite md:text-[10px]">
+      <div className="rounded-lg border border-light-steel/80 bg-harvest-cream/40 p-3 md:p-3.5">
+        <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.12em] text-deep-graphite md:text-[10px]">
           {block.title}
         </p>
         <div className="mt-2.5 border-t border-light-steel/50 pt-2.5">{list}</div>
@@ -55,9 +62,16 @@ function MacBlock({ block }: { block: DocBlock }) {
   return list;
 }
 
-export function ProductMacInteractiveHero({ doc }: { doc: DocPage }) {
-  const [active, setActive] = useState(0);
+export function ProductMacInteractiveHero({
+  doc,
+  initialMacFocus,
+}: {
+  doc: DocPage;
+  initialMacFocus?: string;
+}) {
   const sections = doc.sections;
+  const [active, setActive] = useState(() => activeIndexForFocus(sections, initialMacFocus));
+
   const safeIndex = sections.length > 0 ? Math.min(active, sections.length - 1) : 0;
   const activeSection = sections[safeIndex] ?? null;
 
@@ -72,7 +86,7 @@ export function ProductMacInteractiveHero({ doc }: { doc: DocPage }) {
 
   const tabNav = (
     <nav className="mt-6" aria-label="Product feature areas">
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-stone">
+      <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-stone">
         Explore
       </p>
       <div
@@ -91,9 +105,9 @@ export function ProductMacInteractiveHero({ doc }: { doc: DocPage }) {
               aria-selected={selected}
               aria-controls="product-mac-panel"
               onClick={() => setActive(i)}
-              className={`w-full rounded-[var(--radius-ui)] border px-3 py-2.5 text-left font-mono text-[13px] leading-snug transition-colors md:text-[14px] lg:py-3 lg:text-[15px] ${
+              className={`w-full rounded-[var(--radius-ui)] border px-3 py-2.5 text-left font-sans text-[13px] leading-snug transition-colors md:text-[14px] lg:py-3 lg:text-[15px] ${
                 selected
-                  ? "border-amber-glow/40 bg-warm-linen font-semibold text-deep-graphite shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5)]"
+                  ? "border-amber-glow/40 bg-harvest-cream font-semibold text-deep-graphite shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5)]"
                   : "border-transparent text-link-gray hover:border-light-steel hover:bg-white/50 hover:text-deep-graphite"
               }`}
             >
@@ -118,7 +132,7 @@ export function ProductMacInteractiveHero({ doc }: { doc: DocPage }) {
             <span className="size-3 rounded-full bg-[#febc2e] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)] sm:size-[13px]" />
             <span className="size-3 rounded-full bg-[#28c840] shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)] sm:size-[13px]" />
           </span>
-          <span className="truncate text-center font-mono text-[12px] font-medium text-white/80 sm:text-[13px] md:text-[14px]">
+          <span className="truncate text-center font-sans text-[12px] font-medium text-white/80 sm:text-[13px] md:text-[14px]">
             {windowTitle}
           </span>
           <span aria-hidden className="block" />
@@ -130,10 +144,10 @@ export function ProductMacInteractiveHero({ doc }: { doc: DocPage }) {
           className="max-h-[min(78vh,720px)] min-h-[min(50vh,480px)] overflow-y-auto overscroll-contain bg-canvas-white px-5 py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.92)] sm:max-h-[min(82vh,820px)] sm:min-h-[min(52vh,520px)] sm:px-8 sm:py-8 md:max-h-[min(86vh,920px)] md:min-h-[min(54vh,560px)] md:px-10 md:py-10 lg:max-h-[min(88vh,980px)] lg:min-h-[min(56vh,600px)]"
         >
           <div className="mb-5 flex items-center justify-between border-b border-light-steel pb-3.5 md:mb-6 md:pb-4">
-            <span className="font-mono text-[12px] font-semibold text-deep-graphite md:text-[13px]">
+            <span className="font-sans text-[12px] font-semibold text-deep-graphite md:text-[13px]">
               Avishkar AI
             </span>
-            <span className="rounded-md bg-warm-linen px-2.5 py-1 font-mono text-[11px] text-muted-stone md:text-[12px]">
+            <span className="rounded-md bg-harvest-cream px-2.5 py-1 font-sans text-[11px] text-muted-stone md:text-[12px]">
               Preview
             </span>
           </div>
@@ -147,7 +161,7 @@ export function ProductMacInteractiveHero({ doc }: { doc: DocPage }) {
     <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-x-16 lg:gap-y-0 xl:gap-x-20 2xl:gap-x-28">
       <div className="min-w-0 w-full max-w-[min(100%,26rem)] justify-self-start text-left xl:max-w-[28rem]">
         {doc.eyebrow ? (
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
             {doc.eyebrow}
           </p>
         ) : null}
@@ -156,7 +170,7 @@ export function ProductMacInteractiveHero({ doc }: { doc: DocPage }) {
         >
           {doc.heroTitle}
         </h1>
-        <p className="mt-5 max-w-[52ch] font-mono text-[16px] leading-[1.55] text-muted-stone md:text-[17px] lg:text-[18px]">
+        <p className="mt-5 max-w-[52ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px] lg:text-[18px]">
           {doc.heroSubtitle}
         </p>
         {tabNav}

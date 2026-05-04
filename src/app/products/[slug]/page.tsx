@@ -12,12 +12,24 @@ export function generateStaticParams() {
 
 export default async function ProductDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ focus?: string | string[] }>;
 }) {
   const { slug } = await params;
   if (!isProductSlug(slug)) notFound();
   const pageDoc = productDocPages[slug];
   if (!pageDoc) notFound();
-  return <MarketingDocPage doc={pageDoc} boxedSections hideBackLink />;
+  const sp = searchParams ? await searchParams : {};
+  const focusRaw = sp.focus;
+  const initialMacFocus = typeof focusRaw === "string" ? focusRaw : undefined;
+  return (
+    <MarketingDocPage
+      doc={pageDoc}
+      boxedSections
+      hideBackLink
+      initialMacFocus={initialMacFocus}
+    />
+  );
 }

@@ -9,7 +9,7 @@ import Image from "next/image";
 export function HeroEmbeddedVisual({ className }: { className?: string }) {
   return (
     <div className={`relative w-full ${className ?? ""}`}>
-      <div className="overflow-hidden rounded-[var(--radius-card)] border border-soft-fog bg-warm-linen shadow-[var(--shadow-lg)]">
+      <div className="overflow-hidden rounded-[var(--radius-card)] border border-soft-fog bg-harvest-cream shadow-[var(--shadow-lg)]">
         <Image
           src="/hero-home.jpeg"
           alt="AvishkarAI dispatch workspace: live routes, next assignment, stops, and fleet map."

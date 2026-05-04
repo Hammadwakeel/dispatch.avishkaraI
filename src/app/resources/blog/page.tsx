@@ -8,7 +8,7 @@ export default function BlogHubPage() {
         <h1 className="font-serif text-[36px] font-normal text-deep-graphite md:text-[48px]">
           Blog
         </h1>
-        <p className="mt-4 max-w-[52ch] font-mono text-muted-stone md:text-[17px]">
+        <p className="mt-4 max-w-[52ch] font-sans text-muted-stone md:text-[17px]">
           Long-form guides, benchmarks, and release notes from the Avishkar AI
           team.
         </p>
@@ -17,7 +17,7 @@ export default function BlogHubPage() {
             <li key={p.href}>
               <Link
                 href={p.href}
-                className="block rounded-[var(--radius-card)] border border-light-steel bg-warm-linen/70 px-5 py-4 font-mono text-[15px] text-deep-graphite transition-colors hover:border-amber-glow/40 hover:bg-warm-linen"
+                className="block rounded-[var(--radius-card)] border border-light-steel bg-harvest-cream/70 px-5 py-4 font-sans text-[15px] text-deep-graphite transition-colors hover:border-amber-glow/40 hover:bg-harvest-cream"
               >
                 {p.label}
               </Link>

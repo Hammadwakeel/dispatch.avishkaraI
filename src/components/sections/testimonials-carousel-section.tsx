@@ -58,11 +58,11 @@ export function TestimonialsCarouselSection() {
 
   return (
     <section
-      className="border-t border-light-steel bg-gradient-to-b from-canvas-white to-warm-linen/50 py-[80px] md:py-[96px]"
+      className="border-t border-light-steel bg-gradient-to-b from-canvas-white to-harvest-cream/50 py-[80px] md:py-[96px]"
       aria-labelledby="testimonials-heading"
     >
       <div className={containerPx}>
-        <p className="text-center font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
+        <p className="text-center font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
           Testimonials
         </p>
         <h2
@@ -85,7 +85,7 @@ export function TestimonialsCarouselSection() {
               <blockquote className="font-serif text-[20px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[24px] md:leading-[1.35]">
                 “{t.quote}”
               </blockquote>
-              <figcaption className="mt-8 font-mono text-[14px] leading-relaxed text-muted-stone md:text-[15px]">
+              <figcaption className="mt-8 font-sans text-[14px] leading-relaxed text-muted-stone md:text-[15px]">
                 <span className="font-semibold text-deep-graphite">{t.name}</span>, {t.role},{" "}
                 {t.org}
                 <span className="mt-1 block text-[13px] text-muted-stone">{t.meta}</span>
@@ -97,7 +97,7 @@ export function TestimonialsCarouselSection() {
             <button
               type="button"
               onClick={prev}
-              className="inline-flex size-11 items-center justify-center rounded-full border border-light-steel bg-canvas-white text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/50 hover:bg-warm-linen/50"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-light-steel bg-canvas-white text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/50 hover:bg-harvest-cream/50"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="size-5" aria-hidden />
@@ -120,7 +120,7 @@ export function TestimonialsCarouselSection() {
             <button
               type="button"
               onClick={next}
-              className="inline-flex size-11 items-center justify-center rounded-full border border-light-steel bg-canvas-white text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/50 hover:bg-warm-linen/50"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-light-steel bg-canvas-white text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/50 hover:bg-harvest-cream/50"
               aria-label="Next testimonial"
             >
               <ChevronRight className="size-5" aria-hidden />

@@ -1,178 +1,159 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import type { LucideIcon } from "lucide-react";
+import {
+  BarChart3,
+  CalendarClock,
+  Cpu,
+  LayoutDashboard,
+  Mic,
+  Package,
+  Smartphone,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useReducer } from "react";
 
 const containerPx = "mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8";
 const ease = [0.16, 1, 0.3, 1] as const;
 
+type TabNavState = { active: number; dir: 0 | 1 | -1 };
+
+function tabNavReducer(_state: TabNavState, next: number): TabNavState {
+  if (next === _state.active) return _state;
+  return { active: next, dir: next > _state.active ? 1 : -1 };
+}
+
+/**
+ * `dir`: +1 = moving to a later tab (content exits left, new enters from right).
+ * -1 = moving to an earlier tab (content exits right, new enters from left).
+ */
+const slideVariants = {
+  initial: (dir: 0 | 1 | -1) =>
+    dir === 0
+      ? { opacity: 0, y: 18 }
+      : { opacity: 0, x: dir > 0 ? "100%" : "-100%" },
+  animate: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: { duration: 0.38, ease },
+  },
+  exit: (dir: 0 | 1 | -1) =>
+    dir === 0
+      ? { opacity: 0, y: -14, transition: { duration: 0.22, ease } }
+      : {
+          opacity: 0,
+          x: dir > 0 ? "-100%" : "100%",
+          transition: { duration: 0.32, ease },
+        },
+};
+
 type Tab = {
   id: string;
   short: string;
+  Icon: LucideIcon;
   headline: string;
-  description: string;
-  bullets: string[];
-  quote?: string;
-  /** Optional second list with small heading */
-  bulletsB?: { title: string; items: string[] };
+  teaser: string;
+  imageSrc: string;
+  imageAlt: string;
+  learnMoreHref: string;
 };
 
 const TABS: Tab[] = [
   {
     id: "scheduling",
     short: "Scheduling",
+    Icon: CalendarClock,
     headline: "Never miss a slot. Never overload a tech.",
-    description:
-      "Avishkar AI's neural scheduler considers 47+ variables—traffic, skill match, job duration, parts availability, customer preference, technician location—to create the perfect route in real time.",
-    bullets: [
-      "Dynamic multi-day scheduling",
-      "Real-time route optimization",
-      "Technician skill matching",
-      "Customer preference learning",
-      "Traffic-aware ETA updates",
-      "Conflict auto-resolution",
-      "Overtime alerts",
-      "Buffer time intelligence",
-    ],
-    quote:
-      "We went from 4-hour dispatch windows to 30-minute precision. Our tech utilization jumped 34%. — Operations Director, HVAC company",
+    teaser:
+      "Neural scheduling weighs traffic, skills, parts, and preferences—see the full breakdown on the platform page.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Planning notes and calendar on a desk",
+    learnMoreHref: "/products/fsm-platform?focus=scheduling-engine",
   },
   {
     id: "voice",
     short: "Voice agent",
+    Icon: Mic,
     headline: "Your 24/7 AI receptionist that actually books jobs",
-    description:
-      "AI answers calls, understands intent, extracts job details, checks availability, and books appointments—without human intervention. It handles objections, qualifies urgency, and escalates only when needed.",
-    bullets: [
-      "Natural conversation with customers",
-      "Job type identification & classification",
-      "Address & contact capture",
-      "Availability & slot selection",
-      "Service agreement explanations",
-      "Rescheduling & cancellation handling",
-      "Payment collection",
-      "After-hours emergency routing",
-    ],
-    quote:
-      "Our AI voice agent handles 68% of inbound calls and books 12% more jobs than our human team. — CEO, plumbing franchise",
+    teaser: "AI that answers, qualifies, and books—explore conversation and booking flows on the Voice Agent product page.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Smartphone on a desk representing customer voice channels",
+    learnMoreHref: "/products/ai-voice-agent?focus=conversation-intelligence",
   },
   {
     id: "mobile",
     short: "Field app",
+    Icon: Smartphone,
     headline: "Everything your tech needs in their pocket",
-    description:
-      "A native mobile experience that puts job details, customer history, parts availability, and real-time guidance at technicians' fingertips.",
-    bullets: [
-      "Job card with full context",
-      "Customer & property details",
-      "Photo documentation (before/after)",
-      "Parts lookup & request",
-      "e-signature capture",
-      "Real-time customer updates",
-      "Route navigation integration",
-      "Offline mode with sync",
-      "Voice-to-note transcription",
-      "One-tap video call to back-office",
-    ],
+    teaser: "Job context, photos, parts, and sync—dispatch and field workflows are covered in the platform product page.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Hand holding a phone showing a mobile field app",
+    learnMoreHref: "/products/fsm-platform?focus=dispatch-board",
   },
   {
     id: "portal",
     short: "Customer portal",
+    Icon: LayoutDashboard,
     headline: "Delight customers before, during, and after the job",
-    description:
-      "Give customers transparency, convenience, and communication they expect in 2026.",
-    bullets: [
-      "Real-time technician tracking",
-      "Automated appointment reminders (email, SMS, WhatsApp)",
-      "Service history & invoices",
-      "Online payment",
-      "Review & feedback collection",
-      "Service plan management",
-      "Quote approval workflow",
-      "Document upload & sharing",
-    ],
-    bulletsB: {
-      title: "Communication automation",
-      items: [
-        "Appointment confirmation",
-        "Day-of reminder with tech info & ETA",
-        "En-route notification",
-        "Job completion summary",
-        "Follow-up & rebooking prompts",
-      ],
-    },
+    teaser: "Tracking, reminders, payments, and history—details live under customer and job management on the platform page.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Customer using a laptop for self-service and account access",
+    learnMoreHref: "/products/fsm-platform?focus=customer-and-job-management",
   },
   {
     id: "inventory",
     short: "Inventory",
+    Icon: Package,
     headline: "Never lose time to missing parts again",
-    description:
-      "AI predicts part requirements based on job type, equipment age, seasonal patterns, and historical data—ensuring the right parts are on the truck before the tech leaves.",
-    bullets: [
-      "Smart parts suggestions based on job",
-      "Low-stock alerts & reorder triggers",
-      "Van inventory management",
-      "Parts-to-job matching",
-      "Vendor integration",
-      "Cost tracking & margin optimization",
-      "Obsolete inventory flagging",
-    ],
+    teaser: "Parts intelligence, vans, and vendors—read the same story in context with jobs and customers on the platform page.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Warehouse logistics and pallet inventory",
+    learnMoreHref: "/products/fsm-platform?focus=customer-and-job-management",
   },
   {
     id: "predictive",
     short: "Predictive",
+    Icon: Cpu,
     headline: "Know what's going to break before it breaks",
-    description:
-      "Avishkar AI analyzes equipment data, service history, usage patterns, and environmental factors to predict failures before they happen—turning reactive customers into proactive service contracts.",
-    bullets: [
-      "Equipment health scores",
-      "Failure prediction alerts",
-      "Maintenance scheduling automation",
-      "Warranty tracking",
-      "Replacement timing recommendations",
-      "Upsell opportunity identification",
-      "Service contract health monitoring",
-    ],
+    teaser: "Health scores, alerts, and contract upsides pair with reporting—open analytics on the platform page for the full list.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Technician inspecting industrial equipment for predictive maintenance",
+    learnMoreHref: "/products/fsm-platform?focus=reporting-and-analytics",
   },
   {
     id: "bi",
     short: "Analytics",
+    Icon: BarChart3,
     headline: "See everything. Optimize everything.",
-    description:
-      "Real-time dashboards and AI-generated insights that help you make better decisions about pricing, staffing, marketing, and service delivery.",
-    bullets: [
-      "Revenue & profitability by tech, job type, region",
-      "Service agreement utilization",
-      "First-time fix rate",
-      "Average job duration",
-      "Customer satisfaction trends",
-      "Technician performance scoring",
-      "Inventory turnover",
-      "Marketing attribution",
-    ],
-    bulletsB: {
-      title: "AI insights (examples)",
-      items: [
-        "Your Monday morning no-show rate is 23% higher than other days",
-        "Jobs in a hot ZIP take longer—consider adding a tech",
-        "Churn risk: customers who haven't booked in 90+ days",
-      ],
-    },
+    teaser: "Dashboards, KPIs, and AI nudges—every metric and example is documented on the platform page.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "Analytics dashboard on a screen",
+    learnMoreHref: "/products/fsm-platform?focus=reporting-and-analytics",
   },
 ];
 
 export function CorePlatformTabsSection() {
-  const [active, setActive] = useState(0);
-  const tab = TABS[active]!;
+  const [nav, dispatch] = useReducer(tabNavReducer, { active: 0, dir: 0 });
+  const tab = TABS[nav.active]!;
 
   return (
     <section
       id="platform-features"
-      className="scroll-mt-28 border-t border-light-steel bg-canvas-white py-[80px] md:scroll-mt-32 md:py-[96px]"
+      className="scroll-mt-28 border-t border-light-steel bg-canvas-white py-[72px] md:scroll-mt-32 md:py-[88px]"
       aria-labelledby="platform-tabs-heading"
     >
       <div className={containerPx}>
-        <p className="text-center font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
+        <p className="text-center font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
           Core platform features
         </p>
         <h2
@@ -183,12 +164,13 @@ export function CorePlatformTabsSection() {
         </h2>
 
         <div
-          className="mt-10 flex gap-2 overflow-x-auto pb-2 md:mt-12 md:flex-wrap md:justify-center md:overflow-visible md:pb-0"
+          className="mx-auto mt-10 flex max-w-5xl snap-x snap-mandatory gap-2 overflow-x-auto pb-2 pt-1 [-ms-overflow-style:none] [scrollbar-width:none] md:mt-12 md:grid md:grid-cols-7 md:gap-3 md:overflow-visible md:pb-0 md:pt-0 [&::-webkit-scrollbar]:hidden"
           role="tablist"
           aria-label="Platform capability areas"
         >
           {TABS.map((t, i) => {
-            const selected = i === active;
+            const selected = i === nav.active;
+            const Icon = t.Icon;
             return (
               <button
                 key={t.id}
@@ -197,73 +179,84 @@ export function CorePlatformTabsSection() {
                 aria-selected={selected}
                 aria-controls={`panel-${t.id}`}
                 id={`tab-${t.id}`}
-                onClick={() => setActive(i)}
-                className={`shrink-0 rounded-full border px-4 py-2 font-mono text-[12px] font-medium transition-colors md:text-[13px] ${
+                onClick={() => dispatch(i)}
+                className={`group flex min-w-[76px] max-w-[100px] flex-1 shrink-0 snap-center flex-col items-center gap-2 rounded-2xl border px-2 py-3 transition-colors md:min-w-0 md:max-w-none md:flex-none md:px-1 md:py-3 ${
                   selected
-                    ? "border-amber-glow bg-amber-glow text-canvas-white shadow-sm"
-                    : "border-light-steel bg-warm-linen/40 text-link-gray hover:border-amber-glow/40 hover:text-deep-graphite"
+                    ? "border-amber-glow bg-[color-mix(in_srgb,var(--color-canvas-white)_88%,var(--color-amber-glow)_12%)] shadow-sm shadow-[rgb(var(--rgb-amber-glow)/0.12)]"
+                    : "border-light-steel bg-canvas-white hover:border-amber-glow/40 hover:bg-[color-mix(in_srgb,var(--color-canvas-white)_94%,var(--color-amber-glow)_6%)]"
                 }`}
               >
-                {t.short}
+                <span
+                  className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors md:h-12 md:w-12 ${
+                    selected
+                      ? "border-amber-glow/45 bg-canvas-white"
+                      : "border-amber-glow/15 bg-canvas-white group-hover:border-amber-glow/30"
+                  }`}
+                  aria-hidden
+                >
+                  <Icon
+                    className="h-[22px] w-[22px] text-[var(--color-amber-glow)] md:h-6 md:w-6"
+                    strokeWidth={1.85}
+                  />
+                </span>
+                <span
+                  className={`text-center font-sans text-[10px] font-medium leading-tight tracking-tight md:text-[11px] ${
+                    selected ? "font-semibold text-deep-graphite" : "text-link-gray"
+                  }`}
+                >
+                  {t.short}
+                </span>
               </button>
             );
           })}
         </div>
 
-        <div className="mt-10 rounded-[var(--radius-card)] border border-light-steel bg-warm-linen/25 p-6 md:mt-12 md:p-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={tab.id}
-              id={`panel-${tab.id}`}
-              role="tabpanel"
-              aria-labelledby={`tab-${tab.id}`}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease }}
-            >
-              <h3 className="font-serif text-[24px] font-normal leading-snug tracking-[-0.03em] text-deep-graphite md:text-[28px]">
-                {tab.headline}
-              </h3>
-              <p className="mt-4 max-w-[68ch] font-mono text-[15px] leading-[1.55] text-muted-stone md:text-[16px]">
-                {tab.description}
-              </p>
-              <ul className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-2">
-                {tab.bullets.map((b) => (
-                  <li
-                    key={b}
-                    className="flex gap-2 font-mono text-[14px] leading-snug text-link-gray md:text-[15px]"
-                  >
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-glow" aria-hidden />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-              {tab.bulletsB ? (
-                <div className="mt-8 border-t border-light-steel pt-8">
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-stone">
-                    {tab.bulletsB.title}
-                  </p>
-                  <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                    {tab.bulletsB.items.map((b) => (
-                      <li
-                        key={b}
-                        className="flex gap-2 font-mono text-[14px] leading-snug text-link-gray md:text-[15px]"
-                      >
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-glow/80" aria-hidden />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
+        <div className="mt-8 overflow-x-hidden rounded-3xl border border-light-steel bg-canvas-white p-6 md:mt-10 md:p-10 lg:p-12">
+          <div className="relative w-full">
+            <AnimatePresence mode="wait" custom={nav.dir}>
+              <motion.div
+                key={tab.id}
+                id={`panel-${tab.id}`}
+                role="tabpanel"
+                aria-labelledby={`tab-${tab.id}`}
+                custom={nav.dir}
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="relative grid w-full max-w-full items-center gap-10 will-change-transform lg:grid-cols-2 lg:gap-16"
+              >
+              <div className="min-w-0 space-y-5 lg:space-y-6">
+                <h3 className="font-serif text-[26px] font-normal leading-snug tracking-[-0.03em] text-deep-graphite md:text-[30px]">
+                  {tab.headline}
+                </h3>
+                <p className="max-w-[48ch] font-sans text-[15px] leading-[1.6] text-muted-stone md:text-[16px]">
+                  {tab.teaser}
+                </p>
+                <Link
+                  href={tab.learnMoreHref}
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--radius-ui)] border border-amber-glow bg-canvas-white px-6 font-sans text-[13px] font-semibold text-[var(--color-amber-glow)] transition-colors hover:bg-[color-mix(in_srgb,var(--color-canvas-white)_90%,var(--color-amber-glow)_10%)] md:text-[14px]"
+                >
+                  Learn more
+                </Link>
+              </div>
+
+              <div className="relative mx-auto w-full max-w-xl lg:mx-0 lg:max-w-none">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[color-mix(in_srgb,var(--color-canvas-white)_92%,var(--color-harvest-cream)_8%)] ring-1 ring-light-steel md:aspect-[5/4] lg:aspect-[4/3]">
+                  <Image
+                    key={tab.id}
+                    src={tab.imageSrc}
+                    alt={tab.imageAlt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    priority={nav.active === 0}
+                  />
                 </div>
-              ) : null}
-              {tab.quote ? (
-                <blockquote className="mt-8 border-l-[3px] border-amber-glow pl-5 font-mono text-[14px] italic leading-relaxed text-deep-graphite/90 md:text-[15px]">
-                  {tab.quote}
-                </blockquote>
-              ) : null}
-            </motion.div>
-          </AnimatePresence>
+              </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

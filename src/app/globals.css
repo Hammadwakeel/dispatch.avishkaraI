@@ -50,10 +50,6 @@
   --rgb-amber-glow: 228 86 42;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: linear-gradient(
     165deg,

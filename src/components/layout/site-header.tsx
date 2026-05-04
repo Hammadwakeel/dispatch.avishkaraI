@@ -82,7 +82,7 @@ const megaIconMap: Record<MegaMenuIconId, LucideIcon> = {
 
 /** `overflow-visible` so mega-menu panels are not clipped by the pill shape */
 const glassSurface =
-  "relative z-10 overflow-visible border border-white/70 bg-white/25 shadow-[0_10px_44px_-14px_rgba(228,86,42,0.26),inset_0_1px_0_0_rgba(255,255,255,0.85)] backdrop-blur-xl";
+  "relative z-10 overflow-visible border border-white/70 bg-white/25 shadow-[0_10px_44px_-14px_rgba(234,88,12,0.22),inset_0_1px_0_0_rgba(255,255,255,0.85)] backdrop-blur-xl";
 
 const barSheen = (
   <>
@@ -92,7 +92,7 @@ const barSheen = (
 );
 
 const homeJumpLinkClass =
-  "shrink-0 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-mono text-[14px] font-normal text-deep-graphite/90 transition-colors hover:bg-white/35 hover:text-deep-graphite md:px-3.5 md:py-2 md:text-[15px]";
+  "shrink-0 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-sans text-[14px] font-normal text-deep-graphite/90 transition-colors hover:bg-white/35 hover:text-deep-graphite md:px-3.5 md:py-2 md:text-[15px]";
 
 function MegaNavTile({ item, onPick }: { item: NavLink; onPick: () => void }) {
   const Icon: LucideIcon = item.icon ? megaIconMap[item.icon] : LayoutGrid;
@@ -100,8 +100,8 @@ function MegaNavTile({ item, onPick }: { item: NavLink; onPick: () => void }) {
     <Link
       href={item.href}
       onClick={onPick}
-      className={`group flex flex-col gap-4 rounded-xl border border-transparent p-4 transition-[border-color,background-color,box-shadow] duration-200 hover:border-light-steel hover:bg-warm-linen/45 hover:shadow-[0_12px_36px_-20px_rgba(29,30,28,0.12)] md:p-5 ${
-        item.emphasis ? "bg-warm-linen/30 ring-1 ring-amber-glow/20" : ""
+      className={`group flex flex-col gap-4 rounded-xl border border-transparent p-4 transition-[border-color,background-color,box-shadow] duration-200 hover:border-amber-glow/25 hover:bg-[color-mix(in_srgb,var(--color-canvas-white)_88%,var(--color-amber-glow)_12%)] hover:shadow-[0_12px_36px_-20px_rgba(234,88,12,0.12)] md:p-5 ${
+        item.emphasis ? "bg-[color-mix(in_srgb,var(--color-canvas-white)_82%,var(--color-amber-glow)_18%)] ring-1 ring-amber-glow/25" : ""
       }`}
     >
       <Icon
@@ -117,7 +117,7 @@ function MegaNavTile({ item, onPick }: { item: NavLink; onPick: () => void }) {
           {item.label}
         </span>
         {item.description ? (
-          <p className="mt-2 font-mono text-[13px] leading-relaxed text-muted-stone md:text-[14px]">
+          <p className="mt-2 font-sans text-[13px] leading-relaxed text-muted-stone md:text-[14px]">
             {item.description}
           </p>
         ) : null}
@@ -168,7 +168,7 @@ function DesktopMegaNavDropdown({ dropdown }: { dropdown: NavDropdown }) {
     >
       <button
         type="button"
-        className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 text-left font-mono text-[14px] font-normal text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-deep-graphite focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] ${
+        className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 text-left font-sans text-[14px] font-normal text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-deep-graphite focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] ${
           open ? "text-deep-graphite" : ""
         } ${open ? "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-amber-glow" : ""}`}
         aria-expanded={open}
@@ -216,7 +216,7 @@ function DesktopMegaNavDropdown({ dropdown }: { dropdown: NavDropdown }) {
                   {megaTitle}
                 </p>
               )}
-              <p className="mt-2 max-w-[52ch] font-mono text-[13px] leading-relaxed text-muted-stone md:text-[14px]">
+              <p className="mt-2 max-w-[52ch] font-sans text-[13px] leading-relaxed text-muted-stone md:text-[14px]">
                 {megaSubtitle}
               </p>
             </div>
@@ -241,11 +241,11 @@ export function SiteHeader() {
       <div className="relative mx-auto w-full max-w-[min(100%,92rem)] xl:max-w-[min(100%,96rem)]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-[3%] bottom-0 top-2 z-0 rounded-[999px] bg-amber-glow/44 blur-[24px] md:inset-x-[4%] md:blur-[26px]"
+          className="pointer-events-none absolute inset-x-[3%] bottom-0 top-2 z-0 rounded-[999px] bg-[#ea580c]/32 blur-[24px] md:inset-x-[4%] md:blur-[26px]"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-[16%] bottom-0 top-[40%] z-0 rounded-full bg-amber-glow/28 blur-2xl md:inset-x-[18%]"
+          className="pointer-events-none absolute inset-x-[16%] bottom-0 top-[40%] z-0 rounded-full bg-[#c2410c]/24 blur-2xl md:inset-x-[18%]"
         />
 
         <motion.div
@@ -290,14 +290,14 @@ export function SiteHeader() {
             <div className="flex shrink-0 items-center gap-2 md:gap-3">
               <Link
                 href="/company/contact"
-                className="hidden items-center justify-center whitespace-nowrap rounded-[var(--radius-ui)] border border-white/55 bg-white/35 px-3 py-2 font-mono text-[12px] font-medium text-deep-graphite shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-md transition-[border-color,background-color] hover:border-white/75 hover:bg-white/45 sm:inline-flex md:px-4 md:py-2 md:text-[13px] lg:text-[14px]"
+                className="hidden items-center justify-center whitespace-nowrap rounded-[var(--radius-ui)] border border-white/55 bg-white/35 px-3 py-2 font-sans text-[12px] font-medium text-deep-graphite shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-md transition-[border-color,background-color] hover:border-white/75 hover:bg-white/45 sm:inline-flex md:px-4 md:py-2 md:text-[13px] lg:text-[14px]"
                 style={{ transitionDuration: "var(--transition-interactive)" }}
               >
                 Get started
               </Link>
               <Link
                 href="/#demo"
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-ui)] bg-gradient-to-r from-blue-600 to-blue-900 px-3 py-2 font-mono text-[12px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(37,99,235,0.55)] hover:brightness-[1.05] md:px-4 md:py-2 md:text-[13px] lg:text-[14px]"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-ui)] bg-gradient-to-r from-amber-glow to-[#c2410c] px-3 py-2 font-sans text-[12px] font-semibold text-canvas-white shadow-[0_8px_24px_-8px_rgba(234,88,12,0.45)] hover:brightness-[1.05] md:px-4 md:py-2 md:text-[13px] lg:text-[14px]"
                 style={{ transitionDuration: "var(--transition-interactive)" }}
               >
                 Book demo
@@ -326,14 +326,14 @@ export function SiteHeader() {
           <div className="relative mt-3 max-h-[min(78vh,32rem)] overflow-y-auto md:hidden">
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-[8%] bottom-0 top-6 z-0 rounded-3xl bg-amber-glow/38 blur-[22px]"
+              className="pointer-events-none absolute inset-x-[8%] bottom-0 top-6 z-0 rounded-3xl bg-[#ea580c]/28 blur-[22px]"
             />
             <div id="mobile-nav" className={`${glassSurface} rounded-3xl`}>
               {barSheen}
               <nav className="relative flex flex-col gap-2 px-4 py-4" aria-label="Mobile primary">
                 {headerDropdowns.map((d) => (
                   <details key={d.label} className="group rounded-xl border border-light-steel/60 bg-white/20">
-                    <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 font-mono text-[15px] text-deep-graphite [&::-webkit-details-marker]:hidden">
+                    <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 font-sans text-[15px] text-deep-graphite [&::-webkit-details-marker]:hidden">
                       {d.label}
                       <ChevronDown className="size-4 shrink-0 opacity-70 group-open:rotate-180" aria-hidden />
                     </summary>
@@ -342,7 +342,7 @@ export function SiteHeader() {
                         <Link
                           key={item.href}
                           href={item.href}
-                          className={`block px-5 py-3 font-mono text-[14px] leading-relaxed ${
+                          className={`block px-5 py-3 font-sans text-[14px] leading-relaxed ${
                             item.emphasis ? "font-semibold text-amber-glow" : "text-link-gray"
                           }`}
                           onClick={() => setMobileOpen(false)}
@@ -355,7 +355,7 @@ export function SiteHeader() {
                 ))}
                 <Link
                   href={pricingNavItem.href}
-                  className="rounded-xl px-3 py-3.5 font-mono text-[15px] text-deep-graphite hover:bg-white/35"
+                  className="rounded-xl px-3 py-3.5 font-sans text-[15px] text-deep-graphite hover:bg-white/35"
                   onClick={() => setMobileOpen(false)}
                 >
                   {pricingNavItem.label}
@@ -363,14 +363,14 @@ export function SiteHeader() {
                 <div className="mt-3 flex flex-col gap-3 border-t border-light-steel/60 pt-4">
                   <Link
                     href="/company/contact"
-                    className="inline-flex items-center justify-center rounded-[var(--radius-ui)] border border-white/55 bg-white/35 px-4 py-3 font-mono text-[14px] font-medium text-deep-graphite"
+                    className="inline-flex items-center justify-center rounded-[var(--radius-ui)] border border-white/55 bg-white/35 px-4 py-3 font-sans text-[14px] font-medium text-deep-graphite"
                     onClick={() => setMobileOpen(false)}
                   >
                     Get started
                   </Link>
                   <Link
                     href="/#demo"
-                    className="inline-flex items-center justify-center rounded-[var(--radius-ui)] bg-gradient-to-r from-blue-600 to-blue-900 px-4 py-3 font-mono text-[14px] font-semibold text-white"
+                    className="inline-flex items-center justify-center rounded-[var(--radius-ui)] bg-gradient-to-r from-amber-glow to-[#c2410c] px-4 py-3 font-sans text-[14px] font-semibold text-canvas-white shadow-[0_8px_24px_-8px_rgba(234,88,12,0.4)]"
                     onClick={() => setMobileOpen(false)}
                   >
                     Book demo

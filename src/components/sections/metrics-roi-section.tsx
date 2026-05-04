@@ -48,7 +48,7 @@ function MetricCell({
           display.text
         )}
       </p>
-      <p className="mt-2 font-mono text-[12px] leading-snug text-muted-stone md:text-[13px]">{label}</p>
+      <p className="mt-2 font-sans text-[12px] leading-snug text-muted-stone md:text-[13px]">{label}</p>
     </div>
   );
 }
@@ -123,7 +123,7 @@ export function MetricsRoiSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease }}
         >
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow md:text-[12px]">
             ROI & metrics
           </p>
           <h2
@@ -150,7 +150,7 @@ export function MetricsRoiSection() {
         </div>
 
         <motion.div
-          className="mx-auto mt-14 max-w-xl rounded-[var(--radius-card)] border border-amber-glow/30 bg-warm-linen/40 p-8 text-center md:mt-16"
+          className="mx-auto mt-14 max-w-xl rounded-[var(--radius-card)] border border-amber-glow/30 bg-harvest-cream/40 p-8 text-center md:mt-16"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
@@ -159,13 +159,13 @@ export function MetricsRoiSection() {
           <p className="font-serif text-[22px] font-normal text-deep-graphite md:text-[24px]">
             Calculate your potential savings
           </p>
-          <p className="mt-3 font-mono text-[14px] leading-relaxed text-muted-stone">
+          <p className="mt-3 font-sans text-[14px] leading-relaxed text-muted-stone">
             Enter company size, monthly jobs, tech count, and dispatch method—get estimated time
             saved, revenue gained, and an ROI timeline.
           </p>
           <Link
             href="/resources/roi-calculator"
-            className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-8 font-mono text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] hover:brightness-[1.03]"
+            className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-8 font-sans text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] hover:brightness-[1.03]"
           >
             Open ROI calculator
           </Link>

@@ -8,12 +8,15 @@ type MarketingDocPageProps = {
   boxedSections?: boolean;
   /** Omit footer “Back to home” (e.g. product detail pages). */
   hideBackLink?: boolean;
+  /** Opens the Mac tab whose heading slug matches `?focus=` (see `headingToFocusParam`). */
+  initialMacFocus?: string;
 };
 
 export function MarketingDocPage({
   doc,
   boxedSections,
   hideBackLink,
+  initialMacFocus,
 }: MarketingDocPageProps) {
   const sectionShell = "max-w-[65ch]";
 
@@ -21,7 +24,7 @@ export function MarketingDocPage({
 
   const renderList = (b: Extract<DocBlock, { kind: "ul" }>, blockKey: string) => {
     const list = (
-      <ul className="list-disc space-y-2 pl-5 font-mono text-[15px] leading-[1.55] text-link-gray md:text-[16px]">
+      <ul className="list-disc space-y-2 pl-5 font-sans text-[15px] leading-[1.55] text-link-gray md:text-[16px]">
         {b.items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -31,7 +34,7 @@ export function MarketingDocPage({
     if (b.title) {
       return (
         <div key={blockKey}>
-          <p className="mb-2 font-mono text-[13px] font-semibold uppercase tracking-[0.1em] text-deep-graphite">
+          <p className="mb-2 font-sans text-[13px] font-semibold uppercase tracking-[0.1em] text-deep-graphite">
             {b.title}
           </p>
           {list}
@@ -47,7 +50,7 @@ export function MarketingDocPage({
       className={
         boxedSections
           ? "flex-1 bg-canvas-white"
-          : "flex-1 border-t border-light-steel bg-warm-linen"
+          : "flex-1 border-t border-light-steel bg-harvest-cream"
       }
     >
       <article
@@ -59,19 +62,19 @@ export function MarketingDocPage({
       >
         {boxedSections ? (
           <div className={heroCardClass}>
-            <ProductMacInteractiveHero doc={doc} />
+            <ProductMacInteractiveHero doc={doc} initialMacFocus={initialMacFocus} />
           </div>
         ) : (
           <div>
             {doc.eyebrow ? (
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-glow">
                 {doc.eyebrow}
               </p>
             ) : null}
             <h1 className="font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-normal leading-[1.12] tracking-[-0.04em] text-deep-graphite md:text-[44px]">
               {doc.heroTitle}
             </h1>
-            <p className="mt-6 max-w-[62ch] font-mono text-[16px] leading-[1.55] text-muted-stone md:text-[17px]">
+            <p className="mt-6 max-w-[62ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px]">
               {doc.heroSubtitle}
             </p>
           </div>
@@ -90,7 +93,7 @@ export function MarketingDocPage({
                       return (
                         <p
                           key={i}
-                          className="font-mono text-[15px] leading-[1.6] text-link-gray md:text-[16px]"
+                          className="font-sans text-[15px] leading-[1.6] text-link-gray md:text-[16px]"
                         >
                           {b.text}
                         </p>
@@ -108,7 +111,7 @@ export function MarketingDocPage({
           <footer className="mt-16 border-t border-light-steel pt-10 md:mt-20 md:pt-12">
             <Link
               href="/"
-              className="font-mono text-[14px] font-medium text-amber-glow hover:underline"
+              className="font-sans text-[14px] font-medium text-amber-glow hover:underline"
             >
               ← Back to home
             </Link>
