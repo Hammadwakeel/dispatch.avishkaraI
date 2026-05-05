@@ -32,27 +32,26 @@ const problemNarratives = [
   },
 ] as const;
 
+/** Poster stack — same Playfair treatment as the hero “Built for infrastructure…” block. */
 const challengesSectionHeading = (
   <>
     <span className="block text-left">
-      Downtime burns&nbsp;
-      <span className="text-amber-glow">cash</span>.
+      Downtime burns <span className="text-amber-glow">cash</span>.
     </span>
-    <span className="mt-[0.15em] block text-left md:mt-2">
-      The fix often missed the&nbsp;
-      <span className="text-amber-glow">SLA</span>.
+    <span className="mt-1 block text-left md:mt-2">
+      The fix often missed the <span className="text-amber-glow">SLA</span>.
     </span>
-  </>
-);
-
-/** Intro copy for challenges — base color comes from `challengesIntroClassName` (light vs dark surface). */
-const challengesSectionIntro = (
-  <>
-    <span className="block text-left">
-      Infrastructure teams treated <span className="text-amber-glow">manual dispatch</span> as normal.
-    </span>
-    <span className="mt-4 block text-left md:mt-5">
-      It <span className="text-amber-glow">doesn&apos;t</span> have to be.
+    <span className="mt-2 block text-left text-[max(0.65rem,0.38em)] leading-[1.08] tracking-[-0.01em] md:mt-3 md:text-[max(0.7rem,0.42em)]">
+      <span className="block text-left">
+        <span className="text-deep-graphite">Infrastructure teams treated </span>
+        <span className="text-amber-glow">manual dispatch</span>
+        <span className="text-deep-graphite"> as normal.</span>
+      </span>
+      <span className="mt-1 block text-left md:mt-2">
+        <span className="text-deep-graphite">It </span>
+        <span className="text-amber-glow">doesn&apos;t</span>
+        <span className="text-deep-graphite"> have to be.</span>
+      </span>
     </span>
   </>
 );
@@ -186,13 +185,17 @@ function IndustryCardFace({ item }: { item: IndustryCardItem }) {
         </span>
       </div>
       <div className="mt-6 space-y-5">
-        <p className="font-sans text-[clamp(1.05rem,2.1vw,1.35rem)] font-bold leading-[1.55]">{item.body}</p>
-        <p className="font-sans text-[clamp(0.98rem,1.85vw,1.15rem)] font-bold leading-[1.58]">{item.detail}</p>
+        <p className="max-w-[52ch] font-sans text-[16px] font-normal leading-[1.6] text-deep-graphite md:text-[17px]">
+          {item.body}
+        </p>
+        <p className="max-w-[52ch] font-sans text-[16px] font-normal leading-[1.6] text-deep-graphite md:text-[17px]">
+          {item.detail}
+        </p>
         <ul className="space-y-3.5 border-t border-deep-graphite/12 pt-6">
           {item.bullets.map((b) => (
             <li
               key={`${item.title}-${b.accent}`}
-              className="flex gap-3 font-sans text-[clamp(0.98rem,1.75vw,1.12rem)] font-bold leading-snug"
+              className="flex gap-3 font-sans text-[15px] font-normal leading-snug text-deep-graphite md:text-[16px]"
             >
               <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-glow" aria-hidden />
               <span>
@@ -203,7 +206,7 @@ function IndustryCardFace({ item }: { item: IndustryCardItem }) {
           ))}
         </ul>
       </div>
-      <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[13px] font-bold text-deep-graphite md:text-[14px]">
+      <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-[13px] font-normal tabular-nums text-deep-graphite/90 md:text-[14px]">
         <span>{item.stat1}</span>
         <span className="text-light-steel" aria-hidden>
           ·
@@ -257,7 +260,11 @@ function IndustrySegmentsCarousel({ items }: { items: readonly IndustryCardItem[
       className="rounded-[22px] border-2 border-deep-graphite bg-canvas-white shadow-[0_22px_64px_-28px_rgba(29,30,28,0.22)] outline-none ring-deep-graphite focus-visible:ring-2 focus-visible:ring-offset-2"
     >
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-deep-graphite/15 bg-gradient-to-b from-harvest-cream/50 to-canvas-white/90 px-5 py-4 md:gap-6 md:px-8 md:py-5">
-        <p className="font-mono text-[12px] font-bold uppercase tracking-[0.2em] text-deep-graphite md:text-[13px]">Industry segments</p>
+        <p
+          className={`${posterDisplay.className} text-[12px] font-normal uppercase tracking-[0.1em] text-deep-graphite md:text-[13px]`}
+        >
+          Industry segments
+        </p>
         <div
           className="flex min-h-[1.25rem] flex-1 flex-wrap items-center justify-end gap-2.5 sm:justify-end md:gap-3"
           role="tablist"
@@ -316,7 +323,7 @@ function IndustrySegmentsCarousel({ items }: { items: readonly IndustryCardItem[
       <div className="border-t border-light-steel px-6 pb-8 pt-6 md:px-10 md:pb-10 lg:px-12">
         <Link
           href="/solutions"
-          className="inline-flex min-h-[52px] w-fit items-center justify-center rounded-full border-2 border-deep-graphite/20 bg-canvas-white px-7 py-3 font-sans text-[15px] font-bold text-deep-graphite shadow-[0_2px_12px_-4px_rgba(29,30,28,0.14)] transition-[box-shadow,background-color] hover:border-amber-glow/45 hover:bg-harvest-cream/35 hover:shadow-[0_4px_18px_-6px_rgba(29,30,28,0.18)]"
+          className="inline-flex min-h-[50px] w-fit items-center justify-center rounded-full border-2 border-deep-graphite/20 bg-canvas-white px-7 py-3 font-mono text-[14px] font-semibold text-deep-graphite shadow-[0_2px_12px_-4px_rgba(29,30,28,0.14)] transition-[box-shadow,background-color] hover:border-amber-glow/45 hover:bg-harvest-cream/35 hover:shadow-[0_4px_18px_-6px_rgba(29,30,28,0.18)]"
         >
           Learn more
         </Link>
@@ -335,17 +342,21 @@ function IndustrySegmentStacksSection() {
         <div className="w-full text-left">
           <h2
             id="industry-segments-heading"
-            className={`${posterDisplay.className} text-left uppercase tracking-[-0.02em]`}
+            className={`${posterDisplay.className} text-left font-normal uppercase tracking-[-0.02em]`}
           >
-            <span className="block whitespace-nowrap text-[clamp(2rem,7vw,5.25rem)] leading-[0.9]">
-              <span className="text-amber-glow">Built</span>{" "}
-              <span className="text-deep-graphite">for infrastructure</span>
+            <span className="block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9]">
+              <span className="text-amber-glow">Built</span>
+              <span className="text-deep-graphite"> for</span>
             </span>
-            <span className="mt-1 block text-[clamp(2rem,7vw,5.25rem)] leading-[0.9] text-deep-graphite md:mt-2">
-              that <span className="text-amber-glow">cannot fail.</span>
+            <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] text-deep-graphite md:mt-2">
+              infrastructure
+            </span>
+            <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] md:mt-2">
+              <span className="text-deep-graphite">that </span>
+              <span className="text-amber-glow">cannot fail.</span>
             </span>
           </h2>
-          <p className="mt-7 font-sans text-[clamp(1.05rem,2.35vw,1.5rem)] font-bold leading-[1.45] text-left text-deep-graphite md:mt-9">
+          <p className="mt-7 max-w-[52ch] font-sans text-[16px] font-normal leading-[1.6] text-muted-stone md:mt-9 md:text-[17px]">
             <span className="text-amber-glow">Four segments</span>
             <span className="text-deep-graphite">, one dispatch core.</span>
           </p>
@@ -417,7 +428,6 @@ export function LandingPage() {
       <ChallengesStickyScrollSection
         heading={challengesSectionHeading}
         headingFontClassName={posterDisplay.className}
-        intro={challengesSectionIntro}
         challenges={problemNarratives}
       />
 

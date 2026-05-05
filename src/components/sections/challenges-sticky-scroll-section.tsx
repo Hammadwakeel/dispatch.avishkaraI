@@ -55,18 +55,29 @@ type ChallengesStickyScrollSectionProps = {
   heading: ReactNode;
   /** Optional display font class (theme Monarch / Playfair). Enables large headline treatment. */
   headingFontClassName?: string;
-  /** Supporting copy under the headline. */
-  intro: ReactNode;
+  /** Smaller poster stack for multi-line intros (e.g. homepage problem statement). */
+  compactHeading?: boolean;
+  /** Supporting copy under the headline (optional — omit when the headline carries all lines). */
+  intro?: ReactNode;
   challenges: readonly ChallengeStickyItem[];
   footer?: string;
   /** Dark section surface (e.g. black band on homepage). */
   darkSurface?: boolean;
 };
 
-function challengesHeadlineClassName(headingFontClassName?: string, darkSurface?: boolean) {
+function challengesHeadlineClassName(
+  headingFontClassName?: string,
+  darkSurface?: boolean,
+  compactHeading?: boolean,
+) {
   const ink = darkSurface ? "text-canvas-white" : "text-deep-graphite";
   if (headingFontClassName) {
-    return `${headingFontClassName} text-left font-bold uppercase tracking-[-0.02em] leading-[0.9] ${ink} text-[clamp(1.95rem,6.5vw,4.85rem)]`;
+    /** Compact = noticeably smaller than hero (`1.35–3.35rem`) for long multi-line poster intros. */
+    const size = compactHeading
+      ? "text-[clamp(1.05rem,2.9vw,2.35rem)] leading-[0.95]"
+      : "text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9]";
+    /** Homepage poster stack — `compactHeading` uses tighter clamp for multi-line intros. */
+    return `${headingFontClassName} text-left font-normal uppercase tracking-[-0.02em] ${ink} ${size}`;
   }
   return `font-sans text-[clamp(1.65rem,4.2vw,3rem)] font-semibold leading-[1.08] tracking-[-0.035em] ${ink}`;
 }
@@ -96,6 +107,7 @@ export function ChallengesStickyScrollSection({
   headingId = "fault-response-challenges-heading",
   heading,
   headingFontClassName,
+  compactHeading = false,
   intro,
   challenges,
   footer,
@@ -136,10 +148,15 @@ export function ChallengesStickyScrollSection({
           <div
             className={`w-full border-b-2 pb-12 text-left md:pb-16 ${darkSurface ? "border-white/25" : "border-deep-graphite"}`}
           >
-            <h2 id={headingId} className={challengesHeadlineClassName(headingFontClassName, darkSurface)}>
+            <h2
+              id={headingId}
+              className={challengesHeadlineClassName(headingFontClassName, darkSurface, compactHeading)}
+            >
               {heading}
             </h2>
-            <div className={challengesIntroClassName(headingFontClassName, darkSurface)}>{intro}</div>
+            {intro != null ? (
+              <div className={challengesIntroClassName(headingFontClassName, darkSurface)}>{intro}</div>
+            ) : null}
           </div>
           <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 md:gap-6">
             {challenges.map((item, i) => (
@@ -188,10 +205,15 @@ export function ChallengesStickyScrollSection({
         {/* Intro — left-aligned to page content edge, full width */}
         <div className={`border-b-2 pb-12 text-left md:pb-16 ${darkSurface ? "border-white/25" : "border-deep-graphite"}`}>
           <div className="w-full">
-            <h2 id={headingId} className={challengesHeadlineClassName(headingFontClassName, darkSurface)}>
+            <h2
+              id={headingId}
+              className={challengesHeadlineClassName(headingFontClassName, darkSurface, compactHeading)}
+            >
               {heading}
             </h2>
-            <div className={challengesIntroClassName(headingFontClassName, darkSurface)}>{intro}</div>
+            {intro != null ? (
+              <div className={challengesIntroClassName(headingFontClassName, darkSurface)}>{intro}</div>
+            ) : null}
           </div>
         </div>
 

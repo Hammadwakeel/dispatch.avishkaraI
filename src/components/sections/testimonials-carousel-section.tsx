@@ -54,7 +54,9 @@ function TypewriterQuote() {
 
   return (
     <div ref={wrapRef}>
-      <blockquote className="font-sans text-[clamp(0.95rem,2.15vw,1.28rem)] font-bold leading-[1.55] text-deep-graphite md:text-[clamp(1.02rem,1.95vw,1.48rem)] lg:text-[clamp(1.06rem,1.75vw,1.58rem)]">
+      <blockquote
+        className={`${posterDisplay.className} text-[clamp(1.05rem,2.8vw,1.45rem)] font-normal leading-[1.45] tracking-[-0.02em] text-deep-graphite md:text-[clamp(1.08rem,2.4vw,1.55rem)]`}
+      >
         <span aria-hidden className="text-deep-graphite">
           “
         </span>
@@ -89,22 +91,26 @@ export function TestimonialsCarouselSection() {
       aria-labelledby="testimonials-heading"
     >
       <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 md:px-8">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-deep-graphite md:text-[12px]">Proof</p>
+        <p
+          className={`${posterDisplay.className} text-[11px] font-normal uppercase tracking-[0.14em] text-deep-graphite md:text-[12px]`}
+        >
+          Proof
+        </p>
         <h2
           id="testimonials-heading"
-          className={`${posterDisplay.className} mt-4 max-w-[min(100%,42rem)] text-left uppercase tracking-[-0.02em] text-deep-graphite md:mt-5`}
+          className={`${posterDisplay.className} mt-4 max-w-[min(100%,42rem)] text-left font-normal uppercase tracking-[-0.02em] text-deep-graphite md:mt-5`}
         >
-          <span className="block text-[clamp(1.1rem,3vw,2.05rem)] leading-[0.98] text-deep-graphite">
+          <span className="block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] text-deep-graphite">
             Shipped,
           </span>
-          <span className="mt-1 block text-[clamp(1.1rem,3vw,2.05rem)] leading-[0.98] text-amber-glow md:mt-2">
+          <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] text-amber-glow md:mt-2">
             not slideware
           </span>
         </h2>
 
         <figure className="mt-10 rounded-[var(--radius-card)] border-2 border-deep-graphite bg-canvas-white px-6 py-8 shadow-[0_14px_44px_-34px_rgba(29,30,28,0.16)] md:mt-12 md:px-10 md:py-11">
           <TypewriterQuote />
-          <figcaption className="mt-6 font-sans text-[13px] font-normal leading-snug text-deep-graphite md:mt-8 md:text-[14px]">
+          <figcaption className="mt-6 max-w-[52ch] font-sans text-[15px] font-normal leading-[1.6] text-muted-stone md:mt-8 md:text-[16px]">
             Avishkar AI — India-born, global deployments.
           </figcaption>
         </figure>

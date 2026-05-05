@@ -46,14 +46,17 @@ export function SiteFooter() {
       {/* CTA band — headline + primary / outline buttons */}
       <div className="mx-auto w-full max-w-[var(--page-max-width)] px-6 pb-12 pt-14 md:px-8 md:pb-14 md:pt-16">
         <h2
-          className={`${posterDisplay.className} max-w-[min(100%,48rem)] text-left font-bold uppercase leading-[0.95] tracking-[-0.02em] text-white`}
+          className={`${posterDisplay.className} max-w-[min(100%,48rem)] text-left font-normal uppercase leading-[0.9] tracking-[-0.02em] text-white`}
         >
-          <span className="block text-[clamp(2.15rem,6vw,4rem)]">
-            Get advanced tools to run{" "}
-            <span className="text-amber-glow">critical-infrastructure</span> dispatch
+          <span className="block text-[clamp(1.35rem,4.5vw,3.35rem)]">
+            Get advanced tools to run
+          </span>
+          <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] md:mt-2">
+            <span className="text-amber-glow">critical-infrastructure</span>{" "}
+            <span className="text-white">dispatch</span>
           </span>
         </h2>
-        <p className="mt-6 max-w-[56ch] font-sans text-[clamp(1.1rem,2.35vw,1.35rem)] font-bold leading-[1.5] text-white/92 md:mt-8">
+        <p className="mt-7 max-w-[56ch] font-sans text-[16px] font-normal leading-[1.6] text-white/85 md:mt-9 md:text-[17px]">
           Fault to engineer in minutes — on your monitoring stack. Book a founder-led walkthrough or explore the platform.
         </p>
         <div className="mt-9 flex flex-wrap gap-3 md:gap-4">
