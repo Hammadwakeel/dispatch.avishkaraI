@@ -32,6 +32,7 @@ import {
   type NavDropdown,
   type NavLink,
 } from "@/config/site-navigation";
+import { posterDisplay } from "@/lib/poster-font";
 
 const megaIconMap: Record<MegaMenuIconId, LucideIcon> = {
   "layout-dashboard": LayoutDashboard,
@@ -137,23 +138,23 @@ function DesktopMegaNavDropdown({ dropdown }: { dropdown: NavDropdown }) {
       {megaHref ? (
         <Link
           href={megaHref}
-          className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-sans text-[14px] font-medium text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-amber-glow md:px-3.5 md:py-2 md:text-[15px] ${
-            open ? "text-amber-glow" : ""
+          className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 font-sans text-[14px] font-medium text-black outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-black md:px-3.5 md:py-2 md:text-[15px] ${
+            open ? "font-semibold text-black" : ""
           } ${open ? "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-amber-glow" : ""}`}
           onMouseEnter={openNow}
           onMouseLeave={scheduleClose}
         >
           {label}
           <ChevronDown
-            className={`size-4 shrink-0 text-amber-glow opacity-95 transition-transform duration-200 md:size-[1.05rem] ${open ? "rotate-180" : ""}`}
+            className={`size-4 shrink-0 text-black opacity-80 transition-transform duration-200 md:size-[1.05rem] ${open ? "rotate-180" : ""}`}
             aria-hidden
           />
         </Link>
       ) : (
         <button
           type="button"
-          className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 text-left font-sans text-[14px] font-medium text-deep-graphite/90 outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-amber-glow focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] ${
-            open ? "text-amber-glow" : ""
+          className={`relative flex w-full cursor-default list-none items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-ui)] px-3 py-1.5 text-left font-sans text-[14px] font-medium text-black outline-none ring-amber-glow/0 transition-[color,background-color,box-shadow] hover:bg-white/35 hover:text-black focus-visible:ring-2 md:px-3.5 md:py-2 md:text-[15px] ${
+            open ? "font-semibold text-black" : ""
           } ${open ? "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-0.5 after:rounded-full after:bg-amber-glow" : ""}`}
           aria-expanded={open}
           aria-haspopup="true"
@@ -163,7 +164,7 @@ function DesktopMegaNavDropdown({ dropdown }: { dropdown: NavDropdown }) {
         >
           {label}
           <ChevronDown
-            className={`size-4 shrink-0 text-amber-glow opacity-95 transition-transform duration-200 md:size-[1.05rem] ${open ? "rotate-180" : ""}`}
+            className={`size-4 shrink-0 text-black opacity-80 transition-transform duration-200 md:size-[1.05rem] ${open ? "rotate-180" : ""}`}
             aria-hidden
           />
         </button>
@@ -243,17 +244,23 @@ export function SiteHeader() {
           <div className="relative flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-2.5 sm:gap-x-4 sm:px-5 sm:py-3 md:gap-x-6 md:gap-y-2 md:px-8 md:py-3 lg:gap-x-8 lg:px-10 xl:px-12">
             <Link
               href="/"
-              className="flex shrink-0 items-center gap-2.5 text-deep-graphite transition-opacity hover:opacity-85"
+              className="flex shrink-0 items-center gap-2.5 text-black transition-opacity hover:opacity-85 sm:gap-3"
+              aria-label="Avishkar AI home"
               style={{ transitionDuration: "var(--transition-interactive)" }}
             >
               <Image
-                src="/logo-avishkar.svg"
-                alt="Avishkar AI"
-                width={132}
-                height={32}
+                src="/logo.png"
+                alt=""
+                width={766}
+                height={864}
                 priority
-                className="h-7 w-auto sm:h-8 md:h-8"
+                className="h-8 w-auto shrink-0 sm:h-9 md:h-10"
               />
+              <span
+                className={`${posterDisplay.className} text-[clamp(0.95rem,2vw,1.15rem)] font-normal uppercase leading-none tracking-[-0.02em] text-black sm:text-[1.05rem] md:text-[1.1rem]`}
+              >
+                Avishkar AI
+              </span>
             </Link>
 
             <nav
@@ -276,7 +283,7 @@ export function SiteHeader() {
 
               <button
                 type="button"
-                className="inline-flex size-10 items-center justify-center rounded-[var(--radius-ui)] border border-white/55 bg-white/35 text-amber-glow shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-md hover:bg-white/50 md:hidden"
+                className="inline-flex size-10 items-center justify-center rounded-[var(--radius-ui)] border border-white/55 bg-white/35 text-black shadow-[inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-md hover:bg-white/50 md:hidden"
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-nav"
                 aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -304,10 +311,10 @@ export function SiteHeader() {
               <nav className="relative flex flex-col gap-2 px-4 py-4" aria-label="Mobile primary">
                 {headerDropdowns.map((d) => (
                   <details key={d.label} className="group rounded-xl border border-light-steel/60 bg-white/20">
-                    <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-sans text-[15px] font-medium text-deep-graphite [&::-webkit-details-marker]:hidden">
+                    <summary className="flex min-h-[48px] cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 font-sans text-[15px] font-medium text-black [&::-webkit-details-marker]:hidden">
                       {d.label}
                       <ChevronDown
-                        className="size-4 shrink-0 text-amber-glow opacity-95 group-open:rotate-180"
+                        className="size-4 shrink-0 text-black opacity-80 group-open:rotate-180"
                         aria-hidden
                       />
                     </summary>
@@ -316,8 +323,8 @@ export function SiteHeader() {
                         <Link
                           key={item.href}
                           href={item.href}
-                          className={`block px-5 py-2.5 font-sans text-[14px] leading-relaxed transition-colors hover:text-amber-glow ${
-                            item.emphasis ? "font-semibold text-amber-glow" : "text-link-gray"
+                          className={`block px-5 py-2.5 font-sans text-[14px] leading-relaxed text-black transition-colors hover:opacity-80 ${
+                            item.emphasis ? "font-semibold" : "font-medium"
                           }`}
                           onClick={() => setMobileOpen(false)}
                         >

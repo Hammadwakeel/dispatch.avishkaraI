@@ -146,14 +146,23 @@ export function SiteFooter() {
       <div className="border-t border-white/10 bg-black">
         <div className="mx-auto flex w-full max-w-[var(--page-max-width)] flex-col gap-8 px-6 py-8 md:flex-row md:items-center md:justify-between md:px-8">
           <div className="flex flex-col gap-4">
-            <Link href="/" className="inline-flex w-fit items-center gap-2.5">
+            <Link
+              href="/"
+              className="inline-flex w-fit items-center gap-3 sm:gap-3.5"
+              aria-label="Avishkar AI home"
+            >
               <Image
-                src="/logo-avishkar.svg"
-                alt="Avishkar AI"
-                width={120}
-                height={28}
-                className="h-7 w-auto brightness-0 invert"
+                src="/logo.png"
+                alt=""
+                width={766}
+                height={864}
+                className="h-9 w-auto shrink-0 sm:h-10"
               />
+              <span
+                className={`${posterDisplay.className} text-[clamp(1.15rem,2.5vw,1.5rem)] font-normal uppercase leading-none tracking-[-0.02em] text-white`}
+              >
+                Avishkar AI
+              </span>
             </Link>
             <p className="max-w-[36ch] font-sans text-[13px] leading-relaxed text-white/75">
               AI-native dispatch for critical infrastructure — ATMs, towers, and medical devices.

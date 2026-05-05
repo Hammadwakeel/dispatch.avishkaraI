@@ -3,6 +3,10 @@
 /*
  * Color theme derived from Harvest — warm, organized workspace aesthetic
  * with understated neutrals and a single vibrant orange accent.
+ *
+ * Typography: only theme-guide families (tokens.json / variables.css):
+ * - MuotoWeb → Inter (--font-inter, font-sans)
+ * - Monarch → Playfair Display (--font-playfair, font-serif, poster headlines)
  */
 @theme inline {
   /* Primary accent — vibrant orange (Harvest brand color) */
@@ -25,9 +29,14 @@
   --color-text-gray: #999999;
   --color-shadow-tint: #ccc6c1;
 
-  --font-serif: var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman",
-    Times, serif;
-  --font-mono: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* MuotoWeb (primary UI) — Inter */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  /* Monarch (display) — Playfair */
+  --font-serif: var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  /* Theme guide has no third font; labels previously used mono — same MuotoWeb stack + tabular-nums where needed */
+  --font-mono: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
 
   --shadow-sm: rgba(0, 0, 0, 0.2) 0px 1px 4px 0px;
   --shadow-lg: rgba(250, 166, 0, 0.25) 6px 4px 24px 0px;
@@ -43,15 +52,19 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   /* For arbitrary rgba(...) in class strings — matches --color-amber-glow */
   --rgb-amber-glow: 250 93 0;
+  /* Aliases for CSS authors (match `theme guide/variables.css` naming) */
+  --font-muotoweb: var(--font-sans);
+  --font-monarch: var(--font-serif);
 }
 
 body {
   background: var(--color-canvas-white);
   background-color: var(--color-canvas-white);
   color: var(--color-deep-graphite);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.5;
+  letter-spacing: 0.015em;
 }
 
 /* Lenis drives interpolation; keep CSS scroll-behavior native so we never double-smooth. */
@@ -91,69 +104,6 @@ html.lenis body {
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--color-amber-glow) var(--color-canvas-white);
-}
-
-/* Hide default cursor */
-body {
-  cursor: none;
-}
-
-/* Interactive elements */
-a, button, [role="button"], input, select, textarea, label, [tabindex]:not([tabindex="-1"]) {
-  cursor: none;
-}
-
-/* Custom cursor with orange border, transparent inside, and trails */
-.custom-cursor {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 3px solid var(--color-amber-glow);
-  background: transparent;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.08s ease-out;
-  box-shadow: 0 0 20px rgba(250, 93, 0, 0.3);
-}
-
-.custom-cursor.hovering {
-  width: 56px;
-  height: 56px;
-  border-width: 4px;
-  background: rgba(250, 93, 0, 0.1);
-  box-shadow: 0 0 30px rgba(250, 93, 0, 0.5);
-}
-
-/* Cursor trail dots */
-.cursor-trail {
-  position: fixed;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid var(--color-amber-glow);
-  background: transparent;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  opacity: 0.4;
-  transition: opacity 0.3s ease;
-}
-
-.cursor-trail.trail-1 {
-  transition-delay: 0.05s;
-  opacity: 0.5;
-}
-
-.cursor-trail.trail-2 {
-  transition-delay: 0.1s;
-  opacity: 0.35;
-}
-
-.cursor-trail.trail-3 {
-  transition-delay: 0.15s;
-  opacity: 0.2;
 }
 
 /* Homepage dispatch loop — infinite horizontal marquee (right-to-left drift) */

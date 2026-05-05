@@ -1,12 +1,16 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { posterDisplay } from "@/lib/poster-font";
 import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { ChallengesStickyScrollSection } from "@/components/sections/challenges-sticky-scroll-section";
 import { DispatchGlobeSection } from "@/components/sections/dispatch-globe-section";
 import { TestimonialsCarouselSection } from "./testimonials-carousel-section";
+
+/** Public asset — filename contains a space (`public/hero image.jpeg`). */
+const HERO_IMAGE_SRC = "/hero%20image.jpeg";
 
 /** Homepage problem tabs — update/avishkar_complete_copy_replacement.md.pdf */
 const problemNarratives = [
@@ -356,42 +360,30 @@ function IndustrySegmentStacksSection() {
 }
 
 export function LandingPage() {
-  const reduceHeroMotion = useReducedMotion();
-
   return (
     <main className="flex-1 overflow-x-clip bg-canvas-white">
       <section
         id="demo"
         className="relative scroll-mt-28 overflow-hidden border-b border-light-steel bg-canvas-white md:scroll-mt-32"
       >
-        {!reduceHeroMotion ? (
-          <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
-            <video
-              className="h-full w-full object-cover object-center"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            >
-              <source src="/hero.mp4" type="video/mp4" />
-            </video>
-            {/* Frosted scrim so headline/body stay readable on any footage */}
-            <div className="absolute inset-0 bg-gradient-to-br from-canvas-white/93 via-canvas-white/78 to-harvest-cream/55 backdrop-blur-[2px]" />
-          </div>
-        ) : (
-          <div className="absolute inset-0 z-0 bg-gradient-to-b from-harvest-cream/35 to-canvas-white" aria-hidden />
-        )}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-harvest-cream/40 via-canvas-white to-canvas-white"
+          aria-hidden
+        />
 
-        <div className="relative z-10 mx-auto w-full max-w-[var(--page-max-width)] px-6 py-16 md:px-8 md:py-20 lg:min-h-[min(72vh,820px)] lg:flex lg:flex-col lg:justify-center lg:py-24">
-          <div>
+        <div className="relative z-10 mx-auto grid w-full max-w-[var(--page-max-width)] grid-cols-1 gap-10 px-6 py-16 md:gap-12 md:px-8 md:py-20 lg:min-h-[min(72vh,820px)] lg:grid-cols-2 lg:items-start lg:gap-12 lg:py-24 xl:gap-16">
+          <div className="order-1 min-w-0">
             <h1 className={`${posterDisplay.className} text-left uppercase tracking-[-0.02em]`}>
-              <span className="block whitespace-nowrap text-[clamp(1.75rem,6.25vw,4.85rem)] leading-[0.9]">
-                <span className="text-amber-glow">Built</span>{" "}
-                <span className="text-deep-graphite">for infrastructure</span>
+              <span className="block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9]">
+                <span className="text-amber-glow">Built</span>
+                <span className="text-deep-graphite"> for</span>
               </span>
-              <span className="mt-1 block text-[clamp(1.75rem,6.25vw,4.85rem)] leading-[0.9] text-deep-graphite md:mt-2">
-                that <span className="text-amber-glow">cannot fail.</span>
+              <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] text-deep-graphite md:mt-2">
+                infrastructure
+              </span>
+              <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] md:mt-2">
+                <span className="text-deep-graphite">that </span>
+                <span className="text-amber-glow">cannot fail.</span>
               </span>
             </h1>
             <p className="mt-7 max-w-[52ch] font-sans text-[16px] font-normal leading-[1.6] text-muted-stone md:mt-9 md:text-[17px]">
@@ -404,6 +396,19 @@ export function LandingPage() {
               >
                 Book a Demo
               </Link>
+            </div>
+          </div>
+
+          <div className="relative order-2 mx-auto w-full max-w-md lg:mx-0 lg:max-w-none">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-card)] border border-light-steel/80 bg-canvas-white shadow-[0_20px_48px_-24px_rgba(29,30,28,0.22)] ring-1 ring-deep-graphite/[0.06] lg:aspect-[5/4]">
+              <Image
+                src={HERO_IMAGE_SRC}
+                alt="Avishkar AI dispatch for critical infrastructure"
+                fill
+                priority
+                sizes="(max-width: 1024px) min(100vw - 3rem, 28rem), 50vw"
+                className="object-contain object-center p-2 sm:p-3 md:p-4"
+              />
             </div>
           </div>
         </div>

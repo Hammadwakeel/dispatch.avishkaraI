@@ -1,8 +1,7 @@
-import { Anton } from "next/font/google";
+import { playfair } from "@/lib/fonts";
 
-/** Large uppercase poster headlines — matches homepage hero (“Built for infrastructure…”). */
-export const posterDisplay = Anton({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
+/**
+ * Monarch (theme guide) — Playfair Display for large poster / marketing headlines.
+ * Re-exported as `posterDisplay` for existing imports; sizing stays in Tailwind utilities.
+ */
+export const posterDisplay = playfair;

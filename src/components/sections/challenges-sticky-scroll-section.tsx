@@ -53,7 +53,7 @@ type ChallengesStickyScrollSectionProps = {
   headingId?: string;
   /** Display headline (use block lines + accent spans as needed). */
   heading: ReactNode;
-  /** Optional poster font class (e.g. next/font Anton). Enables large bold caps headline. */
+  /** Optional display font class (theme Monarch / Playfair). Enables large headline treatment. */
   headingFontClassName?: string;
   /** Supporting copy under the headline. */
   intro: ReactNode;
@@ -79,7 +79,7 @@ function challengesIntroClassName(headingFontClassName?: string, darkSurface?: b
   return "mt-7 w-full text-left font-sans text-[18px] font-semibold leading-[1.65] text-muted-stone md:mt-8 md:text-[20px]";
 }
 
-/** Match homepage poster (Anton) for challenge titles when `headingFontClassName` is passed. */
+/** Match homepage display font when `headingFontClassName` is passed. */
 function challengeItemTitleClass(
   headingFontClassName: string | undefined,
   sizeClass: string,
