@@ -485,7 +485,7 @@ export function CompanyPage() {
                     </p>
                     <p className="mx-auto mt-4 max-w-[34ch] font-sans text-[13px] leading-relaxed text-muted-stone">
                       <span className="font-semibold text-amber-glow">~45→~5 min</span> coordination · India (ATM, towers) ·{" "}
-                      <span className="text-deep-graphite">APAC next</span>
+                      <span className="text-deep-graphite">USA and APAC next</span>
                     </p>
                   </div>
                 </div>

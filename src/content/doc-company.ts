@@ -18,7 +18,7 @@ export const companyDocPages: Record<string, DocPage> = {
     heroTitleLine2: "that",
     heroTitleLine2Accent: "cannot fail.",
     heroSubtitle:
-      "45 minutes was the norm; we cut coordination to ~5. Monitors and crews existed—no AI closed the loop. India; APAC next.",
+      "45 minutes was the norm; we cut coordination to ~5. Monitors and crews existed—no AI closed the loop. India; USA and APAC next.",
     heroSubtitleAccent: "~5 min coordination.",
     heroSubtitleRest: " No dispatcher in the loop. Live today; scaling APAC.",
     sections: [
@@ -45,7 +45,7 @@ export const companyDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "A layer on your stack: fault → assign → parts → close. Autonomous. India—ATM OEMs & towers; APAC next.",
+            text: "A layer on your stack: fault → assign → parts → close. Autonomous. India—ATM OEMs & towers; USA and APAC next.",
           },
         ],
       },
