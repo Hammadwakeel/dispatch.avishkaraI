@@ -414,15 +414,20 @@ export function CompanyPage() {
               >
                 {about.heroTitleAccent && about.heroTitleRest ? (
                   <>
-                    <span className="block whitespace-nowrap text-[clamp(1.85rem,5vw,3.25rem)] leading-[0.92]">
-                      <span className="text-amber-glow">{about.heroTitleAccent}</span>{" "}
+                    <span className="block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9]">
+                      <span className="text-amber-glow">{about.heroTitleAccent}</span>
                       <span className="text-deep-graphite">{about.heroTitleRest}</span>
                     </span>
+                    {about.heroTitleMid ? (
+                      <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] text-deep-graphite md:mt-2">
+                        {about.heroTitleMid}
+                      </span>
+                    ) : null}
                     {about.heroTitleLine2 ? (
-                      <span className="mt-1 block text-[clamp(1.85rem,5vw,3.25rem)] leading-[0.92] text-deep-graphite md:mt-1.5">
+                      <span className="mt-1 block text-[clamp(1.35rem,4.5vw,3.35rem)] leading-[0.9] md:mt-2">
                         {about.heroTitleLine2Accent ? (
                           <>
-                            <span className="text-deep-graphite">{about.heroTitleLine2}</span>{" "}
+                            <span className="text-deep-graphite">{about.heroTitleLine2} </span>
                             <span className="text-amber-glow">{about.heroTitleLine2Accent}</span>
                           </>
                         ) : (

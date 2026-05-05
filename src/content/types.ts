@@ -24,6 +24,8 @@ export type DocPage = {
   /** Optional poster line 1: amber + graphite words (e.g. Vision | Inspection). */
   heroTitleAccent?: string;
   heroTitleRest?: string;
+  /** Optional graphite-only line between line 1 and `heroTitleLine2` (e.g. “infrastructure”). */
+  heroTitleMid?: string;
   /** Optional second poster line — graphite; pair with `heroTitleLine2Accent` for an amber suffix. */
   heroTitleLine2?: string;
   heroTitleLine2Accent?: string;

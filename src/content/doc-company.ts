@@ -14,7 +14,8 @@ export const companyDocPages: Record<string, DocPage> = {
     eyebrow: "Our Story",
     heroTitle: "Built for infrastructure that cannot fail.",
     heroTitleAccent: "Built",
-    heroTitleRest: "for infrastructure",
+    heroTitleRest: " for",
+    heroTitleMid: "infrastructure",
     heroTitleLine2: "that",
     heroTitleLine2Accent: "cannot fail.",
     heroSubtitle:
