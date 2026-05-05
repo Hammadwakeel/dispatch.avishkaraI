@@ -11,8 +11,6 @@ type GlobeBlock = {
   heading: ReactNode;
   body: string;
   tagline?: string;
-  /** When set, renders “Step {step}” above the title (fault-to-fix journey). */
-  step?: string;
 };
 
 const dispatchLiquidGlassShell =
@@ -30,7 +28,7 @@ const GLOBE_CONTENT_BLOCKS: GlobeBlock[] = [
         <span className="text-amber-glow">End to end.</span>
       </>
     ),
-    body: "One autonomous layer: fault ingestion, engineer assignment, parts, follow-up, closure, and analytics — continuously, without handoffs.",
+    body: "One layer: ingest → assign → parts → follow-up → close → analytics. No handoffs.",
   },
   {
     key: "fault-ingestion",
@@ -39,8 +37,8 @@ const GLOBE_CONTENT_BLOCKS: GlobeBlock[] = [
         <span className="text-amber-glow">Fault</span> <span className="text-deep-graphite">Ingestion</span>
       </>
     ),
-    tagline: "Fault in. Ticket open. Instantly.",
-    body: "The moment your monitoring system fires a fault event — SCADA, NOC, telemetry, legacy software — Avishkar picks it up via API. No human triage. No queue. Instant classification by fault type, asset, severity, and location.",
+    tagline: "Fault in. Ticket open.",
+    body: "Monitoring fires (SCADA, NOC, telemetry, legacy) → ingested via API. Classified by type, asset, severity, site — no triage queue.",
   },
   {
     key: "engineer-assignment",
@@ -49,8 +47,8 @@ const GLOBE_CONTENT_BLOCKS: GlobeBlock[] = [
         <span className="text-amber-glow">Engineer</span> <span className="text-deep-graphite">Assignment</span>
       </>
     ),
-    tagline: "Right engineer. Right skills. Seconds.",
-    body: "Avishkar scans your field engineer network in real time — availability, location, certification, current workload — and assigns the best match. The engineer gets full fault context on mobile before they leave.",
+    tagline: "Best match. Seconds.",
+    body: "Scores crew by availability, location, certs, load. Full fault context on mobile before roll.",
   },
   {
     key: "parts",
@@ -59,8 +57,8 @@ const GLOBE_CONTENT_BLOCKS: GlobeBlock[] = [
         <span className="text-amber-glow">Parts</span> <span className="text-deep-graphite">Orchestration</span>
       </>
     ),
-    tagline: "Parts ordered before the engineer arrives.",
-    body: "Avishkar checks inventory in real time, reserves required parts, and coordinates delivery to the site — automatically. Engineers arrive ready to fix, not to diagnose.",
+    tagline: "Parts before arrival.",
+    body: "Checks stock, reserves parts, coordinates delivery — crew arrives to fix, not hunt parts.",
   },
   {
     key: "follow-up",
@@ -69,8 +67,8 @@ const GLOBE_CONTENT_BLOCKS: GlobeBlock[] = [
         <span className="text-amber-glow">Real-Time</span> <span className="text-deep-graphite">Follow-Up</span>
       </>
     ),
-    tagline: "AI follows up. You don't have to.",
-    body: "Avishkar tracks every open ticket in real time. If a repair is delayed, it follows up with the engineer automatically. If there's an escalation — the engineer talks directly back to the AI. No phone tag. No missed updates.",
+    tagline: "AI nags so you don't.",
+    body: "Tracks open tickets; pings on delays; escalations go engineer ↔ AI — fewer missed updates.",
   },
   {
     key: "closure",
@@ -79,8 +77,8 @@ const GLOBE_CONTENT_BLOCKS: GlobeBlock[] = [
         <span className="text-amber-glow">Ticket</span> <span className="text-deep-graphite">Closure</span>
       </>
     ),
-    tagline: "Closed loop. Every time.",
-    body: "When the fix is confirmed, Avishkar closes the ticket, logs the resolution, updates your CRM and reporting, and generates compliance documentation automatically. Nothing falls through the cracks.",
+    tagline: "Close clean.",
+    body: "Confirms fix → closes ticket → CRM/reporting updates → compliance docs generated.",
   },
   {
     key: "analytics",
@@ -92,39 +90,7 @@ const GLOBE_CONTENT_BLOCKS: GlobeBlock[] = [
         <span className="text-deep-graphite"> across your network.</span>
       </>
     ),
-    body: "Every engineer, every ticket, every asset — live. SLA risk flagged before breach. Resolution times, first-fix rates, and engineer performance tracked automatically. Operations managers finally have the dashboard they needed.",
-  },
-  {
-    key: "fault-to-fix-01",
-    step: "01",
-    heading: (
-      <span className="uppercase tracking-[-0.02em]">Fault detected and normalized</span>
-    ),
-    body: "Events from monitoring tools, OEM feeds, and call-center channels are merged into one priority queue with SLA context.",
-  },
-  {
-    key: "fault-to-fix-02",
-    step: "02",
-    heading: (
-      <span className="uppercase tracking-[-0.02em]">Right engineer dispatched</span>
-    ),
-    body: "Avishkar AI assigns based on skill, territory, parts readiness, and active commitments to avoid rework and missed windows.",
-  },
-  {
-    key: "fault-to-fix-03",
-    step: "03",
-    heading: (
-      <span className="uppercase tracking-[-0.02em]">Repair execution tracked live</span>
-    ),
-    body: "Stakeholders receive real-time status from acceptance to on-site progress, including ETA, parts movement, and escalation notes.",
-  },
-  {
-    key: "fault-to-fix-04",
-    step: "04",
-    heading: (
-      <span className="uppercase tracking-[-0.02em]">Closure, proof, and learning</span>
-    ),
-    body: "Every ticket closes with documented actions, compliance-ready evidence, and analytics that improve future dispatch decisions.",
+    body: "Live view across engineers, tickets, assets. SLA risk early; resolution and first-fix tracked automatically.",
   },
 ];
 
@@ -258,13 +224,8 @@ export function DispatchGlobeSection() {
                 aria-hidden
               />
               <div className="relative z-[1] text-deep-graphite">
-                {block.step ? (
-                  <p className="font-mono text-[clamp(1.1rem,2.2vw,1.5rem)] font-bold tabular-nums leading-none text-amber-glow">
-                    Step {block.step}
-                  </p>
-                ) : null}
                 <h3
-                  className={`${posterDisplay.className} uppercase leading-snug tracking-[-0.02em] ${block.step ? "mt-3 text-[clamp(0.95rem,2vw,1.38rem)] font-normal" : "text-[clamp(1.05rem,2.2vw,1.45rem)] font-normal"}`}
+                  className={`${posterDisplay.className} uppercase leading-snug tracking-[-0.02em] text-[clamp(0.95rem,1.85vw,1.2rem)] font-normal`}
                 >
                   {block.heading}
                 </h3>

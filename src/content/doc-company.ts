@@ -12,16 +12,22 @@ export const companyHubMeta = {
 export const companyDocPages: Record<string, DocPage> = {
   about: {
     eyebrow: "Our Story",
-    heroTitle: "We built the dispatch system critical infrastructure deserved — but never had.",
+    heroTitle: "Built for infrastructure that cannot fail.",
+    heroTitleAccent: "Built",
+    heroTitleRest: "for infrastructure",
+    heroTitleLine2: "that",
+    heroTitleLine2Accent: "cannot fail.",
     heroSubtitle:
-      "The ATM industry accepted 45-minute response times. Telecom operators assumed manual dispatch was inevitable. We looked at both and asked: what if the entire dispatch loop was run by AI? Five minutes later, we had our answer. Today dispatch coordination runs from 45 minutes to 5 minutes on the platform, and we are live with ATM manufacturers and telecom tower operators in India.",
+      "45 minutes was the norm; we cut coordination to ~5. Monitors and crews existed—no AI closed the loop. India; APAC next.",
+    heroSubtitleAccent: "~5 min coordination.",
+    heroSubtitleRest: " No dispatcher in the loop. Live today; scaling APAC.",
     sections: [
       {
         heading: "The problem nobody was questioning",
         blocks: [
           {
             kind: "p",
-            text: "Critical infrastructure — ATMs, towers, medical devices — goes down constantly. Every time, a human picks up the phone, finds an engineer, and dispatches manually. The industry accepted 45 minutes as the minimum response time. We didn't.",
+            text: "When ATMs, towers, or medical gear fail, someone still phones around and dispatches by hand. The industry accepted 45 minutes. We didn’t.",
           },
         ],
       },
@@ -30,7 +36,7 @@ export const companyDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "The technology to dispatch in 5 minutes already existed. The monitoring systems were already firing fault events. The engineers were already in the field. Nobody had built the AI layer connecting all of it — end to end, without a human in the middle.",
+            text: "Fault signals and field crews already existed. Missing: an AI layer wiring monitors → dispatch → close—no human coordinator.",
           },
         ],
       },
@@ -39,7 +45,7 @@ export const companyDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "Avishkar is an AI-native dispatch layer that sits on top of your existing monitoring stack. Fault in → engineer assigned → parts coordinated → ticket closed. Fully autonomous. Live with ATM manufacturers and tower operators in India. Expanding across APAC.",
+            text: "A layer on your stack: fault → assign → parts → close. Autonomous. India—ATM OEMs & towers; APAC next.",
           },
         ],
       },
@@ -49,9 +55,18 @@ export const companyDocPages: Record<string, DocPage> = {
           {
             kind: "ul",
             items: [
-              "AI-Native Dispatch — The core engine. Receives fault events, assigns engineers, coordinates parts, follows up, closes tickets. End to end. No human dispatcher.",
-              "Vision Inspection — Computer vision layer that detects faults from cameras and IoT sensors — before a human reports them. Triggers the dispatch loop automatically.",
-              "Field Intelligence Suite — Real-time visibility into every engineer, ticket, asset, and SLA across your network. Operations teams finally have the dashboard they needed.",
+              {
+                amber: "AI-Native Dispatch",
+                graphite: " — fault → close; no human dispatcher.",
+              },
+              {
+                amber: "Vision Inspection",
+                graphite: " — CV on cameras/IoT; triggers dispatch before anyone calls.",
+              },
+              {
+                amber: "Field Intelligence Suite",
+                graphite: " — engineers, tickets, assets, SLAs—one live view.",
+              },
             ],
           },
         ],
@@ -62,11 +77,26 @@ export const companyDocPages: Record<string, DocPage> = {
           {
             kind: "ul",
             items: [
-              "We own the outcome — When a fault fires and an ATM goes down, our customers are losing money. We measure ourselves by dispatch time, resolution rate, and SLA compliance — not feature releases.",
-              "Specificity over claims — 5 minutes. 45 minutes. Two live customers. APAC expansion. We say what we've actually done — not what we could theoretically do.",
-              "Integration, not replacement — We don't ask customers to rip out their monitoring systems. We sit on top. That's how you get to deployment in weeks, not 18 months.",
-              "Build for the hardest use case — Medical devices. ATM networks. Telecom towers. If it works here, it works everywhere. We chose critical infrastructure deliberately.",
-              "Founders on every call — Every demo is run by a founder. Every customer gets our personal number. We don't hire account managers before we earn the right to.",
+              {
+                amber: "We own the outcome",
+                graphite: " — speed, resolution, SLA—not release cadence.",
+              },
+              {
+                amber: "Specificity",
+                graphite: " — numbers and shipped work, not slideware.",
+              },
+              {
+                amber: "Integrate, don’t replace",
+                graphite: " — sit on your monitors; weeks, not 18 months.",
+              },
+              {
+                amber: "Hardest first",
+                graphite: " — medical, ATM, tower. Proof transfers.",
+              },
+              {
+                amber: "Founders on calls",
+                graphite: " — direct line; no account-manager theater.",
+              },
             ],
           },
         ],
@@ -76,7 +106,7 @@ export const companyDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "We're early. We're lean. We're live with enterprise customers and expanding across APAC. If you want to build the infrastructure that keeps critical systems running worldwide — talk to us.",
+            text: "Lean team, live customers, APAC growth. Building critical-ops infrastructure—get in touch.",
           },
         ],
       },
@@ -85,15 +115,14 @@ export const companyDocPages: Record<string, DocPage> = {
   leadership: {
     eyebrow: "Company",
     heroTitle: "Leadership",
-    heroSubtitle:
-      "Experienced operators and builders aligning product, AI research, and customer outcomes.",
+    heroSubtitle: "Operators aligning product, AI, and customer outcomes.",
     sections: [
       {
         heading: "How we operate",
         blocks: [
           {
             kind: "p",
-            text: "Leadership bios and photos will be published here. For executive briefings or board introductions, contact our partnerships desk.",
+            text: "Bios coming soon. For executive briefings, email partners@avishkar.ai.",
           },
         ],
       },
@@ -102,15 +131,14 @@ export const companyDocPages: Record<string, DocPage> = {
   careers: {
     eyebrow: "Company",
     heroTitle: "Careers",
-    heroSubtitle:
-      "No ping-pong-table narrative here. We are a small, execution-heavy team shipping production systems for high-stakes field operations.",
+    heroSubtitle: "Small team, production systems, field stakes.",
     sections: [
       {
         heading: "Open roles",
         blocks: [
           {
             kind: "p",
-            text: "We hire when a customer need is immediate and clear. If you have built dependable systems for operations, AI, or field workflows, send your profile and proof of work to careers@avishkar.ai.",
+            text: "We hire on clear need—systems, AI, field. careers@avishkar.ai + proof of work.",
           },
         ],
       },
@@ -120,9 +148,9 @@ export const companyDocPages: Record<string, DocPage> = {
           {
             kind: "ul",
             items: [
-              "Fast feedback loops with real operators in the field.",
-              "Small teams with direct ownership from idea to deployment.",
-              "High accountability for reliability, security, and customer outcomes.",
+              { amber: "Fast loops", graphite: " — operators in the field." },
+              { amber: "Small teams", graphite: " — ship end to end." },
+              { amber: "High bar", graphite: " — reliability, security, outcomes." },
             ],
           },
         ],
@@ -132,15 +160,14 @@ export const companyDocPages: Record<string, DocPage> = {
   partners: {
     eyebrow: "Company",
     heroTitle: "Partners",
-    heroSubtitle:
-      "Technology integrators, OEMs, and service networks extending Avishkar AI to new markets.",
+    heroSubtitle: "OEMs, integrators, service networks.",
     sections: [
       {
         heading: "Partnerships",
         blocks: [
           {
             kind: "p",
-            text: "For integration partnerships, reseller programs, and OEM collaborations, email partners@avishkar.ai.",
+            text: "Integration, reseller, OEM—partners@avishkar.ai.",
           },
         ],
       },
@@ -149,15 +176,14 @@ export const companyDocPages: Record<string, DocPage> = {
   press: {
     eyebrow: "Company",
     heroTitle: "Press & media",
-    heroSubtitle:
-      "Fact sheets, logos, and executive commentary for journalists and analysts.",
+    heroSubtitle: "Logos, facts, commentary.",
     sections: [
       {
         heading: "Media contact",
         blocks: [
           {
             kind: "p",
-            text: "Press inquiries: press@avishkar.ai",
+            text: "press@avishkar.ai",
           },
         ],
       },
@@ -166,8 +192,11 @@ export const companyDocPages: Record<string, DocPage> = {
   contact: {
     eyebrow: "Company",
     heroTitle: "Let's Build Your AI-Powered Operation",
-    heroSubtitle:
-      "Tell us about your business. We'll show you how AI can transform it.",
+    heroTitleAccent: "Let's Build",
+    heroTitleRest: "Your AI-Powered Operation",
+    heroSubtitle: "Coverage, stack, timeline—we recommend dispatch, vision, or full stack.",
+    heroSubtitleAccent: "What you run.",
+    heroSubtitleRest: " We map stack + demo.",
     sections: [
       {
         heading: "Contact channels",
@@ -180,7 +209,7 @@ export const companyDocPages: Record<string, DocPage> = {
               {
                 label: "Support",
                 email: "support@avishkar.ai",
-                suffix: "(24/7 for Enterprise; business hours for Professional)",
+                suffix: "(24/7 Enterprise; business hours Professional)",
               },
               { label: "Press", email: "press@avishkar.ai" },
               { label: "Partners", email: "partners@avishkar.ai" },
@@ -194,11 +223,11 @@ export const companyDocPages: Record<string, DocPage> = {
           {
             kind: "ul",
             items: [
-              "Sites or assets under coverage (ATM, tower, medical device, critical facility)",
-              "Team size and current dispatch tooling",
-              "Whether you want dispatch-only, vision, intelligence suite, or full stack",
-              "Biggest operational challenge today",
-              "Preferred demo timing: ASAP, this week, this month, or exploring",
+              { amber: "Coverage", graphite: " — assets & geography." },
+              { amber: "Team & tools", graphite: " — size + dispatch stack." },
+              { amber: "Scope", graphite: " — dispatch, vision, intelligence, or full." },
+              { amber: "Pain", graphite: " — top ops bottleneck." },
+              { amber: "Timing", graphite: " — ASAP → exploring." },
             ],
           },
         ],
@@ -208,7 +237,7 @@ export const companyDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "We respect your privacy. Your information will never be sold or shared with third parties outside of delivering our services.",
+            text: "Not for sale—only what delivering the service requires.",
           },
         ],
       },

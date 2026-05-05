@@ -49,21 +49,21 @@ export const productLinks: NavLink[] = [
     href: "/products/fsm-platform",
     icon: "layout-dashboard",
     description:
-      "Fault ingestion through closure — autonomous AI dispatch loop for ATM, telecom, and medical-device fleets.",
+      "Ingest through close — autonomous loop for ATM, telecom, and medical fleets.",
   },
   {
     label: "Vision Inspection",
     href: "/products/vision-inspection",
     icon: "camera",
     description:
-      "Vision evidence and compliance capture that feeds the same dispatch loop.",
+      "Evidence & compliance capture feeding one dispatch loop.",
   },
   {
     label: "Field Intelligence Suite",
     href: "/products/field-intelligence-suite",
     icon: "waypoints",
     description:
-      "Live visibility across engineers, tickets, assets, and SLAs.",
+      "Live view — engineers, tickets, assets, SLAs.",
   },
   {
     label: "View all products",
@@ -79,29 +79,25 @@ export const solutionLinks: NavLink[] = [
     label: "ATM Networks",
     href: "/solutions/atm",
     icon: "landmark",
-    description:
-      "5 min avg dispatch vs 45 min industry standard — cash-out and uptime SLAs.",
+    description: "~5 vs ~45 min — cash-out & uptime SLAs.",
   },
   {
     label: "Telecom Towers",
     href: "/solutions/towers",
     icon: "factory",
-    description:
-      "Certified engineers dispatched before your SLA clock runs out.",
+    description: "Before SLA breach — certified field crews.",
   },
   {
     label: "Medical Devices",
     href: "/solutions/medical-devices",
     icon: "gauge",
-    description:
-      "Biomedical response speed with audit-ready closure.",
+    description: "Audit-ready close — regulated device paths.",
   },
   {
     label: "HVAC — Critical Facilities",
     href: "/solutions/hvac",
     icon: "thermometer",
-    description:
-      "Data centers, hospitals, cold chain — priority dispatch (coming soon).",
+    description: "DC, hospital, cold chain — priority dispatch (soon).",
   },
 ];
 

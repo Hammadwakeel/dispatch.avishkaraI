@@ -7,7 +7,9 @@ import {
 } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { DocBlock, DocPage, DocSection } from "@/content/types";
+import { DocListItemBody, docListItemKey } from "@/lib/doc-list-item";
 import { headingToFocusParam } from "@/lib/heading-to-focus-param";
+import { posterDisplay } from "@/lib/poster-font";
 
 function activeIndexForFocus(sections: DocSection[], focus: string | undefined): number {
   if (!focus || sections.length === 0) return 0;
@@ -23,7 +25,7 @@ function indexFromScrollProgress(p: number, n: number): number {
 function MacSectionBody({ section }: { section: DocSection }) {
   return (
     <div className="space-y-5">
-      <h2 className="border-b border-light-steel pb-2 font-serif text-[16px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[17px] lg:text-[18px]">
+      <h2 className="border-b border-light-steel pb-2 font-serif text-[14px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[15px] lg:text-[16px]">
         {section.heading}
       </h2>
       <div className="space-y-5">
@@ -50,12 +52,14 @@ function MacBlock({ block }: { block: DocBlock }) {
   const list = (
     <ul className="list-none space-y-2.5 font-sans text-[10px] leading-snug text-link-gray md:text-[11px] lg:text-[12px]">
       {block.items.map((item, li) => (
-        <li key={`${li}-${item.slice(0, 24)}`} className="flex gap-2">
+        <li key={docListItemKey(item, li)} className="flex gap-2">
           <span
             className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-glow/90"
             aria-hidden
           />
-          <span>{item}</span>
+          <span>
+            <DocListItemBody item={item} bodyClassName="text-link-gray" />
+          </span>
         </li>
       ))}
     </ul>
@@ -120,7 +124,7 @@ export function ProductMacInteractiveHero({
 
   const n = sections.length;
   const scrollTrackMinHeight =
-    n <= 1 ? "auto" : `${Math.max(n * 72, 280)}svh`;
+    n <= 1 ? "auto" : `${Math.max(n * 58, 240)}svh`;
 
   const tabNav = (
     <nav className="mt-6" aria-label="Product feature areas">
@@ -217,13 +221,43 @@ export function ProductMacInteractiveHero({
               </p>
             ) : null}
             <h1
-              className={`font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-normal leading-[1.12] tracking-[-0.04em] text-deep-graphite md:text-[44px] lg:text-[48px] ${doc.eyebrow ? "mt-4" : ""}`}
+              className={`min-w-0 text-left ${posterDisplay.className} uppercase tracking-[-0.02em] text-deep-graphite ${doc.eyebrow ? "mt-4" : ""}`}
             >
-              {doc.heroTitle}
+              {doc.heroTitleAccent && doc.heroTitleRest ? (
+                <>
+                  <span className="block text-[clamp(1.4rem,3.6vw,2.65rem)] leading-[0.92]">
+                    <span className="text-amber-glow">{doc.heroTitleAccent}</span>{" "}
+                    <span className="text-deep-graphite">{doc.heroTitleRest}</span>
+                  </span>
+                  {doc.heroTitleLine2 ? (
+                    <span className="mt-1 block text-[clamp(1.4rem,3.6vw,2.65rem)] leading-[0.92] text-deep-graphite md:mt-1.5">
+                      {doc.heroTitleLine2Accent ? (
+                        <>
+                          <span className="text-deep-graphite">{doc.heroTitleLine2}</span>{" "}
+                          <span className="text-amber-glow">{doc.heroTitleLine2Accent}</span>
+                        </>
+                      ) : (
+                        doc.heroTitleLine2
+                      )}
+                    </span>
+                  ) : null}
+                </>
+              ) : (
+                <span className="block text-[clamp(1.4rem,3.6vw,2.65rem)] leading-[0.92]">{doc.heroTitle}</span>
+              )}
             </h1>
-            <p className="mt-5 max-w-[52ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px] lg:text-[18px]">
-              {doc.heroSubtitle}
-            </p>
+            <div className="mt-5 max-w-[52ch]">
+              {doc.heroSubtitleAccent && doc.heroSubtitleRest ? (
+                <p className="font-sans text-[clamp(0.95rem,1.9vw,1.25rem)] font-semibold leading-[1.4] text-deep-graphite md:text-[clamp(0.98rem,1.75vw,1.2rem)]">
+                  <span className="text-amber-glow">{doc.heroSubtitleAccent}</span>
+                  <span className="text-deep-graphite">{doc.heroSubtitleRest}</span>
+                </p>
+              ) : (
+                <p className="font-sans text-[15px] leading-[1.5] text-muted-stone md:text-[16px]">
+                  {doc.heroSubtitle}
+                </p>
+              )}
+            </div>
             {tabNav}
           </div>
           <div className="flex min-h-0 w-full min-w-0 items-center justify-center lg:justify-end">

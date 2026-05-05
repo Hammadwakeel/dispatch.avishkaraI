@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { DocBlock, DocPage, DocSection } from "@/content/types";
+import { DocListItemBody, docListItemKey } from "@/lib/doc-list-item";
 
 const slugIcon: Record<string, LucideIcon> = {
   residential: Home,
@@ -58,9 +59,11 @@ function IOSBlock({ block }: { block: DocBlock }) {
   const list = (
     <ul className="space-y-3">
       {block.items.map((item, li) => (
-        <li key={`${li}-${item.slice(0, 24)}`} className="flex items-start gap-3">
+        <li key={docListItemKey(item, li)} className="flex items-start gap-3">
           <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#ff9500]" />
-          <span className="font-sans text-[14px] leading-[1.45] text-[#1c1c1e]">{item}</span>
+          <span className="font-sans text-[14px] leading-[1.45] text-[#1c1c1e]">
+            <DocListItemBody item={item} bodyClassName="text-[#1c1c1e]" />
+          </span>
         </li>
       ))}
     </ul>

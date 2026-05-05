@@ -7,6 +7,8 @@ import type { ReactNode } from "react";
 import { useMemo, useRef, useState } from "react";
 import { companyDocPages, companyHubMeta } from "@/content/doc-company";
 import type { DocBlock, DocSection } from "@/content/types";
+import { DocListItemBody, docListItemKey } from "@/lib/doc-list-item";
+import { posterDisplay } from "@/lib/poster-font";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -63,8 +65,10 @@ function DocBlocks({ blocks }: { blocks: DocBlock[] }) {
         }
         const list = (
           <ul className="list-disc space-y-2 pl-5 font-sans text-[15px] leading-[1.55] text-link-gray md:text-[16px]">
-            {b.items.map((item) => (
-              <li key={item}>{item}</li>
+            {b.items.map((item, j) => (
+              <li key={docListItemKey(item, j)}>
+                <DocListItemBody item={item} bodyClassName="text-link-gray" />
+              </li>
             ))}
           </ul>
         );
@@ -84,6 +88,116 @@ function DocBlocks({ blocks }: { blocks: DocBlock[] }) {
   );
 }
 
+const sectionPosterH2 = "text-[clamp(1.35rem,3.2vw,2.05rem)] leading-[0.95]";
+const sectionPosterH3 = "text-[clamp(1.12rem,2.6vw,1.68rem)] leading-[0.95]";
+
+function CompanySectionHeading({
+  heading,
+  level,
+}: {
+  heading: string;
+  level: "h2" | "h3";
+}) {
+  const HeadingTag = level;
+  const lineClass = level === "h2" ? sectionPosterH2 : sectionPosterH3;
+  const c = `${posterDisplay.className} uppercase tracking-[-0.02em] text-deep-graphite`;
+
+  if (heading === "The problem nobody was questioning") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass}`}>
+          <span className="text-amber-glow">The problem</span>{" "}
+          <span className="text-deep-graphite">nobody was questioning</span>
+        </span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "The gap we found") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass}`}>
+          <span className="text-amber-glow">The gap</span>{" "}
+          <span className="text-deep-graphite">we found</span>
+        </span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "What we built") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass}`}>
+          <span className="text-amber-glow">What we</span>{" "}
+          <span className="text-deep-graphite">built</span>
+        </span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "The platform. Three layers.") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass} text-amber-glow`}>The platform.</span>
+        <span className={`mt-1 block ${lineClass} text-deep-graphite md:mt-1.5`}>Three layers.</span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "How we operate") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass}`}>
+          <span className="text-amber-glow">How we</span>{" "}
+          <span className="text-deep-graphite">operate</span>
+        </span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "We're a small team building something big.") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass}`}>
+          <span className="text-amber-glow">We&apos;re a small team</span>{" "}
+          <span className="text-deep-graphite">building something big.</span>
+        </span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "Contact channels") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass}`}>
+          <span className="text-amber-glow">Contact</span>{" "}
+          <span className="text-deep-graphite">channels</span>
+        </span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "What to include in your note") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass}`}>
+          <span className="text-amber-glow">What to include</span>{" "}
+          <span className="text-deep-graphite">in your note</span>
+        </span>
+      </HeadingTag>
+    );
+  }
+  if (heading === "Privacy") {
+    return (
+      <HeadingTag className={c}>
+        <span className={`block ${lineClass} text-amber-glow`}>Privacy</span>
+      </HeadingTag>
+    );
+  }
+
+  const fallback =
+    level === "h2"
+      ? "font-serif text-[22px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[26px]"
+      : "font-serif text-lg font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-xl";
+
+  return (
+    <HeadingTag className={fallback}>{heading}</HeadingTag>
+  );
+}
+
 function DocSectionColumn({
   section,
   headingLevel,
@@ -91,15 +205,9 @@ function DocSectionColumn({
   section: DocSection;
   headingLevel: "h2" | "h3";
 }) {
-  const HeadingTag = headingLevel;
-  const headingClass =
-    headingLevel === "h2"
-      ? "font-serif text-[22px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[26px]"
-      : "font-serif text-lg font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-xl";
-
   return (
     <section>
-      <HeadingTag className={headingClass}>{section.heading}</HeadingTag>
+      <CompanySectionHeading heading={section.heading} level={headingLevel} />
       <div className="mt-5">
         <DocBlocks blocks={section.blocks} />
       </div>
@@ -219,12 +327,30 @@ export function CompanyPage() {
                 {contact.eyebrow}
               </p>
             ) : null}
-            <h2 className="mt-3 font-serif text-[clamp(1.35rem,3vw,1.85rem)] font-normal leading-[1.15] tracking-[-0.02em] text-deep-graphite">
-              {contact.heroTitle}
+            <h2
+              className={`mt-3 min-w-0 text-left ${posterDisplay.className} uppercase tracking-[-0.02em] text-deep-graphite`}
+            >
+              {contact.heroTitleAccent && contact.heroTitleRest ? (
+                <span className="block text-[clamp(1.35rem,3vw,2rem)] leading-[0.95]">
+                  <span className="text-amber-glow">{contact.heroTitleAccent}</span>{" "}
+                  <span className="text-deep-graphite">{contact.heroTitleRest}</span>
+                </span>
+              ) : (
+                <span className="block text-[clamp(1.35rem,3vw,2rem)] leading-[0.95]">{contact.heroTitle}</span>
+              )}
             </h2>
-            <p className="mt-4 font-sans text-[15px] leading-[1.55] text-muted-stone md:text-[16px]">
-              {contact.heroSubtitle}
-            </p>
+            <div className="mt-4 max-w-[52ch]">
+              {contact.heroSubtitleAccent && contact.heroSubtitleRest ? (
+                <p className="font-sans text-[clamp(1.05rem,2.4vw,1.55rem)] font-bold leading-[1.45] text-deep-graphite md:text-[clamp(1.08rem,2.2vw,1.5rem)]">
+                  <span className="text-amber-glow">{contact.heroSubtitleAccent}</span>
+                  <span className="text-deep-graphite">{contact.heroSubtitleRest}</span>
+                </p>
+              ) : (
+                <p className="font-sans text-[15px] leading-[1.55] text-muted-stone md:text-[16px]">
+                  {contact.heroSubtitle}
+                </p>
+              )}
+            </div>
             <div className="mt-8 grid gap-10 border-t border-light-steel/50 pt-8 lg:grid-cols-2 lg:gap-12">
               {contact.sections.slice(0, 2).map((sec) => (
                 <DocSectionColumn key={sec.heading} section={sec} headingLevel="h3" />
@@ -282,12 +408,42 @@ export function CompanyPage() {
                   {about.eyebrow}
                 </p>
               ) : null}
-              <h1 className="mt-4 font-serif text-[clamp(2rem,5vw,3.25rem)] font-normal leading-[1.1] tracking-[-0.03em] text-deep-graphite">
-                {about.heroTitle}
+              <h1
+                className={`mt-4 min-w-0 text-left ${posterDisplay.className} uppercase tracking-[-0.02em] text-deep-graphite`}
+              >
+                {about.heroTitleAccent && about.heroTitleRest ? (
+                  <>
+                    <span className="block whitespace-nowrap text-[clamp(1.85rem,5vw,3.25rem)] leading-[0.92]">
+                      <span className="text-amber-glow">{about.heroTitleAccent}</span>{" "}
+                      <span className="text-deep-graphite">{about.heroTitleRest}</span>
+                    </span>
+                    {about.heroTitleLine2 ? (
+                      <span className="mt-1 block text-[clamp(1.85rem,5vw,3.25rem)] leading-[0.92] text-deep-graphite md:mt-1.5">
+                        {about.heroTitleLine2Accent ? (
+                          <>
+                            <span className="text-deep-graphite">{about.heroTitleLine2}</span>{" "}
+                            <span className="text-amber-glow">{about.heroTitleLine2Accent}</span>
+                          </>
+                        ) : (
+                          about.heroTitleLine2
+                        )}
+                      </span>
+                    ) : null}
+                  </>
+                ) : (
+                  <span className="block text-[clamp(1.85rem,5vw,3.25rem)] leading-[0.92]">{about.heroTitle}</span>
+                )}
               </h1>
-              <p className="mt-6 max-w-[58ch] font-sans text-[16px] leading-[1.6] text-muted-stone md:text-[17px]">
-                {about.heroSubtitle}
-              </p>
+              <div className="mt-6 max-w-[58ch]">
+                {about.heroSubtitleAccent && about.heroSubtitleRest ? (
+                  <p className="font-sans text-[clamp(1.05rem,2.4vw,1.65rem)] font-bold leading-[1.45] text-deep-graphite md:text-[clamp(1.08rem,2.2vw,1.55rem)]">
+                    <span className="text-amber-glow">{about.heroSubtitleAccent}</span>
+                    <span className="text-deep-graphite">{about.heroSubtitleRest}</span>
+                  </p>
+                ) : (
+                  <p className="font-sans text-[16px] leading-[1.6] text-muted-stone md:text-[17px]">{about.heroSubtitle}</p>
+                )}
+              </div>
               <div className="mt-10 flex flex-wrap justify-start gap-4">
                 <Link
                   href="/company/contact"
@@ -325,7 +481,8 @@ export function CompanyPage() {
                       {companyHubMeta.legalName}
                     </p>
                     <p className="mx-auto mt-4 max-w-[34ch] font-sans text-[13px] leading-relaxed text-muted-stone">
-                      45 minutes → 5 minutes dispatch coordination. Live with ATM manufacturers and telecom tower operators in India.
+                      <span className="font-semibold text-amber-glow">~45→~5 min</span> coordination · India (ATM, towers) ·{" "}
+                      <span className="text-deep-graphite">APAC next</span>
                     </p>
                   </div>
                 </div>

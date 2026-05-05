@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { ProductMacInteractiveHero } from "@/components/layout/product-mac-interactive-hero";
 import type { DocBlock, DocPage } from "@/content/types";
+import { DocListItemBody, docListItemKey } from "@/lib/doc-list-item";
 
 type MarketingDocPageProps = {
   doc: DocPage;
@@ -41,8 +42,10 @@ export function MarketingDocPage({
   const renderList = (b: Extract<DocBlock, { kind: "ul" }>, blockKey: string) => {
     const list = (
       <ul className="list-disc space-y-2 pl-5 font-sans text-[15px] leading-[1.55] text-link-gray md:text-[16px]">
-        {b.items.map((item) => (
-          <li key={item}>{item}</li>
+        {b.items.map((item, i) => (
+          <li key={docListItemKey(item, i)}>
+            <DocListItemBody item={item} bodyClassName="text-link-gray" />
+          </li>
         ))}
       </ul>
     );

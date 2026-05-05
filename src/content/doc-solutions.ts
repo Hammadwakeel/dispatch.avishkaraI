@@ -5,23 +5,27 @@ export const solutionDocPages: Record<string, DocPage> = {
   atm: {
     eyebrow: "Solutions",
     heroTitle: "ATM fleet dispatch & fault response",
+    heroTitleAccent: "ATM fleet",
+    heroTitleRest: "dispatch & fault response",
     heroSubtitle:
-      "Cash availability and kiosk uptime are non-negotiable. Avishkar AI collapses dispatch coordination from 45 minutes to 5 minutes so first-line teams, OEM partners, and vault logistics stay aligned on every incident. Live with ATM manufacturers and telecom tower operators in India.",
+      "Cash & kiosk uptime — ~45→~5 min coordination. India — ATM OEMs & telecom towers.",
+    heroSubtitleAccent: "~45→~5 min coordination.",
+    heroSubtitleRest: " Cash & uptime — field, OEM, vault aligned. India production.",
     sections: [
       {
         heading: "Challenges we solve",
         blocks: [
           {
             kind: "p",
-            text: "ATM operators juggle monitoring alarms, cash-loading schedules, multi-vendor contracts, and audit-ready evidence. Slow triage or unclear ownership turns a minor fault into hours of downtime and regulatory exposure.",
+            text: "Alarms, cash cycles, multi-vendor contracts, and audit packs—slow triage turns small faults into downtime and exposure.",
           },
           {
             kind: "ul",
             items: [
-              "Fault floods from monitoring tools without clear severity or duplicate suppression",
-              "Matching the right engineer—vendor-certified, stocked, and within SLA radius",
-              "Parts and cassette coordination before the truck rolls",
-              "Proof packs for closure: photos, tests, timestamps, and customer sign-off",
+              { amber: "Alarm floods", graphite: " — severity & dedupe unclear." },
+              { amber: "Right engineer", graphite: " — certified, stocked, in SLA radius." },
+              { amber: "Parts / cassette", graphite: " — before the truck rolls." },
+              { amber: "Proof packs", graphite: " — photos, tests, sign-off." },
             ],
           },
         ],
@@ -31,15 +35,15 @@ export const solutionDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "One AI-native dispatch loop connects ingestion, assignment, parts, live updates, and compliant closure—built for how ATM networks actually run in India and APAC.",
+            text: "One AI-native loop—ingest, assign, parts, live updates, compliant closure—for how ATM networks run in India & APAC.",
           },
           {
             kind: "ul",
             items: [
-              "Unified fault queue with SLA-aware prioritization and vendor-aware routing rules",
-              "Travel- and skill-aware engineer assignment with full decision audit trails",
-              "Parts orchestration tied to asset history to reduce repeat visits",
-              "Closure workflows that enforce evidence before tickets leave the queue",
+              { amber: "Unified queue", graphite: " — SLA + vendor-aware routing." },
+              { amber: "Skill-aware assign", graphite: " — travel + audit trail." },
+              { amber: "Parts orchestration", graphite: " — tied to asset history." },
+              { amber: "Closure", graphite: " — evidence before tickets leave." },
             ],
           },
         ],
@@ -49,23 +53,27 @@ export const solutionDocPages: Record<string, DocPage> = {
   towers: {
     eyebrow: "Solutions",
     heroTitle: "Telecom tower operations & field response",
+    heroTitleAccent: "Telecom tower",
+    heroTitleRest: "operations & field response",
     heroSubtitle:
-      "Tower faults span power, RF, structural checks, and landlord coordination—often across remote sites and rotating crews. Dispatch coordination from 45 minutes to 5 minutes; live with ATM manufacturers and telecom tower operators in India.",
+      "Power, RF, structure, landlords — remote sites & rotating crews. ~45→~5 min coordination. India towers.",
+    heroSubtitleAccent: "~45→~5 min coordination.",
+    heroSubtitleRest: " Cert crews, access, proof — India deployments.",
     sections: [
       {
         heading: "Challenges we solve",
         blocks: [
           {
             kind: "p",
-            text: "Tower maintenance means constrained access windows, certification-specific crews, long drive times, and safety documentation. Traditional ticketing tools break down when every minute off-air translates to penalties and churn.",
+            text: "Constrained access, certified climbs, drive time, safety docs—generic ticketing breaks when every off-air minute costs.",
           },
           {
             kind: "ul",
             items: [
-              "Translating NOC alarms into actionable field work orders",
-              "Routing technicians with the right climb, electrical, or RF credentials",
-              "Coordinating landlords, keys, and site access without endless phone tags",
-              "Capturing structured proof for tower owners and internal QA",
+              { amber: "NOC → work order", graphite: " — actionable context." },
+              { amber: "Credentials", graphite: " — climb, electrical, RF." },
+              { amber: "Landlords & keys", graphite: " — fewer phone loops." },
+              { amber: "Proof", graphite: " — tower QA & owners." },
             ],
           },
         ],
@@ -75,15 +83,15 @@ export const solutionDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "Dispatch intelligence connects alarm context, asset records, and technician reality—skills, shifts, and geography—so the next truck roll is the right one.",
+            text: "Alarm context + asset records + crew reality—skills, shifts, geography—so the next roll is the right one.",
           },
           {
             kind: "ul",
             items: [
-              "Severity-aware triage that merges duplicates and highlights SLA risk early",
-              "Assignment recommendations that respect certifications and regional coverage",
-              "Live stakeholder updates from intake through closure",
-              "Vision-assisted capture for structures, cabinets, and hazard documentation where policies allow",
+              { amber: "Severity triage", graphite: " — dedupe + SLA risk early." },
+              { amber: "Assignment", graphite: " — certs + regional coverage." },
+              { amber: "Live updates", graphite: " — intake → close." },
+              { amber: "Vision capture", graphite: " — structures & hazards where allowed." },
             ],
           },
         ],
@@ -93,23 +101,27 @@ export const solutionDocPages: Record<string, DocPage> = {
   "medical-devices": {
     eyebrow: "Solutions",
     heroTitle: "Medical device & clinical uptime teams",
+    heroTitleAccent: "Medical device",
+    heroTitleRest: "& clinical uptime teams",
     heroSubtitle:
-      "Imaging, diagnostics, and bedside equipment failures disrupt patient care and revenue. Avishkar AI keeps dispatch disciplined—who goes, with what parts, under which compliance rules—without sacrificing speed. Proof bar: 45 minutes → 5 minutes coordination; live with ATM manufacturers and telecom tower operators in India.",
+      "Imaging & bedside failures disrupt care. Dispatch under compliance—who goes, which parts, which rules. ~45→~5 min. India proof bar.",
+    heroSubtitleAccent: "Compliance-first dispatch.",
+    heroSubtitleRest: " Speed without losing traceability. India.",
     sections: [
       {
         heading: "Challenges we solve",
         blocks: [
           {
             kind: "p",
-            text: "Clinical engineering and OEM field teams operate under strict procedures: validated workflows, controlled environments, and traceability for regulators and hospital partners.",
+            text: "Clinical engineering works under strict modality rules, access windows, and regulator-ready traceability.",
           },
           {
             kind: "ul",
             items: [
-              "Strict dispatch rules by modality, hospital tier, and contract coverage",
-              "Sterile or restricted-area access scheduling with minimal disruption",
-              "Traceable service histories for audits and renewal conversations",
-              "Coordinating specialty parts and loaner devices during outages",
+              { amber: "Dispatch rules", graphite: " — modality, tier, contract." },
+              { amber: "Restricted access", graphite: " — sterile / ICU windows." },
+              { amber: "Traceability", graphite: " — audits & renewals." },
+              { amber: "Parts / loaners", graphite: " — during outages." },
             ],
           },
         ],
@@ -119,15 +131,15 @@ export const solutionDocPages: Record<string, DocPage> = {
         blocks: [
           {
             kind: "p",
-            text: "We mirror how regulated teams work—human approvals where required, machine speed everywhere else—while preserving an evidence trail from fault to verified resolution.",
+            text: "Human gates where required, machine speed elsewhere—evidence from fault to verified resolution.",
           },
           {
             kind: "ul",
             items: [
-              "Rule-driven routing that respects certifications and hospital protocols",
-              "Parts intelligence tied to asset BOMs and failure patterns",
-              "Structured closure checklists with mandatory attachments where policies demand them",
-              "Operational analytics that leadership can trust—not vanity dashboards",
+              { amber: "Rule routing", graphite: " — certs + hospital protocols." },
+              { amber: "Parts intel", graphite: " — BOMs & failure patterns." },
+              { amber: "Closure", graphite: " — mandatory attachments when policy says so." },
+              { amber: "Analytics", graphite: " — ops leadership can trust." },
             ],
           },
         ],
@@ -137,22 +149,26 @@ export const solutionDocPages: Record<string, DocPage> = {
   hvac: {
     eyebrow: "Solutions",
     heroTitle: "HVAC — Critical Facilities",
+    heroTitleAccent: "HVAC",
+    heroTitleRest: "— Critical Facilities",
     heroSubtitle:
-      "Data centers, hospitals, cold chain — HVAC failure in these environments is a crisis, not an inconvenience. Avishkar treats it that way. Coming soon; same dispatch proof: 45 minutes → 5 minutes and live deployments with ATM manufacturers and telecom tower operators in India today.",
+      "DC, hospital, cold chain—HVAC failure is crisis. Priority dispatch (roadmap). Same ~45→~5 min proof family; India live today on ATM & towers.",
+    heroSubtitleAccent: "Priority facility dispatch.",
+    heroSubtitleRest: " Coming soon — same stack. India ATM & tower live.",
     sections: [
       {
         heading: "Coming soon",
         blocks: [
           {
             kind: "p",
-            text: "Data centers, hospitals, cold chain — HVAC failure in these environments is a crisis, not an inconvenience. Avishkar treats it that way. Priority dispatch. Facility-grade SLAs.",
+            text: "BMS-driven intake, cleared engineers, parts for chillers / CRAC / standby—facility-grade SLAs.",
           },
           {
             kind: "ul",
             items: [
-              "Fault ingestion from BMS / environmental alerts",
-              "Engineer assignment with clearance and certification gates",
-              "Parts orchestration for chillers, CRAC, and standby assets",
+              { amber: "BMS ingest", graphite: " — environmental alerts." },
+              { amber: "Assignment", graphite: " — clearance + certification gates." },
+              { amber: "Parts", graphite: " — chillers, CRAC, standby assets." },
             ],
           },
         ],

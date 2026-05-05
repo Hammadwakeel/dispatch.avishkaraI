@@ -66,15 +66,15 @@ type ChallengesStickyScrollSectionProps = {
 function challengesHeadlineClassName(headingFontClassName?: string, darkSurface?: boolean) {
   const ink = darkSurface ? "text-canvas-white" : "text-deep-graphite";
   if (headingFontClassName) {
-    return `${headingFontClassName} text-left font-bold uppercase tracking-[-0.02em] leading-[0.9] ${ink} text-[clamp(2.5rem,8.5vw,6.25rem)]`;
+    return `${headingFontClassName} text-left font-bold uppercase tracking-[-0.02em] leading-[0.9] ${ink} text-[clamp(1.95rem,6.5vw,4.85rem)]`;
   }
-  return `font-sans text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.08] tracking-[-0.035em] ${ink}`;
+  return `font-sans text-[clamp(1.65rem,4.2vw,3rem)] font-semibold leading-[1.08] tracking-[-0.035em] ${ink}`;
 }
 
 function challengesIntroClassName(headingFontClassName?: string, darkSurface?: boolean) {
   const ink = darkSurface ? "text-canvas-white" : "text-deep-graphite";
   if (headingFontClassName) {
-    return `${headingFontClassName} mt-7 w-full text-left font-bold uppercase tracking-[-0.02em] text-[clamp(1.25rem,3.2vw,2.05rem)] leading-[1.28] ${ink} md:mt-8`;
+    return `${headingFontClassName} mt-7 w-full text-left font-bold uppercase tracking-[-0.02em] text-[clamp(1.05rem,2.6vw,1.65rem)] leading-[1.28] ${ink} md:mt-8`;
   }
   return "mt-7 w-full text-left font-sans text-[18px] font-semibold leading-[1.65] text-muted-stone md:mt-8 md:text-[20px]";
 }
@@ -154,7 +154,7 @@ export function ChallengesStickyScrollSection({
                 <h3
                   className={challengeItemTitleClass(
                     headingFontClassName,
-                    "mt-4 text-[24px] leading-snug md:text-[26px]",
+                    "mt-4 text-[20px] leading-snug md:text-[22px]",
                     "text-deep-graphite",
                   )}
                 >
@@ -213,7 +213,7 @@ export function ChallengesStickyScrollSection({
                 <h3
                   className={challengeItemTitleClass(
                     headingFontClassName,
-                    "mt-2 text-[22px] leading-snug md:text-[24px]",
+                    "mt-2 text-[19px] leading-snug md:text-[21px]",
                     "text-deep-graphite",
                   )}
                 >
@@ -245,7 +245,7 @@ export function ChallengesStickyScrollSection({
                   <p
                     className={`mt-6 transition-opacity duration-300 ease-out ${challengeItemTitleClass(
                       headingFontClassName,
-                      "text-[clamp(1.15rem,2.4vw,1.55rem)] leading-snug",
+                      "text-[clamp(1.05rem,2vw,1.35rem)] leading-snug",
                       "text-deep-graphite",
                     )}`}
                   >
@@ -256,7 +256,7 @@ export function ChallengesStickyScrollSection({
                     className={`mt-8 flex aspect-[4/3] max-h-[220px] items-center justify-center ${challengesSideGlassInsetClass}`}
                     aria-hidden
                   >
-                    <span className="select-none font-mono text-[clamp(3.5rem,12vw,5.5rem)] font-bold leading-none tabular-nums text-amber-glow transition-all duration-300 ease-out">
+                    <span className="select-none font-mono text-[clamp(3rem,10vw,4.5rem)] font-bold leading-none tabular-nums text-amber-glow transition-all duration-300 ease-out">
                       {String(active + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -294,7 +294,7 @@ export function ChallengesStickyScrollSection({
                       <h3
                         className={`mt-3 transition-colors duration-300 ease-out ${challengeItemTitleClass(
                           headingFontClassName,
-                          "text-[clamp(1.35rem,2.8vw,2.05rem)] leading-snug",
+                          "text-[clamp(1.15rem,2.35vw,1.72rem)] leading-snug",
                           isActive ? ink : inkSoft,
                         )}`}
                       >

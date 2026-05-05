@@ -129,7 +129,7 @@ const TABS: Tab[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "Customer using a laptop for self-service and account access",
-    learnMoreHref: "/products/fsm-platform?focus=real-time-follow-up",
+    learnMoreHref: "/products/fsm-platform?focus=follow-up-and-escalation",
   },
   {
     id: "inventory",

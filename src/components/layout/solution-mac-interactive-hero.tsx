@@ -9,16 +9,25 @@ import type { LucideIcon } from "lucide-react";
 import {
   Building2,
   Droplets,
+  Factory,
+  Gauge,
   Home,
+  Landmark,
   Siren,
   Thermometer,
   Zap,
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { DocBlock, DocPage, DocSection } from "@/content/types";
+import { DocListItemBody, docListItemKey } from "@/lib/doc-list-item";
 import { headingToFocusParam } from "@/lib/heading-to-focus-param";
+import { posterDisplay } from "@/lib/poster-font";
 
+/** Solution detail routes under `/solutions/[slug]` */
 const slugIcon: Record<string, LucideIcon> = {
+  atm: Landmark,
+  towers: Factory,
+  "medical-devices": Gauge,
   hvac: Thermometer,
   plumbing: Droplets,
   electrical: Zap,
@@ -26,6 +35,39 @@ const slugIcon: Record<string, LucideIcon> = {
   commercial: Building2,
   "emergency-services": Siren,
 };
+
+function MacSectionHeading({ heading }: { heading: string }) {
+  const c = `${posterDisplay.className} border-b border-light-steel pb-2 text-[clamp(11px,2.4vw,14px)] uppercase leading-tight tracking-[-0.02em] md:text-[15px] lg:text-[16px]`;
+  if (heading === "Challenges we solve") {
+    return (
+      <h2 className={c}>
+        <span className="text-amber-glow">Challenges</span>{" "}
+        <span className="text-deep-graphite">we solve</span>
+      </h2>
+    );
+  }
+  if (heading === "How Avishkar AI fits") {
+    return (
+      <h2 className={c}>
+        <span className="text-amber-glow">How Avishkar AI</span>{" "}
+        <span className="text-deep-graphite">fits</span>
+      </h2>
+    );
+  }
+  if (heading === "Coming soon") {
+    return (
+      <h2 className={c}>
+        <span className="text-amber-glow">Coming</span>{" "}
+        <span className="text-deep-graphite">soon</span>
+      </h2>
+    );
+  }
+  return (
+    <h2 className="border-b border-light-steel pb-2 font-serif text-[16px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[17px] lg:text-[18px]">
+      {heading}
+    </h2>
+  );
+}
 
 function activeIndexForFocus(sections: DocSection[], focus: string | undefined): number {
   if (!focus || sections.length === 0) return 0;
@@ -41,9 +83,7 @@ function indexFromScrollProgress(p: number, n: number): number {
 function MacSectionBody({ section }: { section: DocSection }) {
   return (
     <div className="space-y-5">
-      <h2 className="border-b border-light-steel pb-2 font-serif text-[16px] font-normal leading-snug tracking-[-0.02em] text-deep-graphite md:text-[17px] lg:text-[18px]">
-        {section.heading}
-      </h2>
+      <MacSectionHeading heading={section.heading} />
       <div className="space-y-5">
         {section.blocks.map((b, i) => (
           <MacBlock key={`${section.heading}-${i}`} block={b} />
@@ -68,12 +108,14 @@ function MacBlock({ block }: { block: DocBlock }) {
   const list = (
     <ul className="list-none space-y-2.5 font-sans text-[10px] leading-snug text-link-gray md:text-[11px] lg:text-[12px]">
       {block.items.map((item, li) => (
-        <li key={`${li}-${item.slice(0, 24)}`} className="flex gap-2">
+        <li key={docListItemKey(item, li)} className="flex gap-2">
           <span
             className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-glow/90"
             aria-hidden
           />
-          <span>{item}</span>
+          <span>
+            <DocListItemBody item={item} bodyClassName="text-link-gray" />
+          </span>
         </li>
       ))}
     </ul>
@@ -241,13 +283,43 @@ export function SolutionMacInteractiveHero({
               </p>
             ) : null}
             <h1
-              className={`font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-normal leading-[1.12] tracking-[-0.04em] text-deep-graphite md:text-[44px] lg:text-[48px] ${doc.eyebrow ? "mt-4" : ""}`}
+              className={`min-w-0 text-left ${posterDisplay.className} uppercase tracking-[-0.02em] text-deep-graphite ${doc.eyebrow ? "mt-4" : ""}`}
             >
-              {doc.heroTitle}
+              {doc.heroTitleAccent && doc.heroTitleRest ? (
+                <>
+                  <span className="block text-[clamp(1.85rem,5vw,3.75rem)] leading-[0.92]">
+                    <span className="text-amber-glow">{doc.heroTitleAccent}</span>{" "}
+                    <span className="text-deep-graphite">{doc.heroTitleRest}</span>
+                  </span>
+                  {doc.heroTitleLine2 ? (
+                    <span className="mt-1 block text-[clamp(1.85rem,5vw,3.75rem)] leading-[0.92] text-deep-graphite md:mt-1.5">
+                      {doc.heroTitleLine2Accent ? (
+                        <>
+                          <span className="text-deep-graphite">{doc.heroTitleLine2}</span>{" "}
+                          <span className="text-amber-glow">{doc.heroTitleLine2Accent}</span>
+                        </>
+                      ) : (
+                        doc.heroTitleLine2
+                      )}
+                    </span>
+                  ) : null}
+                </>
+              ) : (
+                <span className="block text-[clamp(1.85rem,5vw,3.75rem)] leading-[0.92]">{doc.heroTitle}</span>
+              )}
             </h1>
-            <p className="mt-5 max-w-[52ch] font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px] lg:text-[18px]">
-              {doc.heroSubtitle}
-            </p>
+            <div className="mt-5 max-w-[52ch]">
+              {doc.heroSubtitleAccent && doc.heroSubtitleRest ? (
+                <p className="font-sans text-[clamp(1.05rem,2.4vw,1.65rem)] font-bold leading-[1.45] text-deep-graphite md:text-[clamp(1.08rem,2.2vw,1.55rem)]">
+                  <span className="text-amber-glow">{doc.heroSubtitleAccent}</span>
+                  <span className="text-deep-graphite">{doc.heroSubtitleRest}</span>
+                </p>
+              ) : (
+                <p className="font-sans text-[16px] leading-[1.55] text-muted-stone md:text-[17px] lg:text-[18px]">
+                  {doc.heroSubtitle}
+                </p>
+              )}
+            </div>
             {tabNav}
           </div>
           <div className="flex min-h-0 w-full min-w-0 items-center justify-center lg:justify-end">

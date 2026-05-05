@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { blogCategoryLabel, type BlogPost } from "@/content/blog-posts";
 import type { DocBlock } from "@/content/types";
+import { DocListItemBody, docListItemKey } from "@/lib/doc-list-item";
 
 function renderBlock(b: DocBlock, key: string) {
   if (b.kind === "p") {
@@ -19,10 +20,12 @@ function renderBlock(b: DocBlock, key: string) {
 
   const list = (
     <ul className="list-none space-y-3 font-sans text-[15px] leading-[1.55] text-deep-graphite md:text-[16px]">
-      {b.items.map((item) => (
-        <li key={item} className="flex gap-3">
+      {b.items.map((item, i) => (
+        <li key={docListItemKey(item, i)} className="flex gap-3">
           <span className="mt-2 size-1.5 shrink-0 rounded-full bg-amber-glow/90" aria-hidden />
-          <span>{item}</span>
+          <span>
+            <DocListItemBody item={item} bodyClassName="text-deep-graphite" />
+          </span>
         </li>
       ))}
     </ul>

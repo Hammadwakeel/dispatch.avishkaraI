@@ -7,28 +7,28 @@ import type { ReactNode } from "react";
 const DISPATCH_FEATURE_ROWS = [
   {
     key: "fault-ingestion",
-    headline: "Fault in. Ticket open. Instantly.",
-    body: "The moment your monitoring system fires a fault event — SCADA, NOC, telemetry, legacy software — Avishkar picks it up via API. No human triage. No queue. Instant classification by fault type, asset, severity, and location.",
+    headline: "Fault in. Ticket open.",
+    body: "Monitoring fires (SCADA, NOC, telemetry, legacy) → ingested via API. Classified by type, asset, severity, site — no triage queue.",
   },
   {
     key: "engineer-assignment",
-    headline: "Right engineer. Right skills. Seconds.",
-    body: "Avishkar scans your field engineer network in real time — availability, location, certification, current workload — and assigns the best match. The engineer gets full fault context on mobile before they leave.",
+    headline: "Best match. Seconds.",
+    body: "Scores crew by availability, location, certs, load. Full fault context on mobile before roll.",
   },
   {
     key: "parts",
-    headline: "Parts ordered before the engineer arrives.",
-    body: "Avishkar checks inventory in real time, reserves required parts, and coordinates delivery to the site — automatically. Engineers arrive ready to fix, not to diagnose.",
+    headline: "Parts before arrival.",
+    body: "Checks stock, reserves parts, coordinates delivery — crew arrives to fix, not hunt parts.",
   },
   {
     key: "follow-up",
-    headline: "AI follows up. You don't have to.",
-    body: "Avishkar tracks every open ticket in real time. If a repair is delayed, it follows up with the engineer automatically. If there's an escalation — the engineer talks directly back to the AI. No phone tag. No missed updates.",
+    headline: "AI nags so you don't.",
+    body: "Tracks open tickets; pings on delays; escalations go engineer ↔ AI — fewer missed updates.",
   },
   {
     key: "closure",
-    headline: "Closed loop. Every time.",
-    body: "When the fix is confirmed, Avishkar closes the ticket, logs the resolution, updates your CRM and reporting, and generates compliance documentation automatically. Nothing falls through the cracks.",
+    headline: "Close clean.",
+    body: "Confirms fix → closes ticket → CRM/reporting updates → compliance docs generated.",
   },
 ] as const;
 
@@ -132,19 +132,19 @@ function cardDefs(): MarqueeCardDef[] {
       ),
       description: (
         <p className="font-sans font-semibold leading-[1.65] text-deep-graphite">
-          <span className="text-deep-graphite">One autonomous layer: </span>
-          <span className="font-bold text-amber-glow">fault ingestion</span>
-          <span className="text-deep-graphite">, </span>
-          <span className="font-bold text-amber-glow">engineer assignment</span>
-          <span className="text-deep-graphite">, </span>
+          One layer:{" "}
+          <span className="font-bold text-amber-glow">ingest</span>
+          <span className="text-deep-graphite"> → </span>
+          <span className="font-bold text-amber-glow">assign</span>
+          <span className="text-deep-graphite"> → </span>
           <span className="font-bold text-amber-glow">parts</span>
-          <span className="text-deep-graphite">, </span>
+          <span className="text-deep-graphite"> → </span>
           <span className="font-bold text-amber-glow">follow-up</span>
-          <span className="text-deep-graphite">, </span>
-          <span className="font-bold text-amber-glow">closure</span>
-          <span className="text-deep-graphite">, and </span>
+          <span className="text-deep-graphite"> → </span>
+          <span className="font-bold text-amber-glow">close</span>
+          <span className="text-deep-graphite"> → </span>
           <span className="font-bold text-amber-glow">analytics</span>
-          <span className="text-deep-graphite"> — continuously, without handoffs.</span>
+          <span className="text-deep-graphite">. No handoffs.</span>
         </p>
       ),
     },
@@ -162,13 +162,10 @@ function cardDefs(): MarqueeCardDef[] {
       ),
       description: (
         <p className="font-sans font-semibold leading-[1.65] text-deep-graphite">
-          <span className="text-deep-graphite">Every engineer, every ticket, every asset — </span>
-          <span className="font-bold text-amber-glow">live.</span>{" "}
+          <span className="text-deep-graphite">Live view across engineers, tickets, assets. </span>
           <span className="font-bold text-amber-glow">SLA risk</span>
-          <span className="text-deep-graphite"> flagged before breach. Resolution times, first-fix rates, and engineer performance tracked </span>
-          <span className="font-bold text-amber-glow">automatically.</span>{" "}
-          <span className="text-deep-graphite">Operations managers finally have the </span>
-          <span className="font-bold text-amber-glow">dashboard they needed.</span>
+          <span className="text-deep-graphite"> early; resolution and first-fix </span>
+          <span className="font-bold text-amber-glow">tracked automatically.</span>
         </p>
       ),
     },

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { posterDisplay } from "@/lib/poster-font";
 
 const QUOTE_TYPE =
-  "We are live with an ATM manufacturer and a telecom tower company in India. We’re not showing you what we could do — we’re showing you what we’ve done.";
+  "Live in India with an ATM OEM and a telecom operator — proof, not slideware.";
 
 const TYPE_MS = 22;
 
@@ -60,12 +60,12 @@ function TypewriterQuote() {
         </span>
         {finished ? (
           <span className="text-deep-graphite">
-            We are <span className="text-amber-glow">live</span> with an{" "}
-            <span className="text-amber-glow">ATM manufacturer</span> and a{" "}
-            <span className="text-amber-glow">telecom tower company</span> in{" "}
-            <span className="text-amber-glow">India</span>. We’re not showing you{" "}
-            <span className="text-amber-glow">what we could do</span>
-            {" — "}we’re showing you <span className="text-amber-glow">what we’ve done.</span>
+            <span className="text-amber-glow">Live</span> in{" "}
+            <span className="text-amber-glow">India</span> with an{" "}
+            <span className="text-amber-glow">ATM OEM</span> and a{" "}
+            <span className="text-amber-glow">telecom operator</span>
+            {" — "}
+            <span className="text-amber-glow">proof</span>, not slideware.
           </span>
         ) : (
           <span className="text-deep-graphite">
@@ -94,18 +94,18 @@ export function TestimonialsCarouselSection() {
           id="testimonials-heading"
           className={`${posterDisplay.className} mt-4 max-w-[min(100%,42rem)] text-left uppercase tracking-[-0.02em] text-deep-graphite md:mt-5`}
         >
-          <span className="block text-[clamp(1.35rem,3.8vw,2.65rem)] leading-[0.98]">
-            <span className="text-deep-graphite">What we have done,</span>
+          <span className="block text-[clamp(1.1rem,3vw,2.05rem)] leading-[0.98] text-deep-graphite">
+            Shipped,
           </span>
-          <span className="mt-1 block text-[clamp(1.35rem,3.8vw,2.65rem)] leading-[0.98] text-amber-glow md:mt-2">
-            not what we might do
+          <span className="mt-1 block text-[clamp(1.1rem,3vw,2.05rem)] leading-[0.98] text-amber-glow md:mt-2">
+            not slideware
           </span>
         </h2>
 
         <figure className="mt-10 rounded-[var(--radius-card)] border-2 border-deep-graphite bg-canvas-white px-6 py-8 shadow-[0_14px_44px_-34px_rgba(29,30,28,0.16)] md:mt-12 md:px-10 md:py-11">
           <TypewriterQuote />
           <figcaption className="mt-6 font-sans text-[13px] font-normal leading-snug text-deep-graphite md:mt-8 md:text-[14px]">
-            Avishkar AI — founded in India, building for the world.
+            Avishkar AI — India-born, global deployments.
           </figcaption>
         </figure>
       </div>
