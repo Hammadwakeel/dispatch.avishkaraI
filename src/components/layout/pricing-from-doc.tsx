@@ -12,6 +12,7 @@ import { useLenis } from "lenis/react";
 import { ArrowRight, Calculator, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { bookDemoHref } from "@/config/site-navigation";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -262,7 +263,9 @@ export function PricingFromDoc() {
                 </>
               ) : null}
               <Link
-                href="/#demo"
+                href={bookDemoHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`mt-8 inline-flex min-h-[48px] items-center justify-center rounded-[var(--radius-ui)] px-6 text-center font-sans text-[14px] font-semibold transition-[transform,filter] duration-200 hover:brightness-[1.02] active:scale-[0.99] ${
                   t.highlighted
                     ? "bg-amber-glow text-canvas-white shadow-[var(--shadow-sm)] hover:brightness-[1.05]"
@@ -521,7 +524,9 @@ export function PricingFromDoc() {
                 </motion.div>
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
-                    href="/#demo"
+                    href={bookDemoHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex min-h-[50px] w-full items-center justify-center rounded-[var(--radius-ui)] border border-light-steel bg-canvas-white px-7 font-sans text-[14px] font-semibold text-deep-graphite shadow-sm transition-colors hover:border-amber-glow/35 hover:bg-harvest-cream/50 sm:w-auto"
                   >
                     Book a tailored demo

@@ -5,6 +5,7 @@ import { ArrowRight, Brain } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useMemo, useRef, useState } from "react";
+import { bookDemoHref } from "@/config/site-navigation";
 import { companyDocPages, companyHubMeta } from "@/content/doc-company";
 import type { DocBlock, DocSection } from "@/content/types";
 import { DocListItemBody, docListItemKey } from "@/lib/doc-list-item";
@@ -453,7 +454,9 @@ export function CompanyPage() {
                   <ArrowRight className="size-4 shrink-0" aria-hidden />
                 </Link>
                 <Link
-                  href="/#demo"
+                  href={bookDemoHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-[var(--radius-ui)] border border-light-steel bg-harvest-cream/70 px-6 py-3 font-sans text-[14px] font-medium text-deep-graphite hover:border-amber-glow/40"
                 >
                   Book a Demo

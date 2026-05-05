@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { blogCategoryLinks, companyLinks, productLinks, solutionLinks } from "@/config/site-navigation";
+import {
+  blogCategoryLinks,
+  bookDemoHref,
+  companyLinks,
+  productLinks,
+  solutionLinks,
+} from "@/config/site-navigation";
 import { posterDisplay } from "@/lib/poster-font";
 
 const footerResourceLinks: { label: string; href: string }[] = [
@@ -61,7 +67,9 @@ export function SiteFooter() {
         </p>
         <div className="mt-9 flex flex-wrap gap-3 md:gap-4">
           <Link
-            href="/company/contact"
+            href={bookDemoHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex min-h-[48px] min-w-[10rem] items-center justify-center rounded-lg bg-amber-glow px-6 font-sans text-[14px] font-semibold text-black shadow-[var(--shadow-sm)] transition-[filter] hover:brightness-110"
           >
             Book a Demo
@@ -127,7 +135,9 @@ export function SiteFooter() {
       {/* Bottom promo row — spaced uppercase CTAs */}
       <div className="mx-auto flex w-full max-w-[var(--page-max-width)] flex-wrap items-center gap-x-10 gap-y-4 px-6 py-8 md:gap-x-14 md:px-8">
         <Link
-          href="/company/contact"
+          href={bookDemoHref}
+          target="_blank"
+          rel="noopener noreferrer"
           className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:text-amber-glow"
         >
           Book a demo

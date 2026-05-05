@@ -157,6 +157,10 @@ export const companyLinks: NavLink[] = [
   },
 ];
 
+/** Founder-led demo scheduling (Cal). */
+export const bookDemoHref =
+  "https://cal.id/arpitsharmawritingsessions/connect-with-founder" as const;
+
 /** Legacy: top-bar contact link removed per PDF (Book Demo only). Kept for footer label reuse. */
 export const pricingNavItem = {
   label: "Contact",

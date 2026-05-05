@@ -5,56 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { posterDisplay } from "@/lib/poster-font";
 import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
-import { ChallengesStickyScrollSection } from "@/components/sections/challenges-sticky-scroll-section";
 import { DispatchGlobeSection } from "@/components/sections/dispatch-globe-section";
+import { bookDemoHref } from "@/config/site-navigation";
 import { TestimonialsCarouselSection } from "./testimonials-carousel-section";
 
 /** Public asset — filename contains a space (`public/hero image.jpeg`). */
 const HERO_IMAGE_SRC = "/hero%20image.jpeg";
-
-/** Homepage problem tabs — update/avishkar_complete_copy_replacement.md.pdf */
-const problemNarratives = [
-  {
-    title: "The fault fires. Nobody acts.",
-    body: "Alert hits the NOC; someone may pick it up. Calls, parts checks, dispatch — minutes gone before anyone rolls.",
-  },
-  {
-    title: "The engineer arrives unprepared.",
-    body: "No fault context or parts plan — diagnose from scratch, more returns, SLAs slip.",
-  },
-  {
-    title: "No visibility. No accountability.",
-    body: "Ops can't see the field in real time. Status lives in calls; escalations vanish; the SLA clock keeps ticking.",
-  },
-  {
-    title: "Legacy systems don't talk to each other.",
-    body: "Monitoring, ERP, inventory stay siloed. A human bridges them every time — that's the bottleneck.",
-  },
-] as const;
-
-/** Poster stack — same Playfair treatment as the hero “Built for infrastructure…” block. */
-const challengesSectionHeading = (
-  <>
-    <span className="block text-left">
-      Downtime burns <span className="text-amber-glow">cash</span>.
-    </span>
-    <span className="mt-1 block text-left md:mt-2">
-      The fix often missed the <span className="text-amber-glow">SLA</span>.
-    </span>
-    <span className="mt-2 block text-left text-[max(0.65rem,0.38em)] leading-[1.08] tracking-[-0.01em] md:mt-3 md:text-[max(0.7rem,0.42em)]">
-      <span className="block text-left">
-        <span className="text-deep-graphite">Infrastructure teams treated </span>
-        <span className="text-amber-glow">manual dispatch</span>
-        <span className="text-deep-graphite"> as normal.</span>
-      </span>
-      <span className="mt-1 block text-left md:mt-2">
-        <span className="text-deep-graphite">It </span>
-        <span className="text-amber-glow">doesn&apos;t</span>
-        <span className="text-deep-graphite"> have to be.</span>
-      </span>
-    </span>
-  </>
-);
 
 type IndustryBullet = { accent: string; rest: string };
 
@@ -402,7 +358,9 @@ export function LandingPage() {
             </p>
             <div className="mt-9">
               <Link
-                href="/company/contact"
+                href={bookDemoHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex min-h-[50px] items-center justify-center rounded-[var(--radius-ui)] bg-amber-glow px-8 font-mono text-[14px] font-semibold text-canvas-white shadow-[var(--shadow-sm)] transition-[filter] hover:brightness-[1.04]"
               >
                 Book a Demo
@@ -424,12 +382,6 @@ export function LandingPage() {
           </div>
         </div>
       </section>
-
-      <ChallengesStickyScrollSection
-        heading={challengesSectionHeading}
-        headingFontClassName={posterDisplay.className}
-        challenges={problemNarratives}
-      />
 
       <DispatchGlobeSection />
 

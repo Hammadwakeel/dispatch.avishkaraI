@@ -27,6 +27,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
 import {
+  bookDemoHref,
   headerDropdowns,
   type MegaMenuIconId,
   type NavDropdown,
@@ -274,7 +275,9 @@ export function SiteHeader() {
 
             <div className="flex shrink-0 items-center gap-2 md:gap-3">
               <Link
-                href="/#demo"
+                href={bookDemoHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-ui)] bg-gradient-to-r from-amber-glow to-[#c2410c] px-4 py-2 font-sans text-[13px] font-semibold text-canvas-white shadow-[0_8px_24px_-8px_rgba(234,88,12,0.45)] hover:brightness-[1.05] md:px-5 md:py-2.5 md:text-[14px] lg:text-[15px]"
                 style={{ transitionDuration: "var(--transition-interactive)" }}
               >
@@ -336,7 +339,9 @@ export function SiteHeader() {
                 ))}
                 <div className="mt-3 flex flex-col gap-3 border-t border-light-steel/60 pt-4">
                   <Link
-                    href="/#demo"
+                    href={bookDemoHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center rounded-[var(--radius-ui)] bg-gradient-to-r from-amber-glow to-[#c2410c] px-4 py-3 font-sans text-[14px] font-semibold text-canvas-white shadow-[0_8px_24px_-8px_rgba(234,88,12,0.4)]"
                     onClick={() => setMobileOpen(false)}
                   >
